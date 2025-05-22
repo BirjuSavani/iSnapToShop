@@ -1,0 +1,2987 @@
+{
+  "products": [
+    {
+      "no_of_boxes": 10,
+      "description": "<div>\n<ul>\n<li>Synthetic leather upper</li>\n<li>Cushioned footbed</li>\n<li>TPR Outsole</li>\n<li>Warranty: 1 month</li>\n<li>Warranty provided by brand/manufacturer</li>\n</ul>\n<p>&nbsp;</p>\n</div>\n<div class=\"pdp-sizeFitDesc\">&nbsp;</div>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                <span id=\"mce_marker\" data-mce-type=\"bookmark\" data-mce-fragment=\"1\"></span></style>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                </style>",
+      "size_guide": "",
+      "category_slug": "sneakers",
+      "tags": [
+        "Roadster"
+      ],
+      "short_description": "A pair of beige & grey solid round toe shoes with ",
+      "slug": "the-lifestyle-co-men-lace-up-casual-sneakers-14062842",
+      "currency": "INR",
+      "multi_size": true,
+      "departments": [
+        21
+      ],
+      "teaser_tag": {
+        "tag": "New"
+      },
+      "_custom_json": {},
+      "variant_media": {},
+      "product_group_tag": [],
+      "brand_uid": 1253,
+      "item_type": "standard",
+      "is_image_less_product": false,
+      "return_config": {
+        "unit": "days",
+        "returnable": false,
+        "time": 0
+      },
+      "custom_order": {
+        "manufacturing_time_unit": "days",
+        "is_custom_order": false,
+        "manufacturing_time": 0
+      },
+      "net_quantity": {
+        "unit": "pack",
+        "value": 10
+      },
+      "name": "The Lifestyle Co. Men Lace Up Casual Sneakers",
+      "product_publish": {
+        "product_online_date": 1747286276,
+        "is_set": true
+      },
+      "media": [
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/FnFEYyqmP-lz0I35p6_a211ed647f17461d9c5fbffc6cf31c7e.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/YrP1pns7V-m9H78SLi_9c5767f86ab84445a2d205fa6aade82f.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/djdtau4uG-kca1H0jg_e2df3244757e4fd48e4cd105f2913e61.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/WgKwTFzjW-EpX1FnKY_d89c14b3b42c4df9a8827b6d365f2a0e.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/ViiJvTC_b-lQpJKU3X_40efff1f09bb47aa8fd47d40ea5b172b.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/8merq6XQ--N5fY9ruX_a357d4f9923b425b86f1f8c21628f9aa.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/jg4S7YpgV-Do8Bn3En_3b260f0b4f1f48199422ef024bd4f9ac.jpg",
+          "type": "image"
+        }
+      ],
+      "highlights": [
+        "100% Original Products"
+      ],
+      "is_set": false,
+      "is_dependent": false,
+      "country_of_origin": "India",
+      "item_code": "TLCMLUCS",
+      "template_tag": "footwear",
+      "category_uid": 159,
+      "primary-colour-hex-code": "e4a286",
+      "gender": [
+        "Men"
+      ],
+      "sport-type": "walking",
+      "age-group": "Adults",
+      "net-quantity": "2 N",
+      "sustainable": "Regular",
+      "essential": "Yes",
+      "primary_material": "Jute",
+      "marketer-address": "GNC",
+      "arch_type": "Flat",
+      "primary_color": "Grey",
+      "marketer-name": "Roster",
+      "uid": 14062842,
+      "created_on": "2025-05-15T05:43:26.933000",
+      "modified_on": "2025-05-15T06:08:36.141000",
+      "created_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "stage": "pending",
+      "id": "68257efe5b3647cfbd6ca623",
+      "variants": {},
+      "modified_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "all_company_ids": [
+        9095
+      ],
+      "all_identifiers": [
+        "TLC4",
+        "TLC3",
+        "TLC2",
+        "TLC"
+      ],
+      "all_sizes": [
+        {
+          "item_code": "TLCMLUCS",
+          "brand_uid": 1253,
+          "size": "UK 7",
+          "identifiers": [
+            {
+              "gtin_type": "sku_code",
+              "gtin_value": "TLC2",
+              "primary": true
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 4999,
+              "max": 4999
+            },
+            "effective": {
+              "min": 999,
+              "max": 999
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 400,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "TLCMLUCS",
+          "brand_uid": 1253,
+          "size": "UK 9",
+          "identifiers": [
+            {
+              "gtin_type": "sku_code",
+              "gtin_value": "TLC4",
+              "primary": true
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 4999,
+              "max": 4999
+            },
+            "effective": {
+              "min": 999,
+              "max": 999
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 400,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "TLCMLUCS",
+          "brand_uid": 1253,
+          "size": "UK 6",
+          "identifiers": [
+            {
+              "gtin_type": "sku_code",
+              "gtin_value": "TLC",
+              "primary": true
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 4999,
+              "max": 4999
+            },
+            "effective": {
+              "min": 999,
+              "max": 999
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 400,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "TLCMLUCS",
+          "brand_uid": 1253,
+          "size": "UK 8",
+          "identifiers": [
+            {
+              "gtin_type": "sku_code",
+              "gtin_value": "TLC3",
+              "primary": true
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 4999,
+              "max": 4999
+            },
+            "effective": {
+              "min": 999,
+              "max": 999
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 400,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        }
+      ],
+      "price": {
+        "marked": {
+          "min": 4999,
+          "max": 4999,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "effective": {
+          "min": 999,
+          "max": 999,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "selling": {
+          "min": 999,
+          "max": 999,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        }
+      },
+      "sizes": [
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9"
+      ],
+      "is_available": true,
+      "discount": 80,
+      "_custom_meta": [],
+      "sellable_quantity": 0,
+      "store_id_list": [
+        "85099"
+      ],
+      "brand": {
+        "name": "Roadster",
+        "logo": {
+          "aspect_ratio": "1:1",
+          "aspect_ratio_f": 1,
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/media/logo/brand/50x0/8677_d16d66de852d4b7e9c05ca4eaa6f6729.jpg",
+          "secure_url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/media/logo/brand/50x0/8677_d16d66de852d4b7e9c05ca4eaa6f6729.jpg"
+        },
+        "uid": 1253
+      },
+      "images": [
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/FnFEYyqmP-lz0I35p6_a211ed647f17461d9c5fbffc6cf31c7e.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/YrP1pns7V-m9H78SLi_9c5767f86ab84445a2d205fa6aade82f.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/djdtau4uG-kca1H0jg_e2df3244757e4fd48e4cd105f2913e61.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/WgKwTFzjW-EpX1FnKY_d89c14b3b42c4df9a8827b6d365f2a0e.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/ViiJvTC_b-lQpJKU3X_40efff1f09bb47aa8fd47d40ea5b172b.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/8merq6XQ--N5fY9ruX_a357d4f9923b425b86f1f8c21628f9aa.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/jg4S7YpgV-Do8Bn3En_3b260f0b4f1f48199422ef024bd4f9ac.jpg"
+      ]
+    },
+    {
+      "tags": [
+        "Woven"
+      ],
+      "name": "Men Woven Design Running Shoes",
+      "brand_uid": 7456,
+      "is_image_less_product": false,
+      "highlights": [
+        "Running shoes"
+      ],
+      "_custom_json": {},
+      "return_config": {
+        "time": 0,
+        "returnable": false,
+        "unit": "days"
+      },
+      "variant_media": {},
+      "is_set": false,
+      "media": [
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/F_NjN6Gx0-b1ce2ea1-7126-4bd1-955f-32ba6818de461736406418937-WROGN-Men-Casual-Shoes-8681736406418635-1.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/GZLMXlx1y-b14f4828-53e6-4536-ab32-cb6303ab00c31736406418908-WROGN-Men-Casual-Shoes-8681736406418635-2.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/FqDPFFGxT-0d9d77ca-44e1-4110-9746-6bc0725381f81736406418866-WROGN-Men-Casual-Shoes-8681736406418635-3.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/TNZIIb2i1-c615fd3f-b654-4a54-a923-db688e4ffe5d1736406418835-WROGN-Men-Casual-Shoes-8681736406418635-4.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/CfRNyhUYB-8c5c4ab6-3685-4e03-9ef2-1a05e99ed67d1736406418809-WROGN-Men-Casual-Shoes-8681736406418635-5.jpg",
+          "type": "image"
+        }
+      ],
+      "teaser_tag": {
+        "tag": "Official WROGN Partner – Bold Style, Unmatched Attitude."
+      },
+      "multi_size": false,
+      "slug": "men-woven-design-running-shoes-14062843",
+      "size_guide": "",
+      "product_publish": {
+        "product_online_date": 1747287635,
+        "is_set": true
+      },
+      "is_dependent": false,
+      "short_description": "A pair of white running shoes, has regular Styling",
+      "no_of_boxes": 1,
+      "item_code": "MVDRS-002",
+      "category_slug": "running-shoes",
+      "country_of_origin": "India",
+      "departments": [
+        21
+      ],
+      "product_group_tag": [],
+      "custom_order": {
+        "manufacturing_time_unit": "days",
+        "is_custom_order": false,
+        "manufacturing_time": 0
+      },
+      "item_type": "standard",
+      "currency": "INR",
+      "description": "<div>\n<p class=\"pdp-product-description-content\">A pair of white running shoes, has regular Styling, lace-ups closure,&nbsp;engineered with e-magic form technology<br />Synthetic Upper<br />Cushioned footbed<br />Textured and patterned outsole<br />Warranty: 3 months<br />Warranty provided by brand owner/manufacturer</p>\n</div>\n<div class=\"pdp-sizeFitDesc\">&nbsp;</div>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                <span id=\"mce_marker\" data-mce-type=\"bookmark\" data-mce-fragment=\"1\"></span></style>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                </style>",
+      "net_quantity": {
+        "value": 10,
+        "unit": "nos"
+      },
+      "template_tag": "footwear",
+      "category_uid": 160,
+      "care_instructions": "Wipe with a clean, dry cloth to remove the dust",
+      "boot_length": "Ankle",
+      "age-group": "Adults",
+      "marketer-name": "Ahmadabad, Gujarat",
+      "gender": [
+        "Men"
+      ],
+      "primary_color": "White",
+      "primary_material": "Synthetic Resin",
+      "essential": "Yes",
+      "net-quantity": "2 N",
+      "arch_type": "Medium",
+      "marketer-address": "Ahmadabad, Gujarat",
+      "color": "White",
+      "uid": 14062843,
+      "created_on": "2025-05-15T05:46:54.451000",
+      "modified_on": "2025-05-15T06:08:12.154000",
+      "created_by": {
+        "user_id": "5eb70b0ada54679de6a387a9",
+        "super_user": false,
+        "username": "shubham.bagthaliya@ics-global.in"
+      },
+      "stage": "pending",
+      "id": "68257fce4ac7d7b151acd888",
+      "variants": {},
+      "modified_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "all_company_ids": [
+        9095
+      ],
+      "all_identifiers": [
+        "45"
+      ],
+      "all_sizes": [
+        {
+          "item_code": "MVDRS-002",
+          "brand_uid": 7456,
+          "size": "OS",
+          "identifiers": [
+            {
+              "primary": true,
+              "gtin_type": "sku_code",
+              "gtin_value": "45"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 3299,
+              "max": 3299
+            },
+            "effective": {
+              "min": 1319,
+              "max": 1319
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 400,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        }
+      ],
+      "price": {
+        "marked": {
+          "min": 3299,
+          "max": 3299,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "effective": {
+          "min": 1319,
+          "max": 1319,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "selling": {
+          "min": 1319,
+          "max": 1319,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        }
+      },
+      "sizes": [
+        "OS"
+      ],
+      "is_available": true,
+      "discount": 60,
+      "_custom_meta": [],
+      "sellable_quantity": 0,
+      "store_id_list": [
+        "85099"
+      ],
+      "brand": {
+        "name": "Wrogn",
+        "logo": {
+          "aspect_ratio": "1:1",
+          "aspect_ratio_f": 1,
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/KgMsxSfwO-Logo.jpeg",
+          "secure_url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/KgMsxSfwO-Logo.jpeg"
+        },
+        "uid": 7456
+      },
+      "images": [
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/F_NjN6Gx0-b1ce2ea1-7126-4bd1-955f-32ba6818de461736406418937-WROGN-Men-Casual-Shoes-8681736406418635-1.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/GZLMXlx1y-b14f4828-53e6-4536-ab32-cb6303ab00c31736406418908-WROGN-Men-Casual-Shoes-8681736406418635-2.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/FqDPFFGxT-0d9d77ca-44e1-4110-9746-6bc0725381f81736406418866-WROGN-Men-Casual-Shoes-8681736406418635-3.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/TNZIIb2i1-c615fd3f-b654-4a54-a923-db688e4ffe5d1736406418835-WROGN-Men-Casual-Shoes-8681736406418635-4.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/CfRNyhUYB-8c5c4ab6-3685-4e03-9ef2-1a05e99ed67d1736406418809-WROGN-Men-Casual-Shoes-8681736406418635-5.jpg"
+      ]
+    },
+    {
+      "product_publish": {
+        "is_set": true,
+        "product_online_date": 1747286275
+      },
+      "net_quantity": {
+        "value": 10,
+        "unit": "nos"
+      },
+      "tags": [],
+      "is_image_less_product": false,
+      "product_group_tag": [],
+      "highlights": [
+        "Men Woven Design Running Shoes"
+      ],
+      "departments": [
+        21
+      ],
+      "slug": "men-woven-design-running-shoes-14062835",
+      "multi_size": true,
+      "variant_media": {},
+      "teaser_tag": {
+        "tag": "Official WROGN Partner – Bold Style, Unmatched Attitude."
+      },
+      "return_config": {
+        "returnable": false,
+        "unit": "days",
+        "time": 0
+      },
+      "is_set": false,
+      "item_code": "SB-1701",
+      "brand_uid": 7456,
+      "is_dependent": false,
+      "short_description": "A pair of black running shoes",
+      "currency": "INR",
+      "description": "<div>\n<p class=\"pdp-product-description-content\">A pair of black running shoes, has regular Styling, lace-up closure<br />Synthetic Upper<br />Woven design&nbsp;<br />Brand logo detail<br />Cushioned footbed<br />Textured and patterned outsole<br />Warranty: 3 months<br />Warranty provided by brand owner/manufacturer</p>\n</div>\n<div class=\"pdp-sizeFitDesc\">&nbsp;</div>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                <span id=\"mce_marker\" data-mce-type=\"bookmark\" data-mce-fragment=\"1\"></span></style>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                </style>",
+      "media": [
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/zG2dbas4R-16bbe7cb-ab42-4c4b-bf19-6f35391185751736408663196-WROGN-Men-Casual-Shoes-21736408662887-1.jpg"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/dKnGTuiVA-322ea3cb-3599-4bda-be6b-c925249df42a1736408663169-WROGN-Men-Casual-Shoes-21736408662887-2.jpg"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/Idq27wTEu-e029eaa5-a301-427e-b26f-04fac60171691736408663143-WROGN-Men-Casual-Shoes-21736408662887-3.jpg"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/V70Sf8ebC-a3ebb577-bba2-40f3-b20b-d49d2087818d1736408663114-WROGN-Men-Casual-Shoes-21736408662887-4.jpg"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/uyvCPDkuL-8a540269-1f88-4b01-b1bd-048f7d7e17c21736408663090-WROGN-Men-Casual-Shoes-21736408662887-5.jpg"
+        }
+      ],
+      "name": "Men Woven Design Running Shoes",
+      "item_type": "standard",
+      "category_slug": "running-shoes",
+      "no_of_boxes": 1,
+      "_custom_json": {},
+      "size_guide": "",
+      "custom_order": {
+        "manufacturing_time": 0,
+        "is_custom_order": false,
+        "manufacturing_time_unit": "days"
+      },
+      "country_of_origin": "India",
+      "template_tag": "footwear",
+      "category_uid": 160,
+      "care_instructions": "Wipe with a clean, dry cloth to remove the dust",
+      "occasion": "Running",
+      "marketer-name": "Intech Creative",
+      "color": "Black",
+      "item-details": "Black Shoes, Wrogn Shoes",
+      "closure_type": "Lace-Up",
+      "net-quantity": "2 N",
+      "lifestyle": "Casualwear",
+      "boot_length": "Knee",
+      "warranty": "3 Months",
+      "sustainable": "Regular",
+      "arch_type": "Medium",
+      "outer_material": "Synthetic",
+      "sport-type": "running",
+      "marketer-address": "Ahmedabad, Gujarat",
+      "sole-material": "Regular",
+      "primary_material": "Synthetic",
+      "material": "Synthetic",
+      "primary_color": "Black",
+      "essential": "Yes",
+      "age-group": "Adults",
+      "style": "Free Style",
+      "gender": [
+        "Men",
+        "Unisex"
+      ],
+      "packaging-type": "Brand Box",
+      "warranty_type": "Material Warranty",
+      "uid": 14062835,
+      "created_on": "2025-05-15T05:39:14.055000",
+      "modified_on": "2025-05-15T05:57:04.772000",
+      "created_by": {
+        "user_id": "5eb70b0ada54679de6a387a9",
+        "super_user": false,
+        "username": "shubham.bagthaliya@ics-global.in"
+      },
+      "stage": "pending",
+      "id": "68257e0252c999c7b0e90e29",
+      "variants": {},
+      "modified_by": {
+        "user_id": "5eb70b0ada54679de6a387a9",
+        "super_user": false,
+        "username": "shubham.bagthaliya@ics-global.in"
+      },
+      "all_company_ids": [
+        9095
+      ],
+      "all_identifiers": [
+        "FDGDG",
+        "9",
+        "SFSFS",
+        "DFSF",
+        "123323"
+      ],
+      "all_sizes": [
+        {
+          "item_code": "SB-1701",
+          "brand_uid": 7456,
+          "size": "UK 11",
+          "identifiers": [
+            {
+              "gtin_value": "SFSFS",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 2999,
+              "max": 2999
+            },
+            "effective": {
+              "min": 1259,
+              "max": 1259
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 400,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": false
+        },
+        {
+          "item_code": "SB-1701",
+          "brand_uid": 7456,
+          "size": "UK 9",
+          "identifiers": [
+            {
+              "gtin_value": "FDGDG",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 2999,
+              "max": 2999
+            },
+            "effective": {
+              "min": 1259,
+              "max": 1259
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 400,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": false
+        },
+        {
+          "item_code": "SB-1701",
+          "brand_uid": 7456,
+          "size": "UK SIZE",
+          "identifiers": [
+            {
+              "gtin_type": "sku_code",
+              "primary": true,
+              "gtin_value": "9"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 2999,
+              "max": 2999
+            },
+            "effective": {
+              "min": 1259,
+              "max": 1259
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 400,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "SB-1701",
+          "brand_uid": 7456,
+          "size": "UK 10",
+          "identifiers": [
+            {
+              "gtin_value": "DFSF",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 2999,
+              "max": 2999
+            },
+            "effective": {
+              "min": 1259,
+              "max": 1259
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 400,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": false
+        },
+        {
+          "item_code": "SB-1701",
+          "brand_uid": 7456,
+          "size": "UK 8",
+          "identifiers": [
+            {
+              "gtin_value": "123323",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 2999,
+              "max": 2999
+            },
+            "effective": {
+              "min": 1259,
+              "max": 1259
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 400,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": false
+        }
+      ],
+      "price": {
+        "marked": {
+          "min": 2999,
+          "max": 2999,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "effective": {
+          "min": 1259,
+          "max": 1259,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "selling": {
+          "min": 1259,
+          "max": 1259,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        }
+      },
+      "sizes": [
+        "UK SIZE"
+      ],
+      "is_available": true,
+      "discount": 58,
+      "_custom_meta": [],
+      "sellable_quantity": 0,
+      "store_id_list": [
+        "85099"
+      ],
+      "brand": {
+        "name": "Wrogn",
+        "logo": {
+          "aspect_ratio": "1:1",
+          "aspect_ratio_f": 1,
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/KgMsxSfwO-Logo.jpeg",
+          "secure_url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/KgMsxSfwO-Logo.jpeg"
+        },
+        "uid": 7456
+      },
+      "images": [
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/zG2dbas4R-16bbe7cb-ab42-4c4b-bf19-6f35391185751736408663196-WROGN-Men-Casual-Shoes-21736408662887-1.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/dKnGTuiVA-322ea3cb-3599-4bda-be6b-c925249df42a1736408663169-WROGN-Men-Casual-Shoes-21736408662887-2.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/Idq27wTEu-e029eaa5-a301-427e-b26f-04fac60171691736408663143-WROGN-Men-Casual-Shoes-21736408662887-3.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/V70Sf8ebC-a3ebb577-bba2-40f3-b20b-d49d2087818d1736408663114-WROGN-Men-Casual-Shoes-21736408662887-4.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/uyvCPDkuL-8a540269-1f88-4b01-b1bd-048f7d7e17c21736408663090-WROGN-Men-Casual-Shoes-21736408662887-5.jpg"
+      ]
+    },
+    {
+      "product_publish": {
+        "is_set": true,
+        "product_online_date": 1747288027
+      },
+      "net_quantity": {
+        "value": 1,
+        "unit": "nos"
+      },
+      "tags": [],
+      "is_image_less_product": false,
+      "product_group_tag": [],
+      "highlights": [
+        "A pair of red, brown and charcoal grey running shoes, has regular styling, lace-ups detail"
+      ],
+      "departments": [
+        21
+      ],
+      "slug": "men-colourblocked-and-woven-design-running-shoes-14062845",
+      "multi_size": false,
+      "variant_media": {},
+      "teaser_tag": {
+        "tag": "Official WROGN Partner – Bold Style, Unmatched Attitude."
+      },
+      "return_config": {
+        "unit": "days",
+        "returnable": false,
+        "time": 0
+      },
+      "is_set": false,
+      "item_code": "MCBAWDRS-007",
+      "brand_uid": 7456,
+      "is_dependent": false,
+      "short_description": "A pair of red, brown and charcoal grey running sho",
+      "currency": "INR",
+      "description": "<div>\n<h4>A pair of red, brown and charcoal grey running shoes, has regular styling,<br /><strong><br />lace-ups detail</strong></h4>\n<ul>\n<li>Synthetic colourblocked and woven design upper</li>\n<li>Cushioned footbed</li>\n<li>Textured and patterned outsole</li>\n<li>Warranty: 3 months</li>\n<li>Warranty provided by Brand Owner / Manufacturer</li>\n</ul>\n</div>\n<div class=\"pdp-sizeFitDesc\">&nbsp;</div>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                <span id=\"mce_marker\" data-mce-type=\"bookmark\" data-mce-fragment=\"1\"></span></style>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                </style>",
+      "media": [
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/XmZcHxOtp-1cf68e04-747e-4a33-8167-69eceeffa0a81689077143309-WROGN-Men-Colourblocked-Woven-Design-Running-Shoes-74116890-7.jpg"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/Hxv-pDB6Z-0803d359-2046-434a-9c1d-fd10ccd564011684820602964-WROGN-Men-Sports-Shoes-201684820602697-1.jpg"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/vsVVbtrJt-image.jpg"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/da1ESYVfu-3d9abf12-d81b-4f64-9349-bac0c9b8d0cb1684820602953-WROGN-Men-Sports-Shoes-201684820602697-2.jpg"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/yQzH9YKdH-9d79c877-8949-4044-bed6-22ff1ea9bdc01684820602927-WROGN-Men-Sports-Shoes-201684820602697-4.jpg"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/QBU8vG5et-3c285a09-a371-4a83-8c76-730a2ac178fa1684820602913-WROGN-Men-Sports-Shoes-201684820602697-5.jpg"
+        }
+      ],
+      "name": "Men Colourblocked & Woven Design Running Shoes",
+      "item_type": "standard",
+      "category_slug": "running-shoes",
+      "no_of_boxes": 1,
+      "_custom_json": {},
+      "size_guide": "",
+      "custom_order": {
+        "manufacturing_time": 0,
+        "manufacturing_time_unit": "days",
+        "is_custom_order": false
+      },
+      "country_of_origin": "India",
+      "template_tag": "footwear",
+      "category_uid": 160,
+      "marketer-name": "Ahmadabad, Gujarat ",
+      "color": "Red",
+      "net-quantity": "2 N",
+      "marketer-address": "Ahmadabad, Gujarat ",
+      "primary_material": "Synthetic Resin",
+      "primary_color": "Red",
+      "essential": "Yes",
+      "gender": [
+        "Men"
+      ],
+      "uid": 14062845,
+      "created_on": "2025-05-15T05:55:05.156000",
+      "modified_on": "2025-05-15T05:55:05.156000",
+      "created_by": {
+        "user_id": "5eb70b0ada54679de6a387a9",
+        "super_user": false,
+        "username": "shubham.bagthaliya@ics-global.in"
+      },
+      "stage": "pending",
+      "id": "682581b952c999c7b0e90e31",
+      "variants": {},
+      "modified_by": {
+        "user_id": "5eb70b0ada54679de6a387a9",
+        "super_user": false,
+        "username": "shubham.bagthaliya@ics-global.in"
+      },
+      "all_company_ids": [
+        9095
+      ],
+      "all_identifiers": [
+        "124"
+      ],
+      "all_sizes": [
+        {
+          "item_code": "MCBAWDRS-007",
+          "brand_uid": 7456,
+          "size": "OS",
+          "identifiers": [
+            {
+              "gtin_type": "sku_code",
+              "primary": true,
+              "gtin_value": "124"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 3499,
+              "max": 3499
+            },
+            "effective": {
+              "min": 1644,
+              "max": 1644
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 500,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        }
+      ],
+      "price": {
+        "marked": {
+          "min": 3499,
+          "max": 3499,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "effective": {
+          "min": 1644,
+          "max": 1644,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "selling": {
+          "min": 1644,
+          "max": 1644,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        }
+      },
+      "sizes": [
+        "OS"
+      ],
+      "is_available": true,
+      "discount": 53,
+      "_custom_meta": [],
+      "sellable_quantity": 0,
+      "store_id_list": [
+        "85099"
+      ],
+      "brand": {
+        "name": "Wrogn",
+        "logo": {
+          "aspect_ratio": "1:1",
+          "aspect_ratio_f": 1,
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/KgMsxSfwO-Logo.jpeg",
+          "secure_url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/KgMsxSfwO-Logo.jpeg"
+        },
+        "uid": 7456
+      },
+      "images": [
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/XmZcHxOtp-1cf68e04-747e-4a33-8167-69eceeffa0a81689077143309-WROGN-Men-Colourblocked-Woven-Design-Running-Shoes-74116890-7.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/Hxv-pDB6Z-0803d359-2046-434a-9c1d-fd10ccd564011684820602964-WROGN-Men-Sports-Shoes-201684820602697-1.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/vsVVbtrJt-image.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/da1ESYVfu-3d9abf12-d81b-4f64-9349-bac0c9b8d0cb1684820602953-WROGN-Men-Sports-Shoes-201684820602697-2.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/yQzH9YKdH-9d79c877-8949-4044-bed6-22ff1ea9bdc01684820602927-WROGN-Men-Sports-Shoes-201684820602697-4.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/QBU8vG5et-3c285a09-a371-4a83-8c76-730a2ac178fa1684820602913-WROGN-Men-Sports-Shoes-201684820602697-5.jpg"
+      ]
+    },
+    {
+      "item_code": "TLCMLUC2",
+      "_custom_json": {},
+      "tags": [],
+      "is_set": false,
+      "size_guide": "",
+      "no_of_boxes": 1,
+      "description": "<div>\n<ul>\n<li>Synthetic leather upper</li>\n<li>Cushioned footbed</li>\n<li>TPR Outsole</li>\n<li>Warranty: 1 month</li>\n<li>Warranty provided by brand/manufacturer</li>\n</ul>\n<p>&nbsp;</p>\n</div>\n<div class=\"pdp-sizeFitDesc\">&nbsp;</div>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                <span id=\"mce_marker\" data-mce-type=\"bookmark\" data-mce-fragment=\"1\"></span></style>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                </style>",
+      "net_quantity": {
+        "unit": "pack",
+        "value": 20
+      },
+      "highlights": [
+        "100% Original Products",
+        "Pay on delivery might be available",
+        "Easy 7 days returns and exchanges"
+      ],
+      "custom_order": {
+        "manufacturing_time_unit": "days",
+        "is_custom_order": false,
+        "manufacturing_time": 0
+      },
+      "product_publish": {
+        "product_online_date": 1747287841,
+        "is_set": true
+      },
+      "item_type": "standard",
+      "teaser_tag": {
+        "tag": "New"
+      },
+      "brand_uid": 1253,
+      "product_group_tag": [],
+      "media": [
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/1VpOqwkbn-UIb9mWOX_68a22f250dae431bb76c33295210ee83.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/PQjsw4IMu-1vaDATxt_68a3908435424940a39d5883af2dbef1.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/U6o8jWYau-8iRRCzjA_e785cf091ed34a1ead5b130f2fcc29d6.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/ou27Qx-bp-qf1Oznsv_ec0e7ca00c72497899fc3f63ae41370e.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/xrKx0M5i0-tj0U0ngP_a756abc0856c4a65b8f492530ab84da1.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/pTIFKvRVt-4soWTjMz_2a8864ed685a40f29e21dc83b607b1e4.jpg",
+          "type": "image"
+        }
+      ],
+      "variant_media": {},
+      "multi_size": true,
+      "is_image_less_product": false,
+      "return_config": {
+        "unit": "days",
+        "returnable": false,
+        "time": 0
+      },
+      "is_dependent": false,
+      "category_slug": "sneakers",
+      "slug": "the-lifestyle-co-men-lace-up-casual-sneakers-14062844",
+      "name": "The Lifestyle Co Men Lace Up Casual Sneakers",
+      "short_description": "A pair of black solid round toe shoes with regular",
+      "currency": "INR",
+      "country_of_origin": "India",
+      "departments": [
+        21
+      ],
+      "template_tag": "footwear",
+      "category_uid": 159,
+      "age-group": "Adults",
+      "marketer-name": "GNC",
+      "primary_color": "Black",
+      "gender": [
+        "Men",
+        "Boys"
+      ],
+      "marketer-address": "GNC",
+      "arch_type": "Flat",
+      "lifestyle": "Casualwear",
+      "primary_material": "Fabric",
+      "essential": "Yes",
+      "net-quantity": "1 N",
+      "uid": 14062844,
+      "created_on": "2025-05-15T05:52:52.987000",
+      "modified_on": "2025-05-15T05:52:52.987000",
+      "created_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "stage": "pending",
+      "id": "68258134e8500ff9c0020df7",
+      "variants": {},
+      "modified_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "all_company_ids": [
+        9095
+      ],
+      "all_identifiers": [
+        "TLCM2",
+        "TLCM1",
+        "TCOM1",
+        "TLCM4",
+        "TLCM3"
+      ],
+      "all_sizes": [
+        {
+          "item_code": "TLCMLUC2",
+          "brand_uid": 1253,
+          "size": "UK 9",
+          "identifiers": [
+            {
+              "gtin_value": "TLCM3",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 4999,
+              "max": 4999
+            },
+            "effective": {
+              "min": 999,
+              "max": 999
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 20,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 500,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "TLCMLUC2",
+          "brand_uid": 1253,
+          "size": "UK 6",
+          "identifiers": [
+            {
+              "gtin_value": "TCOM1",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 4999,
+              "max": 4999
+            },
+            "effective": {
+              "min": 999,
+              "max": 999
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 20,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 500,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "TLCMLUC2",
+          "brand_uid": 1253,
+          "size": "UK 8",
+          "identifiers": [
+            {
+              "gtin_value": "TLCM2",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 4999,
+              "max": 4999
+            },
+            "effective": {
+              "min": 999,
+              "max": 999
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 20,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 500,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "TLCMLUC2",
+          "brand_uid": 1253,
+          "size": "UK 10",
+          "identifiers": [
+            {
+              "gtin_value": "TLCM4",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 4999,
+              "max": 4999
+            },
+            "effective": {
+              "min": 999,
+              "max": 999
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 20,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 500,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "TLCMLUC2",
+          "brand_uid": 1253,
+          "size": "UK 7",
+          "identifiers": [
+            {
+              "gtin_value": "TLCM1",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 4999,
+              "max": 4999
+            },
+            "effective": {
+              "min": 999,
+              "max": 999
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 20,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 500,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        }
+      ],
+      "price": {
+        "marked": {
+          "min": 4999,
+          "max": 4999,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "effective": {
+          "min": 999,
+          "max": 999,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "selling": {
+          "min": 999,
+          "max": 999,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        }
+      },
+      "sizes": [
+        "UK 10",
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9"
+      ],
+      "is_available": true,
+      "discount": 80,
+      "_custom_meta": [],
+      "sellable_quantity": 0,
+      "store_id_list": [
+        "85099"
+      ],
+      "brand": {
+        "name": "Roadster",
+        "logo": {
+          "aspect_ratio": "1:1",
+          "aspect_ratio_f": 1,
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/media/logo/brand/50x0/8677_d16d66de852d4b7e9c05ca4eaa6f6729.jpg",
+          "secure_url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/media/logo/brand/50x0/8677_d16d66de852d4b7e9c05ca4eaa6f6729.jpg"
+        },
+        "uid": 1253
+      },
+      "images": [
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/1VpOqwkbn-UIb9mWOX_68a22f250dae431bb76c33295210ee83.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/PQjsw4IMu-1vaDATxt_68a3908435424940a39d5883af2dbef1.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/U6o8jWYau-8iRRCzjA_e785cf091ed34a1ead5b130f2fcc29d6.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/ou27Qx-bp-qf1Oznsv_ec0e7ca00c72497899fc3f63ae41370e.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/xrKx0M5i0-tj0U0ngP_a756abc0856c4a65b8f492530ab84da1.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/pTIFKvRVt-4soWTjMz_2a8864ed685a40f29e21dc83b607b1e4.jpg"
+      ]
+    },
+    {
+      "variant_media": {
+        "primary_color": "/products/pictures/item/free/original/kdsA-Jr5y-Swatch-url.jpeg"
+      },
+      "no_of_boxes": 1,
+      "currency": "INR",
+      "_custom_json": {},
+      "is_set": false,
+      "slug": "eco-slides-coal-black-12829411",
+      "product_publish": {
+        "product_online_date": 1731327269,
+        "is_set": true
+      },
+      "short_description": "Women Collection",
+      "uid": 12829411,
+      "item_code": "ESCB",
+      "category_slug": "crocs",
+      "description": "<p>True love is something that happens slowly but naturally. But once you are in it then you are forever. That's our Eco Slides for you! The soft touch of recycled compounds and natural oils will never let you move to anything else. Enjoy the little things with these minimalistic flip-flops.</p>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                <span id=\"mce_marker\" data-mce-type=\"bookmark\" data-mce-fragment=\"1\"></span></style>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                </style>",
+      "size_guide": "",
+      "teaser_tag": {},
+      "tags": [],
+      "product_group_tag": [],
+      "return_config": {
+        "returnable": false,
+        "time": 0,
+        "unit": "days"
+      },
+      "media": [
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/CwlNd8DmL-ND-EcoSlides-BeigeBG-CoralRed_WebOptimized_b_557e9d8e-c89e-44ae-97fb-43df2330553f_800x.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/LtkA5uZ5b-ND-EcoSlides-BeigeBG-CoralRed_WebOptimized_a_2b5266f3-761b-4af3-893d-aa5853a15c05_800x.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/QYyYXNzpN-ND-EcoSlides-BeigeBG-CoralRed_WebOptimized_d_abe683f9-282f-4764-aac6-edb5cdabe81e_800x.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/1RbQ7H0mJ-ND-EcoSlides_Revised_-LegShots_W_WebOptimized_d_800x.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/videos/item/free/original/edjqaTFvq-Eco-Slides-Coal-Black.mp4",
+          "type": "video"
+        }
+      ],
+      "name": "Eco Slides : Coal Red",
+      "departments": [
+        21
+      ],
+      "brand_uid": 8028,
+      "item_type": "standard",
+      "is_image_less_product": false,
+      "net_quantity": {},
+      "highlights": [],
+      "country_of_origin": "India",
+      "is_dependent": false,
+      "multi_size": true,
+      "custom_order": {
+        "is_custom_order": false,
+        "manufacturing_time_unit": "days",
+        "manufacturing_time": 0
+      },
+      "template_tag": "footwear",
+      "category_uid": 645,
+      "color": "Red",
+      "variants": {
+        "primary_color": "crocs-36917470-74422442"
+      },
+      "created_on": "2024-11-11T12:21:21.153000",
+      "created_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "modified_on": "2025-04-29T11:23:05.165000",
+      "modified_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "stage": "pending",
+      "all_company_ids": [
+        9095
+      ],
+      "all_identifiers": [
+        "ESCB2",
+        "ESCB1"
+      ],
+      "all_sizes": [
+        {
+          "item_code": "ESCB",
+          "brand_uid": 8028,
+          "size": "UK 7",
+          "identifiers": [
+            {
+              "gtin_value": "ESCB1",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 1399,
+              "max": 1399
+            },
+            "effective": {
+              "min": 780,
+              "max": 780
+            }
+          },
+          "item_width": 10,
+          "item_length": 24.7,
+          "item_height": 22,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 150,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "ESCB",
+          "brand_uid": 8028,
+          "size": "UK 8",
+          "identifiers": [
+            {
+              "gtin_value": "ESCB2",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 1399,
+              "max": 1399
+            },
+            "effective": {
+              "min": 780,
+              "max": 780
+            }
+          },
+          "item_width": 10.2,
+          "item_length": 26.4,
+          "item_height": 30,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 150,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        }
+      ],
+      "essential": "No",
+      "gender": [
+        "Women",
+        "Men"
+      ],
+      "marketer-address": "Gujarat",
+      "marketer-name": "Adidas",
+      "net-quantity": "1 N",
+      "primary_color": "Red",
+      "primary_material": "Polycotton",
+      "sustainable": "Regular",
+      "primary-colour-hex-code": "ff0000",
+      "age-group": "Adults",
+      "lifestyle": "Casualwear",
+      "packaging-type": "Brand Box",
+      "id": "6731f6c18d4113932a0fff09",
+      "price": {
+        "marked": {
+          "min": 1399,
+          "max": 1399,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "effective": {
+          "min": 780,
+          "max": 780,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "selling": {
+          "min": 780,
+          "max": 780,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        }
+      },
+      "sizes": [
+        "UK 7",
+        "UK 8"
+      ],
+      "is_available": true,
+      "discount": 44,
+      "_custom_meta": [],
+      "sellable_quantity": 0,
+      "store_id_list": [
+        "85099"
+      ],
+      "brand": {
+        "name": "Adidas",
+        "logo": {
+          "aspect_ratio": "1:1",
+          "aspect_ratio_f": 1,
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/v0rEh9gH5-Logo.jpeg",
+          "secure_url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/v0rEh9gH5-Logo.jpeg"
+        },
+        "uid": 8028
+      },
+      "images": [
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/CwlNd8DmL-ND-EcoSlides-BeigeBG-CoralRed_WebOptimized_b_557e9d8e-c89e-44ae-97fb-43df2330553f_800x.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/LtkA5uZ5b-ND-EcoSlides-BeigeBG-CoralRed_WebOptimized_a_2b5266f3-761b-4af3-893d-aa5853a15c05_800x.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/QYyYXNzpN-ND-EcoSlides-BeigeBG-CoralRed_WebOptimized_d_abe683f9-282f-4764-aac6-edb5cdabe81e_800x.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/1RbQ7H0mJ-ND-EcoSlides_Revised_-LegShots_W_WebOptimized_d_800x.jpg"
+      ]
+    },
+    {
+      "description": "<p>Large Max Air heel unit for visible cushioning, unique design for everyday wear</p>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                <span id=\"mce_marker\" data-mce-type=\"bookmark\" data-mce-fragment=\"1\"></span></style>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                </style>",
+      "currency": "INR",
+      "tags": [
+        "Nike Air Max 270",
+        "Nike",
+        "Nike Juta"
+      ],
+      "highlights": [],
+      "size_guide": "",
+      "multi_size": true,
+      "product_group_tag": [],
+      "is_image_less_product": false,
+      "_custom_json": {},
+      "net_quantity": {},
+      "departments": [
+        21
+      ],
+      "item_code": "NAM270",
+      "custom_order": {
+        "is_custom_order": false,
+        "manufacturing_time": 0,
+        "manufacturing_time_unit": "days"
+      },
+      "category_slug": "outdoor-sports-shoes",
+      "country_of_origin": "India",
+      "return_config": {
+        "unit": "days",
+        "returnable": false,
+        "time": 0
+      },
+      "slug": "nike-air-max-270-b-12824502",
+      "media": [
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/v6Ov0DQ8W-Nike-Air-Max-270.jpeg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/zLGa6eBQI-Nike-Air-Max-270.jpeg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/nR_qWtrET-Nike-Air-Max-270.jpeg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/YYdCvI2EY-Nike-Air-Max-270.webp",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/Vj_R2UvGf-Nike-Air-Max-270.webp",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/videos/item/free/original/43NCE3aH--Nike-Air-Max-270.mp4",
+          "type": "video"
+        }
+      ],
+      "short_description": "Lifestyle Sneaker",
+      "is_dependent": false,
+      "name": "Nike Air Max 270",
+      "item_type": "standard",
+      "variant_media": {},
+      "no_of_boxes": 1,
+      "is_set": false,
+      "product_publish": {
+        "is_set": true,
+        "product_online_date": 1731070796
+      },
+      "uid": 12824502,
+      "brand_uid": 18,
+      "teaser_tag": {},
+      "template_tag": "footwear",
+      "category_uid": 165,
+      "color": "Black",
+      "material": "Mesh and synthetic materials for breathability",
+      "variants": {},
+      "created_on": "2024-11-08T13:04:18.745000",
+      "created_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "modified_on": "2024-11-14T09:53:09.430000",
+      "modified_by": {
+        "user_id": "9ea44ff68f423657b447307e",
+        "super_user": false,
+        "username": "sharad.yadav@ics-global.in"
+      },
+      "stage": "pending",
+      "all_company_ids": [
+        9095
+      ],
+      "all_identifiers": [
+        "NAM2-3",
+        "NAM2-2",
+        "NAM2-1"
+      ],
+      "all_sizes": [
+        {
+          "item_code": "NAM270",
+          "brand_uid": 18,
+          "size": "UK 8",
+          "identifiers": [
+            {
+              "primary": true,
+              "gtin_type": "sku_code",
+              "gtin_value": "NAM2-2"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 12050,
+              "max": 12050
+            },
+            "effective": {
+              "min": 11495,
+              "max": 11495
+            }
+          },
+          "item_width": 10.2,
+          "item_length": 26.4,
+          "item_height": 30,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 290,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "NAM270",
+          "brand_uid": 18,
+          "size": "UK 7",
+          "identifiers": [
+            {
+              "primary": true,
+              "gtin_type": "sku_code",
+              "gtin_value": "NAM2-1"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 12050,
+              "max": 12050
+            },
+            "effective": {
+              "min": 11495,
+              "max": 11495
+            }
+          },
+          "item_width": 10,
+          "item_length": 24.7,
+          "item_height": 22,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 290,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": false
+        },
+        {
+          "item_code": "NAM270",
+          "brand_uid": 18,
+          "size": "UK 9",
+          "identifiers": [
+            {
+              "primary": true,
+              "gtin_type": "sku_code",
+              "gtin_value": "NAM2-3"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 12050,
+              "max": 12050
+            },
+            "effective": {
+              "min": 11495,
+              "max": 11495
+            }
+          },
+          "item_width": 12.2,
+          "item_length": 27.5,
+          "item_height": 32,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 290,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        }
+      ],
+      "essential": "No",
+      "gender": [
+        "Men"
+      ],
+      "marketer-address": "Gujatart",
+      "marketer-name": "Nike",
+      "net-quantity": "1 N",
+      "primary-colour-hex-code": "2e3436",
+      "primary_color": "Black",
+      "primary_material": "Organic Cotton",
+      "sustainable": "Regular",
+      "id": "672e0c52a546798e42f4daaa",
+      "price": {
+        "marked": {
+          "min": 12050,
+          "max": 12050,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "effective": {
+          "min": 11495,
+          "max": 11495,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "selling": {
+          "min": 11495,
+          "max": 11495,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        }
+      },
+      "sizes": [
+        "UK 8",
+        "UK 9"
+      ],
+      "is_available": true,
+      "discount": 4,
+      "_custom_meta": [],
+      "sellable_quantity": 0,
+      "store_id_list": [
+        "85099"
+      ],
+      "brand": {
+        "name": "Nike",
+        "logo": {
+          "aspect_ratio": "1:1",
+          "aspect_ratio_f": 1,
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/GdV_tJ7b9-Logo.png",
+          "secure_url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/GdV_tJ7b9-Logo.png"
+        },
+        "uid": 18
+      },
+      "images": [
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/v6Ov0DQ8W-Nike-Air-Max-270.jpeg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/zLGa6eBQI-Nike-Air-Max-270.jpeg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/nR_qWtrET-Nike-Air-Max-270.jpeg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/YYdCvI2EY-Nike-Air-Max-270.webp",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/Vj_R2UvGf-Nike-Air-Max-270.webp"
+      ]
+    },
+    {
+      "description": "<p><span class=\"maskable-content___2eBn5\">This product is excluded from all promotional discounts and offers.</span></p>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                <span id=\"mce_marker\" data-mce-type=\"bookmark\" data-mce-fragment=\"1\"></span></style>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                </style>",
+      "currency": "INR",
+      "tags": [
+        "Adidas"
+      ],
+      "highlights": [],
+      "size_guide": "",
+      "multi_size": true,
+      "product_group_tag": [],
+      "is_image_less_product": false,
+      "_custom_json": {},
+      "net_quantity": {},
+      "departments": [
+        21
+      ],
+      "item_code": "SOS1",
+      "custom_order": {
+        "manufacturing_time": 0,
+        "manufacturing_time_unit": "days",
+        "is_custom_order": false
+      },
+      "category_slug": "outdoor-sports-shoes",
+      "country_of_origin": "India",
+      "return_config": {
+        "returnable": false,
+        "unit": "days",
+        "time": 0
+      },
+      "slug": "samba-og-shoes-12824509",
+      "media": [
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/3dv8nNYcJ-Samba-OG-Shoes.png",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/sCOyI2X_j-Samba-OG-Shoes.png",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/videos/item/free/original/wmZ2SX2Mm-Samba-OG-Shoes.mp4",
+          "type": "video"
+        }
+      ],
+      "short_description": "Men's and Women shoes",
+      "is_dependent": false,
+      "name": "Samba OG Shoes",
+      "item_type": "standard",
+      "variant_media": {},
+      "no_of_boxes": 1,
+      "is_set": false,
+      "product_publish": {
+        "product_online_date": 1731072017,
+        "is_set": true
+      },
+      "uid": 12824509,
+      "brand_uid": 8028,
+      "teaser_tag": {},
+      "template_tag": "footwear",
+      "category_uid": 165,
+      "color": "Cloud White",
+      "material": "Leather upper and suede T-toe",
+      "variants": {},
+      "created_on": "2024-11-08T13:28:31.742000",
+      "created_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "modified_on": "2024-11-12T10:14:38.164000",
+      "modified_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "stage": "pending",
+      "all_company_ids": [
+        9095
+      ],
+      "all_identifiers": [
+        "SOS-1",
+        "SOS-3",
+        "SOS-2"
+      ],
+      "all_sizes": [
+        {
+          "item_code": "SOS1",
+          "brand_uid": 8028,
+          "size": "UK 8",
+          "identifiers": [
+            {
+              "primary": true,
+              "gtin_type": "sku_code",
+              "gtin_value": "SOS-2"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 8000,
+              "max": 8000
+            },
+            "effective": {
+              "min": 5000,
+              "max": 5000
+            }
+          },
+          "item_width": 10.2,
+          "item_length": 26.4,
+          "item_height": 30,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 290,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "SOS1",
+          "brand_uid": 8028,
+          "size": "UK 7",
+          "identifiers": [
+            {
+              "primary": true,
+              "gtin_type": "sku_code",
+              "gtin_value": "SOS-1"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 8000,
+              "max": 8000
+            },
+            "effective": {
+              "min": 5000,
+              "max": 5000
+            }
+          },
+          "item_width": 10,
+          "item_length": 24.7,
+          "item_height": 22,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 290,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "SOS1",
+          "brand_uid": 8028,
+          "size": "UK 9",
+          "identifiers": [
+            {
+              "primary": true,
+              "gtin_type": "sku_code",
+              "gtin_value": "SOS-3"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 8000,
+              "max": 8000
+            },
+            "effective": {
+              "min": 5000,
+              "max": 5000
+            }
+          },
+          "item_width": 12.2,
+          "item_length": 27.5,
+          "item_height": 32,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 290,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        }
+      ],
+      "essential": "No",
+      "gender": [
+        "Men"
+      ],
+      "marketer-address": "Gujarat",
+      "marketer-name": "Adidas",
+      "net-quantity": "2 N",
+      "primary-colour-hex-code": "e9b96e",
+      "primary_color": "Multi",
+      "primary_material": "Synthetic Leather",
+      "id": "672e11ffa546798e42f4dab3",
+      "price": {
+        "marked": {
+          "min": 8000,
+          "max": 8000,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "effective": {
+          "min": 5000,
+          "max": 5000,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "selling": {
+          "min": 5000,
+          "max": 5000,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        }
+      },
+      "sizes": [
+        "UK 7",
+        "UK 8",
+        "UK 9"
+      ],
+      "is_available": true,
+      "discount": 37,
+      "_custom_meta": [],
+      "sellable_quantity": 0,
+      "store_id_list": [
+        "85099"
+      ],
+      "brand": {
+        "name": "Adidas",
+        "logo": {
+          "aspect_ratio": "1:1",
+          "aspect_ratio_f": 1,
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/v0rEh9gH5-Logo.jpeg",
+          "secure_url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/v0rEh9gH5-Logo.jpeg"
+        },
+        "uid": 8028
+      },
+      "images": [
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/3dv8nNYcJ-Samba-OG-Shoes.png",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/sCOyI2X_j-Samba-OG-Shoes.png"
+      ]
+    },
+    {
+      "is_set": false,
+      "product_group_tag": [],
+      "is_image_less_product": false,
+      "highlights": [],
+      "size_guide": "",
+      "category_slug": "crocs",
+      "slug": "eco-slides-coalbr-12830264",
+      "item_type": "standard",
+      "short_description": "Women Collection",
+      "net_quantity": {},
+      "uid": 12830264,
+      "return_config": {
+        "unit": "days",
+        "time": 0,
+        "returnable": false
+      },
+      "custom_order": {
+        "is_custom_order": false,
+        "manufacturing_time": 0,
+        "manufacturing_time_unit": "days"
+      },
+      "departments": [
+        21
+      ],
+      "is_dependent": false,
+      "description": "<p>True love is something that happens slowly but naturally. But once you are in it then you are forever. That's our Eco Slides for you! The soft touch of recycled compounds and natural oils will never let you move to anything else. Enjoy the little things with these minimalistic flip-flops.</p>",
+      "_custom_json": {},
+      "product_publish": {
+        "is_set": true,
+        "product_online_date": 1731395678
+      },
+      "no_of_boxes": 1,
+      "brand_uid": 8028,
+      "item_code": "ECSR",
+      "name": "Eco Slides : Coal Black",
+      "variant_media": {
+        "primary_color": "/products/pictures/item/free/original/UtrorwQv9-Swatch-url.png"
+      },
+      "multi_size": true,
+      "country_of_origin": "India",
+      "media": [
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/JmiQaqB2c-ND-EcoSlides-BeigeBG-CoalBlack_WebOptimized_b_1619d692-fd35-4487-97f8-d569eb21f6bb_800x.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/bZ3w5kJcX-ND-EcoSlides-BeigeBG-CoalBlack_WebOptimized_a_2a65af1c-8c9e-4b59-ba73-e8080c549556_800x.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/NhVaWNyhN-ND-EcoSlides-BeigeBG-CoalBlack_WebOptimized_d_e42f5ef6-7ec9-4b07-b030-41a7a39ec794_800x.jpg",
+          "type": "image"
+        },
+        {
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/videos/item/free/original/VPqTj5Cz2-Eco-Slides-Coal-Black.mp4",
+          "type": "video"
+        }
+      ],
+      "teaser_tag": {},
+      "tags": [],
+      "currency": "INR",
+      "template_tag": "footwear",
+      "category_uid": 645,
+      "sustainable": "Regular",
+      "marketer-address": "Gujarat",
+      "primary_color": "Black",
+      "primary_material": "Polycotton",
+      "marketer-name": "Adidas",
+      "net-quantity": "1 N",
+      "essential": "No",
+      "color": "Black",
+      "gender": [
+        "Women"
+      ],
+      "variants": {
+        "primary_color": "crocs-36917470-74422442"
+      },
+      "created_on": "2024-11-12T07:18:26.731000",
+      "created_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "modified_on": "2024-11-12T07:30:38.304000",
+      "modified_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "stage": "pending",
+      "all_company_ids": [
+        9095
+      ],
+      "all_identifiers": [
+        "ESB1",
+        "ESB2"
+      ],
+      "all_sizes": [
+        {
+          "item_code": "ECSR",
+          "brand_uid": 8028,
+          "size": "UK 7",
+          "identifiers": [
+            {
+              "primary": true,
+              "gtin_type": "sku_code",
+              "gtin_value": "ESB1"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 1399,
+              "max": 1399
+            },
+            "effective": {
+              "min": 719,
+              "max": 719
+            }
+          },
+          "item_width": 10,
+          "item_length": 24.7,
+          "item_height": 22,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 150,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "ECSR",
+          "brand_uid": 8028,
+          "size": "UK 8",
+          "identifiers": [
+            {
+              "primary": true,
+              "gtin_type": "sku_code",
+              "gtin_value": "ESB2"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 1399,
+              "max": 1399
+            },
+            "effective": {
+              "min": 719,
+              "max": 719
+            }
+          },
+          "item_width": 10.2,
+          "item_length": 26.4,
+          "item_height": 30,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 150,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        }
+      ],
+      "id": "67330142121e331b865e8b8b",
+      "price": {
+        "marked": {
+          "min": 1399,
+          "max": 1399,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "effective": {
+          "min": 719,
+          "max": 719,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "selling": {
+          "min": 719,
+          "max": 719,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        }
+      },
+      "sizes": [
+        "UK 7",
+        "UK 8"
+      ],
+      "is_available": true,
+      "discount": 48,
+      "_custom_meta": [],
+      "sellable_quantity": 0,
+      "store_id_list": [
+        "85099"
+      ],
+      "brand": {
+        "name": "Adidas",
+        "logo": {
+          "aspect_ratio": "1:1",
+          "aspect_ratio_f": 1,
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/v0rEh9gH5-Logo.jpeg",
+          "secure_url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/v0rEh9gH5-Logo.jpeg"
+        },
+        "uid": 8028
+      },
+      "images": [
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/JmiQaqB2c-ND-EcoSlides-BeigeBG-CoalBlack_WebOptimized_b_1619d692-fd35-4487-97f8-d569eb21f6bb_800x.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/bZ3w5kJcX-ND-EcoSlides-BeigeBG-CoalBlack_WebOptimized_a_2a65af1c-8c9e-4b59-ba73-e8080c549556_800x.jpg",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/NhVaWNyhN-ND-EcoSlides-BeigeBG-CoalBlack_WebOptimized_d_e42f5ef6-7ec9-4b07-b030-41a7a39ec794_800x.jpg"
+      ]
+    },
+    {
+      "departments": [
+        21
+      ],
+      "name": "Air Jordan 1 Low SE Lunar New Year",
+      "action": "upsert",
+      "currency": "INR",
+      "tags": [
+        "Womens Jordans"
+      ],
+      "product_publish": {
+        "is_set": true,
+        "product_online_date": 1707323353
+      },
+      "country_of_origin": "India",
+      "item_code": "Nike5641",
+      "item_type": "standard",
+      "slug": "air-jordan-1-low-se-lunar-new-year-10042923",
+      "return_config": {
+        "returnable": false,
+        "time": 0,
+        "unit": "days"
+      },
+      "is_image_less_product": false,
+      "is_dependent": false,
+      "uid": 10042923,
+      "is_set": false,
+      "no_of_boxes": 1,
+      "brand_uid": 18,
+      "multi_size": true,
+      "media": [
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/nike/Nike5641/0/JshayftUbq-air-jordan-1-low-se-lunar-new-year-shoes-rrFtkX.png"
+        }
+      ],
+      "category_slug": "outdoor-sports-shoes",
+      "custom_order": {
+        "manufacturing_time": 0,
+        "manufacturing_time_unit": "days",
+        "is_custom_order": false
+      },
+      "template_tag": "footwear",
+      "category_uid": 165,
+      "gender": [
+        "Women"
+      ],
+      "marketer-address": "Ground and First Floor, Olympia Building, No. 66/1, Bagmane Tech Park, CV Raman Nagar Bengaluru Bangalore KA 560093 IN.",
+      "net-quantity": "1 N",
+      "essential": "No",
+      "primary_color": "Multi",
+      "primary_material": "Synthetic Leather",
+      "marketer-name": "Nike India Private Limited",
+      "variants": {
+        "primary_color": "outdoor-sports-shoes-3472203-28465070"
+      },
+      "created_on": "2024-02-07T16:29:47.203000",
+      "created_by": {
+        "user_id": "5cbd0f8eb5aa46eb3ff5d332",
+        "super_user": false,
+        "username": "shreyasshetty@gofynd.com"
+      },
+      "modified_on": "2024-11-12T07:06:42.360000",
+      "modified_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "stage": "pending",
+      "all_company_ids": [
+        61,
+        9095
+      ],
+      "all_identifiers": [
+        "AR2",
+        "5939975484",
+        "5939975472",
+        "AR1",
+        "5939975478",
+        "AR3"
+      ],
+      "all_sizes": [
+        {
+          "item_code": "Nike5641",
+          "brand_uid": 18,
+          "size": "12",
+          "identifiers": [
+            {
+              "gtin_type": "sku_code",
+              "primary": true,
+              "gtin_value": "5939975484"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 11495,
+              "max": 11495
+            },
+            "effective": {
+              "min": 11495,
+              "max": 11495
+            }
+          },
+          "item_width": 10,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 100,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": false
+        },
+        {
+          "item_code": "Nike5641",
+          "brand_uid": 18,
+          "size": "9",
+          "identifiers": [
+            {
+              "gtin_type": "sku_code",
+              "primary": true,
+              "gtin_value": "5939975472"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 11495,
+              "max": 11495
+            },
+            "effective": {
+              "min": 11495,
+              "max": 11495
+            }
+          },
+          "item_width": 10,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 100,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": false
+        },
+        {
+          "item_code": "Nike5641",
+          "brand_uid": 18,
+          "size": "UK 7",
+          "identifiers": [
+            {
+              "gtin_value": "AR1",
+              "gtin_type": "sku_code",
+              "primary": true
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 5999,
+              "max": 5999
+            },
+            "effective": {
+              "min": 4995,
+              "max": 4995
+            }
+          },
+          "item_width": 10,
+          "item_length": 24.7,
+          "item_height": 22,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 200,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "Nike5641",
+          "brand_uid": 18,
+          "size": "UK 9",
+          "identifiers": [
+            {
+              "gtin_value": "AR3",
+              "gtin_type": "sku_code",
+              "primary": true
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 5999,
+              "max": 5999
+            },
+            "effective": {
+              "min": 4995,
+              "max": 4995
+            }
+          },
+          "item_width": 12.2,
+          "item_length": 27.5,
+          "item_height": 32,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 200,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "Nike5641",
+          "brand_uid": 18,
+          "size": "UK 8",
+          "identifiers": [
+            {
+              "gtin_value": "AR2",
+              "gtin_type": "sku_code",
+              "primary": true
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 5999,
+              "max": 5999
+            },
+            "effective": {
+              "min": 4995,
+              "max": 4995
+            }
+          },
+          "item_width": 10.2,
+          "item_length": 26.4,
+          "item_height": 30,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 200,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "Nike5641",
+          "brand_uid": 18,
+          "size": "10",
+          "identifiers": [
+            {
+              "gtin_type": "sku_code",
+              "primary": true,
+              "gtin_value": "5939975478"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 11495,
+              "max": 11495
+            },
+            "effective": {
+              "min": 11495,
+              "max": 11495
+            }
+          },
+          "item_width": 10,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 100,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": false
+        }
+      ],
+      "_custom_json": {},
+      "description": "",
+      "highlights": [],
+      "net_quantity": {},
+      "product_group_tag": [],
+      "short_description": "",
+      "size_guide": "",
+      "teaser_tag": {},
+      "variant_media": {},
+      "warranty": "2",
+      "warranty_type": "Days",
+      "id": "65c3affb7867d4b8a2c4395f",
+      "price": {
+        "marked": {
+          "min": 5999,
+          "max": 5999,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "effective": {
+          "min": 4995,
+          "max": 4995,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "selling": {
+          "min": 4995,
+          "max": 4995,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        }
+      },
+      "sizes": [
+        "UK 7",
+        "UK 8",
+        "UK 9"
+      ],
+      "is_available": true,
+      "discount": 16,
+      "_custom_meta": [],
+      "sellable_quantity": 0,
+      "store_id_list": [
+        "85099"
+      ],
+      "brand": {
+        "name": "Nike",
+        "logo": {
+          "aspect_ratio": "1:1",
+          "aspect_ratio_f": 1,
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/GdV_tJ7b9-Logo.png",
+          "secure_url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/GdV_tJ7b9-Logo.png"
+        },
+        "uid": 18
+      },
+      "images": [
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/nike/Nike5641/0/JshayftUbq-air-jordan-1-low-se-lunar-new-year-shoes-rrFtkX.png"
+      ]
+    },
+    {
+      "variant_media": {},
+      "media": [
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/O11TE-oj--Plush-Square-Flats-Black.png"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/bnOw5ne0G-Plush-Square-Flats-Black.png"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/Li6yuf2SY-Plush-Square-Flats-Black.png"
+        },
+        {
+          "type": "video",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/videos/item/free/original/1aK0HvsCD-Plush-Square-Flats-Black.mp4"
+        }
+      ],
+      "teaser_tag": {},
+      "category_slug": "others-level-3",
+      "is_dependent": false,
+      "brand_uid": 18,
+      "name": "Plush Square Flats : Black",
+      "is_image_less_product": false,
+      "return_config": {
+        "returnable": false,
+        "unit": "days",
+        "time": 0
+      },
+      "item_code": "PSFB",
+      "product_publish": {
+        "product_online_date": 1731302117,
+        "is_set": true
+      },
+      "size_guide": "",
+      "highlights": [],
+      "slug": "plush-square-flats-black-12828842",
+      "currency": "INR",
+      "tags": [],
+      "product_group_tag": [],
+      "country_of_origin": "India",
+      "multi_size": true,
+      "net_quantity": {},
+      "short_description": "Women Collection",
+      "custom_order": {
+        "is_custom_order": false,
+        "manufacturing_time": 0,
+        "manufacturing_time_unit": "days"
+      },
+      "no_of_boxes": 1,
+      "departments": [
+        8
+      ],
+      "_custom_json": {},
+      "item_type": "standard",
+      "description": "<p><span style=\"color: #1c1b1b; font-family: 'Open Sans', sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">Flats have become quite the cool obsession in women&rsquo;s footwear. It&rsquo;s nearly impossible to imagine a woman&rsquo;s wardrobe without a classic, practical, and easy-going pair of flats. We designed our Plush Square Flats in a palette of classic, subtle &amp; appealing colors ensuring they are an easy pick for your days, planned and unplanned.</span></p>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                <span id=\"mce_marker\" data-mce-type=\"bookmark\" data-mce-fragment=\"1\"></span></style>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                </style>",
+      "uid": 12828842,
+      "is_set": false,
+      "template_tag": "supplementary",
+      "category_uid": 436,
+      "material": "Soft-on-the skin fabric",
+      "color": "Black",
+      "variants": {},
+      "created_on": "2024-11-11T05:22:41.079000",
+      "created_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "modified_on": "2024-11-11T05:22:41.079000",
+      "modified_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "stage": "pending",
+      "all_company_ids": [
+        9095
+      ],
+      "all_identifiers": [
+        "PSFB2",
+        "PSFB",
+        "PSFB1"
+      ],
+      "all_sizes": [
+        {
+          "item_code": "PSFB",
+          "brand_uid": 18,
+          "size": "UK 8",
+          "identifiers": [
+            {
+              "gtin_value": "PSFB1",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 2149,
+              "max": 2149
+            },
+            "effective": {
+              "min": 1160,
+              "max": 1160
+            }
+          },
+          "item_width": 10.2,
+          "item_length": 26.4,
+          "item_height": 30,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 200,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "PSFB",
+          "brand_uid": 18,
+          "size": "UK 7",
+          "identifiers": [
+            {
+              "gtin_value": "PSFB",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 2149,
+              "max": 2149
+            },
+            "effective": {
+              "min": 1160,
+              "max": 1160
+            }
+          },
+          "item_width": 10,
+          "item_length": 24.7,
+          "item_height": 22,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 200,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "PSFB",
+          "brand_uid": 18,
+          "size": "UK 9",
+          "identifiers": [
+            {
+              "gtin_value": "PSFB2",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 2149,
+              "max": 2149
+            },
+            "effective": {
+              "min": 1160,
+              "max": 1160
+            }
+          },
+          "item_width": 12.2,
+          "item_length": 27.5,
+          "item_height": 32,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 200,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        }
+      ],
+      "id": "673194a1096d522a372a2392",
+      "price": {
+        "marked": {
+          "min": 2149,
+          "max": 2149,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "effective": {
+          "min": 1160,
+          "max": 1160,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "selling": {
+          "min": 1160,
+          "max": 1160,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        }
+      },
+      "sizes": [
+        "UK 7",
+        "UK 8",
+        "UK 9"
+      ],
+      "is_available": true,
+      "discount": 46,
+      "_custom_meta": [],
+      "sellable_quantity": 0,
+      "store_id_list": [
+        "85099"
+      ],
+      "brand": {
+        "name": "Nike",
+        "logo": {
+          "aspect_ratio": "1:1",
+          "aspect_ratio_f": 1,
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/GdV_tJ7b9-Logo.png",
+          "secure_url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/GdV_tJ7b9-Logo.png"
+        },
+        "uid": 18
+      },
+      "images": [
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/O11TE-oj--Plush-Square-Flats-Black.png",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/bnOw5ne0G-Plush-Square-Flats-Black.png",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/Li6yuf2SY-Plush-Square-Flats-Black.png"
+      ]
+    },
+    {
+      "custom_order": {
+        "manufacturing_time_unit": "days",
+        "is_custom_order": false,
+        "manufacturing_time": 0
+      },
+      "slug": "nike-air-max-270-12821558",
+      "product_publish": {
+        "is_set": true,
+        "product_online_date": 1731070225
+      },
+      "currency": "INR",
+      "teaser_tag": {},
+      "net_quantity": {},
+      "departments": [
+        8
+      ],
+      "variant_media": {},
+      "country_of_origin": "India",
+      "is_dependent": false,
+      "brand_uid": 18,
+      "description": "<p>Large Max Air heel unit for visible cushioning, unique design for everyday wear</p>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                <span id=\"mce_marker\" data-mce-type=\"bookmark\" data-mce-fragment=\"1\"></span></style>\n<style data-id=\"tinymce-storefront-style\"> \n                    blockquote, iframe, .twitter-tweet{\n                        display: flex;\n                        margin-left: auto !important;\n                        margin-right: auto !important;\n                        max-width: 100%;\n                    }\n                    img{\n                        max-width: 100%;\n                        height: auto;\n                    }\n                    .warning-banner{\n                        visibility: hidden\n                    }\n                </style>",
+      "item_code": "NAM2",
+      "uid": 12821558,
+      "tags": [],
+      "size_guide": "",
+      "media": [
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/HNOyB7-rH-Nike-Air-Max-270.webp"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/d1wmkSEBo-Nike-Air-Max-270.webp"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/-oIWqnAzT-Nike-Air-Max-270.webp"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/TNJoieeAi-Nike-Air-Max-270.webp"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/Owwj7MMf3-Nike-Air-Max-270.webp"
+        },
+        {
+          "type": "video",
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/videos/item/free/original/ax7Ke9958-Nike-Air-Max-270.mp4"
+        }
+      ],
+      "short_description": "Lifestyle Sneaker",
+      "multi_size": true,
+      "name": "Nike Air Max 270",
+      "highlights": [],
+      "is_image_less_product": false,
+      "_custom_json": {},
+      "no_of_boxes": 1,
+      "category_slug": "others-level-3",
+      "is_set": false,
+      "product_group_tag": [],
+      "return_config": {
+        "unit": "days",
+        "time": 0,
+        "returnable": false
+      },
+      "item_type": "standard",
+      "template_tag": "supplementary",
+      "category_uid": 436,
+      "color": "White",
+      "material": "Mesh and synthetic materials for breathability",
+      "variants": {
+        "is_set": "others-level-3-66955540-27440116"
+      },
+      "created_on": "2024-11-08T12:56:40.608000",
+      "created_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "modified_on": "2024-11-08T12:56:40.608000",
+      "modified_by": {
+        "user_id": "f764dd82c494e9e9d70b009e",
+        "super_user": false,
+        "username": "birju.savani@ics-global.in"
+      },
+      "stage": "pending",
+      "all_company_ids": [
+        9095
+      ],
+      "all_identifiers": [
+        "NAM-2",
+        "NAM-1",
+        "NAM-3"
+      ],
+      "all_sizes": [
+        {
+          "item_code": "NAM2",
+          "brand_uid": 18,
+          "size": "UK 7",
+          "identifiers": [
+            {
+              "gtin_value": "NAM-1",
+              "gtin_type": "sku_code",
+              "primary": true
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 12050,
+              "max": 12050
+            },
+            "effective": {
+              "min": 11495,
+              "max": 11495
+            }
+          },
+          "item_width": 10,
+          "item_length": 24.78,
+          "item_height": 22,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 290,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "NAM2",
+          "brand_uid": 18,
+          "size": "UK 8",
+          "identifiers": [
+            {
+              "gtin_value": "NAM-2",
+              "gtin_type": "sku_code",
+              "primary": true
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 12050,
+              "max": 12050
+            },
+            "effective": {
+              "min": 11495,
+              "max": 11495
+            }
+          },
+          "item_width": 11,
+          "item_length": 25.8,
+          "item_height": 25,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 290,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "NAM2",
+          "brand_uid": 18,
+          "size": "UK 9",
+          "identifiers": [
+            {
+              "gtin_value": "NAM-3",
+              "gtin_type": "sku_code",
+              "primary": true
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 12050,
+              "max": 12050
+            },
+            "effective": {
+              "min": 11495,
+              "max": 11495
+            }
+          },
+          "item_width": 11,
+          "item_length": 26.7,
+          "item_height": 30,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 290,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        }
+      ],
+      "id": "672e0a88578a177d53b614b6",
+      "price": {
+        "marked": {
+          "min": 12050,
+          "max": 12050,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "effective": {
+          "min": 11495,
+          "max": 11495,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        },
+        "selling": {
+          "min": 11495,
+          "max": 11495,
+          "currency_code": "INR",
+          "currency_symbol": "₹"
+        }
+      },
+      "sizes": [
+        "UK 7",
+        "UK 8",
+        "UK 9"
+      ],
+      "is_available": true,
+      "discount": 4,
+      "_custom_meta": [],
+      "sellable_quantity": 0,
+      "store_id_list": [
+        "85099"
+      ],
+      "brand": {
+        "name": "Nike",
+        "logo": {
+          "aspect_ratio": "1:1",
+          "aspect_ratio_f": 1,
+          "url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/GdV_tJ7b9-Logo.png",
+          "secure_url": "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/brands/pictures/square-logo/50x0/GdV_tJ7b9-Logo.png"
+        },
+        "uid": 18
+      },
+      "images": [
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/HNOyB7-rH-Nike-Air-Max-270.webp",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/d1wmkSEBo-Nike-Air-Max-270.webp",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/-oIWqnAzT-Nike-Air-Max-270.webp",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/TNJoieeAi-Nike-Air-Max-270.webp",
+        "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/Owwj7MMf3-Nike-Air-Max-270.webp"
+      ]
+    }
+  ]
+}
