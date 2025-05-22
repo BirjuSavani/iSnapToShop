@@ -13,6 +13,8 @@ router.post('/search-by-image', upload.single('image'), scanController.searchByI
 
 router.get('/system-status', scanController.checkSystemStatus);
 
+router.post('/remove-index', scanController.removeIndex);
+
 router.get('/', (req, res) => {
   res.status(200).json({ message: 'Scan API is working!' });
 });

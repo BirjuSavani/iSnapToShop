@@ -1,6 +1,5 @@
 const axios = require('axios');
 const FormData = require('form-data');
-const fs = require('fs');
 
 class AIService {
   /**
@@ -46,13 +45,13 @@ class AIService {
    * @param {string} companyId - The company ID associated with the products.
    * @returns {Object} - An object containing the result of the indexing operation.
    */
-  async indexProducts(products, companyId) {
+  async indexProducts(products, companyId, applicationId) {
     try {
       console.log(`Indexing ${products.length} products for company ${companyId}`);
-
+      
       const { data } = await axios.post(
         `${this.baseUrl}/embeddings_store`,
-        { products: products },
+        { products: products, application_id: applicationId },
         {
           headers: {
             'X-API-KEY': this.apiKey,
@@ -130,6 +129,36 @@ class AIService {
         companyId,
       });
       throw error;
+    }
+  }
+
+  /**
+   * Checks the system status of the AI service.
+   * @async
+   * @returns {Object} - An object containing the system status.
+   */
+  async removeIndex(applicationId) {
+    try {
+      console.log(`Removing index for application ${applicationId}`);
+      const { data } = await axios.post(
+        `${this.baseUrl}/delete_embeddings`,
+        { application_id: applicationId },
+        {
+          headers: {
+            'X-API-KEY': this.apiKey,
+          },
+        }
+      );
+
+      console.log(`Index removal successful for company ${applicationId}`);
+
+      return data;
+    } catch (error) {
+      console.error(`Index removal failed: ${error.message}`, {
+        error: error.stack,
+        applicationId,
+      });
+      throw new Error(`Index removal failed: ${error.response?.data?.error || error.message}`);
     }
   }
 }

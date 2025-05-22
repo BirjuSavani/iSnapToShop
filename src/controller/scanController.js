@@ -24,7 +24,7 @@ exports.initProductIndexing = async (req, res) => {
       return res.status(400).json({ error: 'No products found to index' });
     }
 
-    const result = aiService.indexProducts(products, company_id);
+    const result = aiService.indexProducts(products, company_id, application_id);
 
     return res.json({
       success: true,
@@ -321,6 +321,37 @@ exports.checkSystemStatus = async (req, res) => {
       success: true,
       aiService: health,
       isIndexed: aiService.isIndexed,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+/**
+ * Remove Index Endpoint
+ * Removes the index for a specific application
+ */
+exports.removeIndex = async (req, res) => {
+  try {
+    const { platformClient } = req;
+    const { company_id, application_id } = req.query;
+
+    if (!company_id) {
+      return res.status(400).json({ error: 'Company ID is required' });
+    }
+
+    if (!application_id) {
+      return res.status(400).json({ error: 'Application ID is required' });
+    }
+
+    await aiService.removeIndex(application_id);
+
+    return res.json({
+      success: true,
+      message: `Successfully removed index for company ${company_id} and application ${application_id}`,
     });
   } catch (error) {
     return res.status(500).json({

@@ -27,24 +27,16 @@ export const Home = () => {
 
   useEffect(() => {
     checkSystemStatus();
-    app();
     if (application_id) {
       console.log('Initializing product index...');
       console.log('company_id:', company_id);
       console.log('application_id:', application_id);
       initializeProductIndex();
-
+      // removeProductIndex();
       console.log('Product index initialized.');
     }
   }, []);
 
-  const app = async () => {
-    const response = await axios.get(urlJoin(EXAMPLE_MAIN_URL, '/api/app'), {
-      headers: { 'x-company-id': company_id },
-      query: { application_id: application_id || undefined, company_id: company_id },
-    });
-    console.log(response);
-  };
   const checkSystemStatus = async () => {
     try {
       const response = await axios.get(urlJoin(EXAMPLE_MAIN_URL, '/api/scan/system-status'), {
@@ -97,6 +89,18 @@ export const Home = () => {
       }));
     }
   };
+
+  const removeProductIndex = async () => {
+    const response = await axios.post(
+      urlJoin(EXAMPLE_MAIN_URL, '/api/scan/remove-index'),
+      {},
+      {
+        headers: { 'x-company-id': company_id },
+        params: { application_id: application_id || undefined, company_id: company_id },
+      }
+    );
+    console.log("done Birju");
+  }
 
   const handleImageUpload = async e => {
     const file = e.target.files[0];

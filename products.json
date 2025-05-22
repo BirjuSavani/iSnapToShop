@@ -125,11 +125,11 @@
         {
           "item_code": "TLCMLUCS",
           "brand_uid": 1253,
-          "size": "UK 7",
+          "size": "UK 8",
           "identifiers": [
             {
               "gtin_type": "sku_code",
-              "gtin_value": "TLC2",
+              "gtin_value": "TLC3",
               "primary": true
             }
           ],
@@ -183,11 +183,11 @@
         {
           "item_code": "TLCMLUCS",
           "brand_uid": 1253,
-          "size": "UK 6",
+          "size": "UK 7",
           "identifiers": [
             {
               "gtin_type": "sku_code",
-              "gtin_value": "TLC",
+              "gtin_value": "TLC2",
               "primary": true
             }
           ],
@@ -212,11 +212,11 @@
         {
           "item_code": "TLCMLUCS",
           "brand_uid": 1253,
-          "size": "UK 8",
+          "size": "UK 6",
           "identifiers": [
             {
               "gtin_type": "sku_code",
-              "gtin_value": "TLC3",
+              "gtin_value": "TLC",
               "primary": true
             }
           ],
@@ -640,10 +640,10 @@
         {
           "item_code": "SB-1701",
           "brand_uid": 7456,
-          "size": "UK 9",
+          "size": "UK 8",
           "identifiers": [
             {
-              "gtin_value": "FDGDG",
+              "gtin_value": "123323",
               "primary": true,
               "gtin_type": "sku_code"
             }
@@ -727,10 +727,10 @@
         {
           "item_code": "SB-1701",
           "brand_uid": 7456,
-          "size": "UK 8",
+          "size": "UK 9",
           "identifiers": [
             {
-              "gtin_value": "123323",
+              "gtin_value": "FDGDG",
               "primary": true,
               "gtin_type": "sku_code"
             }
@@ -1111,6 +1111,35 @@
         {
           "item_code": "TLCMLUC2",
           "brand_uid": 1253,
+          "size": "UK 8",
+          "identifiers": [
+            {
+              "gtin_value": "TLCM2",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 4999,
+              "max": 4999
+            },
+            "effective": {
+              "min": 999,
+              "max": 999
+            }
+          },
+          "item_width": 20,
+          "item_length": 10,
+          "item_height": 20,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 500,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "TLCMLUC2",
+          "brand_uid": 1253,
           "size": "UK 9",
           "identifiers": [
             {
@@ -1140,39 +1169,10 @@
         {
           "item_code": "TLCMLUC2",
           "brand_uid": 1253,
-          "size": "UK 6",
+          "size": "UK 7",
           "identifiers": [
             {
-              "gtin_value": "TCOM1",
-              "primary": true,
-              "gtin_type": "sku_code"
-            }
-          ],
-          "price": {
-            "marked": {
-              "min": 4999,
-              "max": 4999
-            },
-            "effective": {
-              "min": 999,
-              "max": 999
-            }
-          },
-          "item_width": 20,
-          "item_length": 10,
-          "item_height": 20,
-          "item_dimensions_unit_of_measure": "cm",
-          "item_weight": 500,
-          "item_weight_unit_of_measure": "gram",
-          "sellable": true
-        },
-        {
-          "item_code": "TLCMLUC2",
-          "brand_uid": 1253,
-          "size": "UK 8",
-          "identifiers": [
-            {
-              "gtin_value": "TLCM2",
+              "gtin_value": "TLCM1",
               "primary": true,
               "gtin_type": "sku_code"
             }
@@ -1227,10 +1227,10 @@
         {
           "item_code": "TLCMLUC2",
           "brand_uid": 1253,
-          "size": "UK 7",
+          "size": "UK 6",
           "identifiers": [
             {
-              "gtin_value": "TLCM1",
+              "gtin_value": "TCOM1",
               "primary": true,
               "gtin_type": "sku_code"
             }
@@ -1403,35 +1403,6 @@
         {
           "item_code": "ESCB",
           "brand_uid": 8028,
-          "size": "UK 7",
-          "identifiers": [
-            {
-              "gtin_value": "ESCB1",
-              "primary": true,
-              "gtin_type": "sku_code"
-            }
-          ],
-          "price": {
-            "marked": {
-              "min": 1399,
-              "max": 1399
-            },
-            "effective": {
-              "min": 780,
-              "max": 780
-            }
-          },
-          "item_width": 10,
-          "item_length": 24.7,
-          "item_height": 22,
-          "item_dimensions_unit_of_measure": "cm",
-          "item_weight": 150,
-          "item_weight_unit_of_measure": "gram",
-          "sellable": true
-        },
-        {
-          "item_code": "ESCB",
-          "brand_uid": 8028,
           "size": "UK 8",
           "identifiers": [
             {
@@ -1453,6 +1424,35 @@
           "item_width": 10.2,
           "item_length": 26.4,
           "item_height": 30,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 150,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "ESCB",
+          "brand_uid": 8028,
+          "size": "UK 7",
+          "identifiers": [
+            {
+              "gtin_value": "ESCB1",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 1399,
+              "max": 1399
+            },
+            "effective": {
+              "min": 780,
+              "max": 780
+            }
+          },
+          "item_width": 10,
+          "item_length": 24.7,
+          "item_height": 22,
           "item_dimensions_unit_of_measure": "cm",
           "item_weight": 150,
           "item_weight_unit_of_measure": "gram",
@@ -2104,35 +2104,6 @@
         {
           "item_code": "ECSR",
           "brand_uid": 8028,
-          "size": "UK 7",
-          "identifiers": [
-            {
-              "primary": true,
-              "gtin_type": "sku_code",
-              "gtin_value": "ESB1"
-            }
-          ],
-          "price": {
-            "marked": {
-              "min": 1399,
-              "max": 1399
-            },
-            "effective": {
-              "min": 719,
-              "max": 719
-            }
-          },
-          "item_width": 10,
-          "item_length": 24.7,
-          "item_height": 22,
-          "item_dimensions_unit_of_measure": "cm",
-          "item_weight": 150,
-          "item_weight_unit_of_measure": "gram",
-          "sellable": true
-        },
-        {
-          "item_code": "ECSR",
-          "brand_uid": 8028,
           "size": "UK 8",
           "identifiers": [
             {
@@ -2154,6 +2125,35 @@
           "item_width": 10.2,
           "item_length": 26.4,
           "item_height": 30,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 150,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "ECSR",
+          "brand_uid": 8028,
+          "size": "UK 7",
+          "identifiers": [
+            {
+              "primary": true,
+              "gtin_type": "sku_code",
+              "gtin_value": "ESB1"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 1399,
+              "max": 1399
+            },
+            "effective": {
+              "min": 719,
+              "max": 719
+            }
+          },
+          "item_width": 10,
+          "item_length": 24.7,
+          "item_height": 22,
           "item_dimensions_unit_of_measure": "cm",
           "item_weight": 150,
           "item_weight_unit_of_measure": "gram",
@@ -2322,35 +2322,6 @@
         {
           "item_code": "Nike5641",
           "brand_uid": 18,
-          "size": "9",
-          "identifiers": [
-            {
-              "gtin_type": "sku_code",
-              "primary": true,
-              "gtin_value": "5939975472"
-            }
-          ],
-          "price": {
-            "marked": {
-              "min": 11495,
-              "max": 11495
-            },
-            "effective": {
-              "min": 11495,
-              "max": 11495
-            }
-          },
-          "item_width": 10,
-          "item_length": 10,
-          "item_height": 10,
-          "item_dimensions_unit_of_measure": "cm",
-          "item_weight": 100,
-          "item_weight_unit_of_measure": "gram",
-          "sellable": false
-        },
-        {
-          "item_code": "Nike5641",
-          "brand_uid": 18,
           "size": "UK 7",
           "identifiers": [
             {
@@ -2405,6 +2376,35 @@
           "item_weight": 200,
           "item_weight_unit_of_measure": "gram",
           "sellable": true
+        },
+        {
+          "item_code": "Nike5641",
+          "brand_uid": 18,
+          "size": "9",
+          "identifiers": [
+            {
+              "gtin_type": "sku_code",
+              "primary": true,
+              "gtin_value": "5939975472"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 11495,
+              "max": 11495
+            },
+            "effective": {
+              "min": 11495,
+              "max": 11495
+            }
+          },
+          "item_width": 10,
+          "item_length": 10,
+          "item_height": 10,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 100,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": false
         },
         {
           "item_code": "Nike5641",
@@ -2613,35 +2613,6 @@
         {
           "item_code": "PSFB",
           "brand_uid": 18,
-          "size": "UK 8",
-          "identifiers": [
-            {
-              "gtin_value": "PSFB1",
-              "primary": true,
-              "gtin_type": "sku_code"
-            }
-          ],
-          "price": {
-            "marked": {
-              "min": 2149,
-              "max": 2149
-            },
-            "effective": {
-              "min": 1160,
-              "max": 1160
-            }
-          },
-          "item_width": 10.2,
-          "item_length": 26.4,
-          "item_height": 30,
-          "item_dimensions_unit_of_measure": "cm",
-          "item_weight": 200,
-          "item_weight_unit_of_measure": "gram",
-          "sellable": true
-        },
-        {
-          "item_code": "PSFB",
-          "brand_uid": 18,
           "size": "UK 7",
           "identifiers": [
             {
@@ -2663,6 +2634,35 @@
           "item_width": 10,
           "item_length": 24.7,
           "item_height": 22,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 200,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "PSFB",
+          "brand_uid": 18,
+          "size": "UK 8",
+          "identifiers": [
+            {
+              "gtin_value": "PSFB1",
+              "primary": true,
+              "gtin_type": "sku_code"
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 2149,
+              "max": 2149
+            },
+            "effective": {
+              "min": 1160,
+              "max": 1160
+            }
+          },
+          "item_width": 10.2,
+          "item_length": 26.4,
+          "item_height": 30,
           "item_dimensions_unit_of_measure": "cm",
           "item_weight": 200,
           "item_weight_unit_of_measure": "gram",
@@ -2847,35 +2847,6 @@
         {
           "item_code": "NAM2",
           "brand_uid": 18,
-          "size": "UK 7",
-          "identifiers": [
-            {
-              "gtin_value": "NAM-1",
-              "gtin_type": "sku_code",
-              "primary": true
-            }
-          ],
-          "price": {
-            "marked": {
-              "min": 12050,
-              "max": 12050
-            },
-            "effective": {
-              "min": 11495,
-              "max": 11495
-            }
-          },
-          "item_width": 10,
-          "item_length": 24.78,
-          "item_height": 22,
-          "item_dimensions_unit_of_measure": "cm",
-          "item_weight": 290,
-          "item_weight_unit_of_measure": "gram",
-          "sellable": true
-        },
-        {
-          "item_code": "NAM2",
-          "brand_uid": 18,
           "size": "UK 8",
           "identifiers": [
             {
@@ -2897,6 +2868,35 @@
           "item_width": 11,
           "item_length": 25.8,
           "item_height": 25,
+          "item_dimensions_unit_of_measure": "cm",
+          "item_weight": 290,
+          "item_weight_unit_of_measure": "gram",
+          "sellable": true
+        },
+        {
+          "item_code": "NAM2",
+          "brand_uid": 18,
+          "size": "UK 7",
+          "identifiers": [
+            {
+              "gtin_value": "NAM-1",
+              "gtin_type": "sku_code",
+              "primary": true
+            }
+          ],
+          "price": {
+            "marked": {
+              "min": 12050,
+              "max": 12050
+            },
+            "effective": {
+              "min": 11495,
+              "max": 11495
+            }
+          },
+          "item_width": 10,
+          "item_length": 24.78,
+          "item_height": 22,
           "item_dimensions_unit_of_measure": "cm",
           "item_weight": 290,
           "item_weight_unit_of_measure": "gram",
@@ -2983,5 +2983,6 @@
         "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/Owwj7MMf3-Nike-Air-Max-270.webp"
       ]
     }
-  ]
+  ],
+  "application_id": "672ddc7346bed2c768faf043"
 }
