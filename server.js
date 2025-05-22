@@ -15,7 +15,7 @@ dayjs.extend(timezone);
 
 // Importing routes
 const scanRoutes = require('./src/routes/scanRoutes');
-const appRoutes = express.Router();
+const applicationRoutes = require('./src/routes/applicationRoutes');
 
 /**
  * * Static path for serving frontend files
@@ -52,32 +52,13 @@ app.use(async (req, res, next) => {
   }
 });
 
-appRoutes.get('/', async (req, res) => {
-  try {
-    const { platformClient } = req;
-    const { company_id } = req.query;
-    console.log('birju');
-    // Validate company_id
-    if (!company_id) {
-      return res.status(400).json({ error: 'Missing company_id in query' });
-    }
-
-    // Use the correct method to get all applications
-    const response = platformClient.application(company_id).getApplications();
-    console.log('Response:', response);
-    res.status(200).json(response);
-  } catch (error) {
-    console.error('Error fetching applications:', error);
-    res.status(500).json({ error: 'Failed to fetch applications' });
-  }
-});
-
 // API Routes Setup
 const platformApiRoutes = fdkExtension.platformApiRoutes;
 
 // Scan API routes
 platformApiRoutes.use('/scan', scanRoutes);
-platformApiRoutes.use('/app', appRoutes);
+// Application API routes
+platformApiRoutes.use('/application', applicationRoutes);
 
 // If you are adding routes outside of the /api path,
 // remember to also add a proxy rule for them in /frontend/vite.config.js

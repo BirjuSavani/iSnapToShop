@@ -12,9 +12,6 @@ class AIService {
   constructor(options = {}) {
     this.baseUrl = process.env.AI_SERVICE_URL || 'http://localhost:5000';
     this.apiKey = process.env.AI_SERVICE_KEY;
-    // this.isIndexed = false;
-    console.log(process.env.AI_SERVICE_KEY);
-    console.log(`AIService initialized with baseUrl: ${this.baseUrl}`);
   }
 
   /**
@@ -63,8 +60,8 @@ class AIService {
         }
       );
 
-      // this.isIndexed = true;
       console.log(`Indexing successful. Indexed ${products.length} products`);
+
       return data;
     } catch (error) {
       console.error(`Product indexing failed: ${error.message}`, {

@@ -48,15 +48,12 @@ exports.indexSingleProduct = async (req, res) => {
     const { company_id } = req;
     const { productId } = req.params;
 
-    // logger.info(`Indexing single product ${productId} for company ${company_id}`);
-
     // Fetch the product details
     const product = await platformClient.catalog.getProductById({
       id: productId,
     });
 
     if (!product) {
-      // logger.warn(`Product not found: ${productId}`);
       return res.status(404).json({
         success: false,
         error: 'Product not found',
@@ -71,10 +68,6 @@ exports.indexSingleProduct = async (req, res) => {
       result,
     });
   } catch (error) {
-    // logger.error(`Single product indexing failed: ${error.message}`, {
-    //   error: error.stack,
-    //   productId: req.params.productId,
-    // });
     return res.status(500).json({
       success: false,
       error: error.message,
