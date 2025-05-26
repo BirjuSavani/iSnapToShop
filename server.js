@@ -44,7 +44,7 @@ app.options('*', cors('*'));
 app.use(async (req, res, next) => {
   try {
     // Set platform client in request object
-    const ptClient = await getPlatformClientAsync();
+    const ptClient = await getPlatformClientAsync(req.query.company_id);
     req.platformClient = ptClient;
     next();
   } catch (error) {

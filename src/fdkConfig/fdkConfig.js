@@ -34,11 +34,9 @@ const fdkExtension = setupFdk({
     api_path: '/api/webhook-events',
     notification_email: 'useremail@example.com',
     event_map: {
-      'company/product/delete': {
-        handler: eventName => {
-          // no logging
-        },
-        version: '1',
+      'company/product/create': {
+        handler: handleProductCreateV3,
+        version: '3',
       },
     },
   },
@@ -50,9 +48,36 @@ console.log(
 
 const extensionId = fdkExtension.extension.api_key;
 
-const getPlatformClientAsync = async function () {
-  const ptClient = await fdkExtension.getPlatformClient('9095');
+const getPlatformClientAsync = async function (company_id) {
+  const ptClient = await fdkExtension.getPlatformClient("9095");
   return ptClient;
 };
+
+async function handleProductCreateV3(event_name, company_id, application_id, payload) {
+  try {
+    console.log(`Received ${event_name} webhook for company ${company_id}`);
+
+    // // Destructure the payload according to the documentation
+    // const { contains, event, payload: productData } = payload;
+
+    // console.log('Contains keys:', contains);
+    // console.log('Event details:', event);
+    // console.log('Product data:', productData);
+
+    // // Example: Accessing product information
+    // if (productData) {
+    //   console.log('Product ID:', productData.uid || productData.id);
+    //   console.log('Product Name:', productData.name);
+    //   console.log('Brand:', productData.brand);
+    //   // Add more fields as needed
+    // }
+
+    // Add your business logic here
+    // Example: Process the product data, update database, trigger other services, etc.
+  } catch (error) {
+    console.error('Error handling product create webhook:', error);
+    // Implement your error handling logic
+  }
+}
 
 module.exports = { fdkExtension, extensionId, getPlatformClientAsync };
