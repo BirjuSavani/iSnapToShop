@@ -1,5 +1,6 @@
 const axios = require('axios');
 const FormData = require('form-data');
+const fs = require('fs');
 
 class AIService {
   /**
@@ -48,7 +49,10 @@ class AIService {
   async indexProducts(products, companyId, applicationId) {
     try {
       console.log(`Indexing ${products.length} products for company ${companyId}`);
-      
+      // fs.writeFileSync(
+      //   'products.json',
+      //   JSON.stringify({ products: products, application_id: applicationId }, null, 2)
+      // );
       const { data } = await axios.post(
         `${this.baseUrl}/embeddings_store`,
         { products: products, application_id: applicationId },
@@ -99,7 +103,7 @@ class AIService {
           'Content-Type': 'multipart/form-data',
         },
       });
-
+      // console.log(data);
       clearTimeout(timeout);
       return { matches: data, metadata: {} };
     } catch (error) {

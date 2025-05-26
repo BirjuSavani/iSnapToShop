@@ -3,6 +3,7 @@ const axios = require('axios');
 // Get all applications
 exports.getAllApplications = async (req, res, next) => {
   try {
+    console.log('Fetching all applications');
     const { platformClient } = req;
     const { company_id } = req.query;
 

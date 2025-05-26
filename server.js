@@ -16,6 +16,7 @@ dayjs.extend(timezone);
 // Importing routes
 const scanRoutes = require('./src/routes/scanRoutes');
 const applicationRoutes = require('./src/routes/applicationRoutes');
+const proxyRoutes = require('./src/routes/proxyRoutes');
 
 /**
  * * Static path for serving frontend files
@@ -55,14 +56,21 @@ app.use(async (req, res, next) => {
 // API Routes Setup
 const platformApiRoutes = fdkExtension.platformApiRoutes;
 
+const applicationProxyRoutes = fdkExtension.applicationProxyRoutes;
+
 // Scan API routes
 platformApiRoutes.use('/scan', scanRoutes);
 // Application API routes
 platformApiRoutes.use('/application', applicationRoutes);
+platformApiRoutes.use('/proxy-path', proxyRoutes);
+
+applicationProxyRoutes.use('/proxy/scan', scanRoutes);
 
 // If you are adding routes outside of the /api path,
 // remember to also add a proxy rule for them in /frontend/vite.config.js
-app.use('/api', platformApiRoutes);
+app.use('/api/platform', platformApiRoutes);
+
+app.use('/api', applicationProxyRoutes);
 
 // FDK extension handler and API routes (extension launch routes)
 app.use('/', fdkExtension.fdkHandler);

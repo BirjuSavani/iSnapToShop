@@ -7,6 +7,8 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 router.post('/init-index', scanController.initProductIndexing);
 
+router.get('/index-status', scanController.getIndexStatus);
+
 router.post('/index-product/:productId', scanController.indexSingleProduct);
 
 router.post('/search-by-image', upload.single('image'), scanController.searchByImage);

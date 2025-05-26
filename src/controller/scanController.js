@@ -1,6 +1,7 @@
 const { AIService } = require('../services/aiServices');
 const aiService = new AIService();
 const NodeCache = require('node-cache');
+const { setStatus, getStatus } = require('./indexStatusStore');
 
 /**
  * Product Indexing Endpoint
@@ -24,11 +25,21 @@ exports.initProductIndexing = async (req, res) => {
       return res.status(400).json({ error: 'No products found to index' });
     }
 
-    const result = aiService.indexProducts(products, company_id, application_id);
+    aiService
+      .indexProducts(products, company_id, application_id)
+      .then(() => {
+        setStatus(application_id, 'completed');
+        console.log('Indexing completed successfully');
+      })
+      .catch(() => {
+        console.error('Indexing failed');
+        setStatus(application_id, 'failed');
+      });
 
     return res.json({
+      // status: "",
       success: true,
-      message: `Successfully indexed ${result.indexedCount} products`,
+      message: 'Indexing started in background',
     });
   } catch (error) {
     return res.status(500).json({
@@ -36,6 +47,13 @@ exports.initProductIndexing = async (req, res) => {
       error: error.message,
     });
   }
+};
+
+exports.getIndexStatus = async (req, res) => {
+  const { application_id } = req.query;
+  const status = getStatus(application_id);
+  console.log('Index status:', status);
+  return res.json({ status });
 };
 
 /**
@@ -166,7 +184,7 @@ exports.searchByImage = async (req, res) => {
     const cacheKey = `app-products-${application_id}`;
 
     // Step 2: Parallel: AI search + Product fetch (with cache)
-    const aiPromise = aiService.searchByImage(req.file.buffer, company_id);
+    const aiPromise = await aiService.searchByImage(req.file.buffer, company_id);
     const productsPromise = (async () => {
       let cachedProducts = productCache.get(cacheKey);
       if (cachedProducts) {
