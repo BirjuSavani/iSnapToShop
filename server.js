@@ -15,7 +15,6 @@ dayjs.extend(timezone);
 
 // Importing routes
 const scanRoutes = require('./src/routes/scanRoutes');
-const applicationRoutes = require('./src/routes/applicationRoutes');
 const proxyRoutes = require('./src/routes/proxyRoutes');
 
 /**
@@ -61,7 +60,6 @@ const applicationProxyRoutes = fdkExtension.applicationProxyRoutes;
 // Scan API routes
 platformApiRoutes.use('/scan', scanRoutes);
 // Application API routes
-platformApiRoutes.use('/application', applicationRoutes);
 platformApiRoutes.use('/proxy-path', proxyRoutes);
 
 applicationProxyRoutes.use('/proxy/scan', scanRoutes);

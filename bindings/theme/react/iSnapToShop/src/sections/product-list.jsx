@@ -339,6 +339,7 @@ export function Component({ props }) {
     const productSlug =
       product.slug || product.id || product.name.toLowerCase().replace(/\s+/g, '-');
     window.location.href = `/product/${productSlug}`;
+    window.open(window.location.href, '_blank');
   };
 
   const openProductListPopup = () => {
@@ -362,6 +363,13 @@ export function Component({ props }) {
   const CameraIcon = () => (
     <svg style={styles.cameraIcon} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
       <path d='M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z' />
+    </svg>
+  );
+
+  const FolderIcon = () => (
+    <svg style={styles.cameraIcon} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>  
+      <path d='M464 128H352V16c0-8.8-7.2-16-16-16H176c-8.8 0-16 7.2-16 16v112H48c-26.5 0-48 21.5-48 48v320c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V176c0-26.5-21.5-48-48-48zM176 32h128v96H176V32zm240 448H96V192h320v288z' />
+      <path d='M256 192a64 64 0 1 0 0 128 64 64 0 1 0 0-128zm0 96a32 32 0 1 1 0-64 32 32 0 1 1 0 64z' />
     </svg>
   );
 
@@ -405,7 +413,7 @@ export function Component({ props }) {
         {isMobile ? (
           <div style={styles.mobileButtonContainer}>
             <label htmlFor='imageCaptureUpload'>
-              <CameraIcon />
+              <CameraIcon /> Capture Image
             </label>
             <input
               id='imageCaptureUpload'
@@ -417,7 +425,8 @@ export function Component({ props }) {
             />
 
             <label htmlFor='imageFileUpload'>
-              <CameraIcon />
+              {/* <CameraIcon /> */}
+              <FolderIcon /> Upload Image
             </label>
             <input
               id='imageFileUpload'
@@ -452,9 +461,7 @@ export function Component({ props }) {
         </div>
       )}
       {loading ? (
-        <>
-          {/* <p style={styles.loadingText}>Finding perfect matches for you</p> */}
-        </>
+        <>{/* <p style={styles.loadingText}>Finding perfect matches for you</p> */}</>
       ) : (
         <div>
           {productFilterList.length === 0 && selectedImage && (

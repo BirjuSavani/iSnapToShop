@@ -1,6 +1,7 @@
 const { setupFdk } = require('@gofynd/fdk-extension-javascript/express');
 const { SQLiteStorage } = require('@gofynd/fdk-extension-javascript/express/storage');
 const sqlite3 = require('sqlite3').verbose();
+const fs = require('fs');
 
 const sqliteInstance = new sqlite3.Database('session_storage.db');
 
@@ -38,6 +39,10 @@ const fdkExtension = setupFdk({
         handler: handleProductCreateV3,
         version: '3',
       },
+      'company/product/update': {
+        handler: handleProductUpdateV3,
+        version: '3',
+      },
     },
   },
 });
@@ -49,35 +54,160 @@ console.log(
 const extensionId = fdkExtension.extension.api_key;
 
 const getPlatformClientAsync = async function (company_id) {
-  const ptClient = await fdkExtension.getPlatformClient("9095");
+  const ptClient = await fdkExtension.getPlatformClient('9095');
   return ptClient;
 };
 
+// async function handleProductCreateV3(event_name, company_id, application_id, payload) {
+//   try {
+//     // Improved logging with JSON.stringify for objects
+//     console.log(
+//       `Received ${event_name} webhook for company ${company_id} application ${application_id}`
+//     );
+//     console.log('Product Create V3 payload:', JSON.stringify(payload, null, 2)); // Pretty-print the payload
+
+//     // Alternative logging that handles circular references (common in webhook payloads)
+//     console.log({
+//       event: event_name,
+//       companyId: company_id,
+//       applicationId: application_id,
+//       payload: companyId.payload.product, // Let console.log handle the object display
+//     });
+
+//     // If you want to inspect specific parts of the payload:
+//     if (payload) {
+//       console.log('Payload contains keys:', Object.keys(payload));
+
+//       // Destructure the payload according to the documentation
+//       const { contains, event, payload: productData } = payload;
+
+//       console.log('Contains:', contains);
+//       console.log('Event details:', event);
+//       console.log('Product data:', productData);
+
+//       if (productData) {
+//         console.log('Product ID:', productData.uid || productData.id);
+//         console.log('Product Name:', productData.name);
+//         console.log('Brand:', productData.brand?.name || productData.brand);
+//       }
+//     }
+
+//     // Add your business logic here
+//   } catch (error) {
+//     console.error('Error handling product create webhook:', error);
+//     // Implement your error handling logic
+//   }
+// }
+
 async function handleProductCreateV3(event_name, company_id, application_id, payload) {
   try {
-    console.log(`Received ${event_name} webhook for company ${company_id}`);
+    const actualCompanyId = company_id.company_id;
+    const productData = company_id.payload?.product;
 
-    // // Destructure the payload according to the documentation
-    // const { contains, event, payload: productData } = payload;
+    // Improved logging
+    console.log(
+      `Received ${event_name} webhook for company ${actualCompanyId} application ${application_id}`
+    );
 
-    // console.log('Contains keys:', contains);
-    // console.log('Event details:', event);
-    // console.log('Product data:', productData);
+    // Log the complete structure for debugging
+    console.log(
+      'Full webhook structure:',
+      JSON.stringify(
+        {
+          event: event_name,
+          companyData: company_id,
+          applicationId: application_id,
+          payload: payload, // This appears to be undefined in your case
+        },
+        null,
+        2
+      )
+    );
 
-    // // Example: Accessing product information
-    // if (productData) {
-    //   console.log('Product ID:', productData.uid || productData.id);
-    //   console.log('Product Name:', productData.name);
-    //   console.log('Brand:', productData.brand);
-    //   // Add more fields as needed
-    // }
+    // Directly access the product data
+    if (productData) {
+      fs.writeFileSync('products.json', JSON.stringify({ products: productData }, null, 2));
 
-    // Add your business logic here
-    // Example: Process the product data, update database, trigger other services, etc.
+      console.log('Product payload:', JSON.stringify(productData, null, 2));
+
+      // Example of accessing product fields
+      // console.log('Product details:', {
+      //   id: productData.uid || productData.id,
+      //   name: productData.name,
+      //   brand: productData.brand?.name || productData.brand,
+      //   // Add other fields you need
+      // });
+
+      // Your business logic here using productData
+      // Example:
+      // await processNewProduct({
+      //   companyId: actualCompanyId,
+      //   applicationId: application_id,
+      //   product: productData
+      // });
+    } else {
+      console.warn('No product data found in webhook payload');
+    }
   } catch (error) {
-    console.error('Error handling product create webhook:', error);
-    // Implement your error handling logic
+    console.error('Error handling product create webhook:', {
+      message: error.message,
+      stack: error.stack,
+      event: event_name,
+      companyData: company_id,
+      applicationId: application_id,
+    });
   }
 }
+
+async function handleProductUpdateV3(event_name, company_id, application_id, payload) {
+  try {
+    const actualCompanyId = company_id.company_id;
+    const productData = company_id.payload?.product;
+
+    console.log(
+      `Received ${event_name} webhook for company ${actualCompanyId} application ${application_id}`
+    );
+
+    // Log the complete structure for debugging
+    console.log(
+      'Full update webhook structure:',
+      JSON.stringify(
+        {
+          event: event_name,
+          companyData: company_id,
+          applicationId: application_id,
+          payload: payload,
+        },
+        null,
+        2
+      )
+    );
+
+    // Directly access the product data
+    if (productData) {
+      fs.writeFileSync('products-update.json', JSON.stringify({ products: productData }, null, 2));
+      console.log('Product update payload:', JSON.stringify(productData, null, 2));
+
+      // Example of accessing updated fields
+      console.log('Updated product details:', {
+        id: productData.uid || productData.id,
+        name: productData.name,
+        brand: productData.brand?.name || productData.brand,
+        updated_at: productData.updated_at || productData.modified_on,
+      });
+    } else {
+      console.warn('No product data found in update webhook payload');
+    }
+  } catch (error) {
+    console.error('Error handling product update webhook:', {
+      message: error.message,
+      stack: error.stack,
+      event: event_name,
+      companyData: company_id,
+      applicationId: application_id,
+    });
+  }
+}
+
 
 module.exports = { fdkExtension, extensionId, getPlatformClientAsync };
