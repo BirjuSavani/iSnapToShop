@@ -1,230 +1,169 @@
 const { AIService } = require('../services/aiServices');
-const aiService = new AIService();
 const NodeCache = require('node-cache');
 const { setStatus, getStatus } = require('./indexStatusStore');
+const { logger } = require('../utils/logger');
+
+const CACHE_TTL = 1800; // 30 minutes
+const productCache = new NodeCache({ stdTTL: CACHE_TTL });
+const aiService = new AIService();
 
 /**
- * Product Indexing Endpoint
- * Indexes all products for a company
+ * Fetches all products with pagination support.
+ */
+const fetchProducts = async (platformClient, applicationId) => {
+  const pageSize = 50;
+  let pageNo = 1;
+  let allProducts = [];
+
+  const fetchPage = async page => {
+    return applicationId
+      ? await platformClient
+          .application(applicationId)
+          .catalog.getAppProducts({ pageNo: page, pageSize })
+      : await platformClient.catalog.getProducts({ pageNo: page, pageSize });
+  };
+
+  const firstResponse = await fetchPage(pageNo);
+  const totalPages = firstResponse?.page?.totalPages || 1;
+  allProducts.push(...(firstResponse.items || []));
+
+  for (let i = 2; i <= totalPages; i++) {
+    const response = await fetchPage(i);
+    allProducts.push(...(response.items || []));
+  }
+
+  return allProducts;
+};
+
+/**
+ * @desc Starts indexing all products asynchronously.
  */
 exports.initProductIndexing = async (req, res) => {
+  const { platformClient } = req;
+  const { company_id, application_id } = req.query;
+
   try {
-    const { platformClient } = req;
-    const { company_id, application_id } = req.query;
+    const products = await fetchProducts(platformClient, application_id);
 
-    let products = [];
-    if (application_id) {
-      const response = await platformClient.application(application_id).catalog.getAppProducts();
-      products = response.items || [];
-    } else {
-      const response = await platformClient.catalog.getProducts();
-      products = response.items || [];
-    }
-
-    if (products.length === 0) {
+    if (!products.length) {
+      logger.warn('No products found to index', { application_id, company_id });
       return res.status(400).json({ error: 'No products found to index' });
     }
+
+    setStatus(application_id, 'in-progress');
 
     aiService
       .indexProducts(products, company_id, application_id)
       .then(() => {
         setStatus(application_id, 'completed');
-        console.log('Indexing completed successfully');
+        logger.info('Indexing completed', { application_id, company_id });
       })
-      .catch(() => {
-        console.error('Indexing failed');
+      .catch(err => {
         setStatus(application_id, 'failed');
+        logger.error('Indexing failed', { error: err, application_id, company_id });
       });
 
-    return res.json({
-      // status: "",
-      success: true,
-      message: 'Indexing started in background',
+    logger.info('Indexing started in background', {
+      productCount: products.length,
+      application_id,
+      company_id,
     });
+
+    res.json({ success: true, message: 'Indexing started in background' });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      error: error.message,
-    });
+    logger.error('Error in initProductIndexing', { error, application_id, company_id });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
-exports.getIndexStatus = async (req, res) => {
-  const { application_id } = req.query;
-  const status = getStatus(application_id);
-  console.log('Index status:', status);
-  return res.json({ status });
+/**
+ * @desc Returns indexing status.
+ */
+exports.getIndexStatus = (req, res) => {
+  const status = getStatus(req.query.application_id);
+  logger.info('Fetched index status', { application_id: req.query.application_id, status });
+  res.json({ status });
 };
 
 /**
- * Index Single Product Endpoint
- * Indexes a specific product by ID
+ * @desc Indexes a single product by ID or slug.
  */
-exports.indexSingleProduct = async (req, res) => {
+exports.indexSingleProduct = async (productData, companyId, platformClient) => {
   try {
-    const { platformClient } = req;
-    const { company_id } = req;
-    const { productId } = req.params;
+    const id = productData.slug || productData.id;
+    if (!id) throw new Error('Product ID or slug is required');
 
-    // Fetch the product details
-    const product = await platformClient.catalog.getProductById({
-      id: productId,
-    });
+    const product = await platformClient.catalog.getProduct({ id });
+    if (!product) throw new Error('Product not found');
 
-    if (!product) {
-      return res.status(404).json({
-        success: false,
-        error: 'Product not found',
-      });
-    }
+    await aiService.indexSingleProduct(product, companyId);
 
-    const result = await aiService.indexSingleProduct(product, company_id);
-
-    return res.json({
-      success: true,
-      productId,
-      result,
-    });
+    logger.info('Single product indexed', { id, companyId });
+    return { success: true, result: { products: product } };
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      error: error.message,
-    });
+    logger.error('Error indexing single product', { error, companyId });
+    throw error;
   }
 };
 
 /**
- * Image Search Endpoint
- * Searches for products using an uploaded image
+ * @desc Search for products using uploaded image.
+ * configuration.config.companyId
  */
-// exports.searchByImage = async (req, res) => {
-//   try {
-//     if (!req.file) {
-//       return res.status(400).json({ error: 'No image uploaded' });
-//     }
-
-//     const { platformClient } = req;
-//     const { company_id, application_id } = req.query;
-
-//     console.time('total');
-
-//     // Step 1: Parallel AI call and product fetch
-//     const aiPromise = aiService.searchByImage(req.file.buffer, company_id);
-//     const productsPromise = platformClient.application(application_id).catalog.getAppProducts();
-
-//     const [aiResult, response] = await Promise.all([aiPromise, productsPromise]);
-//     const { matches, metadata } = aiResult;
-
-//     if (!matches || matches.length === 0) {
-//       return res.json({ success: true, results: [], metadata });
-//     }
-
-//     const allProducts = response?.items || [];
-
-//     // Step 2: Build product map
-//     const productMap = new Map();
-//     for (const product of allProducts) {
-//       if (product.slug) {
-//         productMap.set(product.slug, product);
-//       }
-//     }
-
-//     // Step 3: Enrich and deduplicate results
-//     const seenSlugs = new Set();
-//     const enrichedResults = [];
-
-//     for (const match of matches) {
-//       if (seenSlugs.has(match.slug)) continue;
-//       seenSlugs.add(match.slug);
-
-//       const product = productMap.get(match.slug);
-//       if (!product) continue;
-
-//       enrichedResults.push({
-//         name: match.name || product.name,
-//         slug: match.slug,
-//         image: match.image,
-//         text: match.text,
-//         description: product.description || '',
-//         short_description: product.short_description || '',
-//         category: product.category_slug || '',
-//         media: product.media || [],
-//         sizes: (product.all_sizes || []).map(size => ({
-//           size: size.size,
-//           price: {
-//             marked: size.price?.marked || {},
-//             effective: size.price?.effective || {},
-//           },
-//           sellable: size.sellable,
-//         })),
-//       });
-//     }
-
-//     console.timeEnd('total');
-
-//     return res.json({ success: true, results: enrichedResults, metadata });
-//   } catch (error) {
-//     console.error('Error in image search:', error);
-//     return res.status(500).json({ success: false, error: error.message });
-//   }
-// };
-
-const productCache = new NodeCache({ stdTTL: 1800 }); // cache TTL: 30 minutes
-
 exports.searchByImage = async (req, res) => {
+  const { platformClient } = req;
+  const { application_id } = req.query;
+  const company_id = platformClient.configuration.config.companyId;
+  // const cacheKey = `app-products-${company_id}`;
+
   try {
     if (!req.file) {
+      logger.warn('No image uploaded for search');
       return res.status(400).json({ error: 'No image uploaded' });
     }
 
-    const { platformClient } = req;
-    const { company_id, application_id } = req.query;
+    logger.info('Received image search request', { company_id, application_id });
 
-    // Step 1: Prepare cache key
-    const cacheKey = `app-products-${application_id}`;
+    const [aiResult, allProducts] = await Promise.all([
+      aiService.searchByImage(req.file.buffer, company_id),
+      (async () => {
+        // const cached = productCache.get(cacheKey);
+        // if (cached) {
+        //   logger.debug('Using cached product list', { company_id });
+        //   return cached;
+        // }
 
-    // Step 2: Parallel: AI search + Product fetch (with cache)
-    const aiPromise = await aiService.searchByImage(req.file.buffer, company_id);
-    const productsPromise = (async () => {
-      let cachedProducts = productCache.get(cacheKey);
-      if (cachedProducts) {
-        return cachedProducts;
-      }
-      const response = await platformClient.application(application_id).catalog.getAppProducts();
-      const items = response?.items || [];
-      productCache.set(cacheKey, items);
-      return items;
-    })();
+        const items = await fetchProducts(platformClient, application_id);
+        // productCache.set(cacheKey, items);
+        return items;
+      })(),
+    ]);
 
-    const [aiResult, allProducts] = await Promise.all([aiPromise, productsPromise]);
-    const { matches, metadata } = aiResult;
+    // console.log(allProducts,'allProduct');
 
-    if (!matches || matches.length === 0) {
+    const { matches = [], metadata } = aiResult;
+    if (!matches.length) {
+      logger.info('No matches found', { application_id });
       return res.json({ success: true, results: [], metadata });
     }
 
-    // Step 3: Build product map
-    const productMap = new Map();
-    for (const product of allProducts) {
-      if (product.slug) {
-        productMap.set(product.slug, product);
-      }
-    }
-
-    // Step 4: Enrich and deduplicate results
-    const seenSlugs = new Set();
+    const productMap = new Map(allProducts.map(p => [p.slug, p]));
+    // console.log(productMap,'map');
     const enrichedResults = [];
 
+    const seenSlugs = new Set();
     for (const match of matches) {
-      if (seenSlugs.has(match.slug)) continue;
-      seenSlugs.add(match.slug);
+      const slug = match.slug;
+      if (!slug || seenSlugs.has(slug)) continue;
 
-      const product = productMap.get(match.slug);
+      const product = productMap.get(slug);
       if (!product) continue;
+
+      seenSlugs.add(slug);
 
       enrichedResults.push({
         name: match.name || product.name,
-        slug: match.slug,
+        slug,
         image: match.image,
         text: match.text,
         description: product.description || '',
@@ -242,10 +181,11 @@ exports.searchByImage = async (req, res) => {
       });
     }
 
-    return res.json({ success: true, results: enrichedResults, metadata });
+    logger.info('Returning image search results', { count: enrichedResults.length });
+    res.json({ success: true, results: enrichedResults, metadata });
   } catch (error) {
-    console.error('Error in image search:', error);
-    return res.status(500).json({ success: false, error: error.message });
+    logger.error('Error in searchByImage', { error, company_id, application_id });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
@@ -256,21 +196,22 @@ exports.searchByImage = async (req, res) => {
 //     }
 
 //     const { platformClient } = req;
-//     const { company_id, application_id } = req.query;
+//     const { application_id } = req.query;
+//     const company_id = platformClient.configuration.config.companyId;
 
-//     const cacheKey = `app-products:${application_id}`;
+//     // Step 1: Prepare cache key
+//     const cacheKey = `app-products-${company_id}`;
 
-//     // Step 1: Parallel image AI + product cache
-//     const aiPromise = aiService.searchByImage(req.file.buffer, company_id);
+//     // Step 2: Parallel: AI search + Product fetch (with cache)
+//     const aiPromise = await aiService.searchByImage(req.file.buffer, company_id);
 //     const productsPromise = (async () => {
-//       const cached = await redis.get(cacheKey);
-//       if (cached) {
-//         return JSON.parse(cached);
+//       let cachedProducts = productCache.get(cacheKey);
+//       if (cachedProducts) {
+//         return cachedProducts;
 //       }
-
 //       const response = await platformClient.application(application_id).catalog.getAppProducts();
 //       const items = response?.items || [];
-//       await redis.set(cacheKey, JSON.stringify(items), 'EX', 1800); // TTL: 30 mins
+//       productCache.set(cacheKey, items);
 //       return items;
 //     })();
 
@@ -281,7 +222,7 @@ exports.searchByImage = async (req, res) => {
 //       return res.json({ success: true, results: [], metadata });
 //     }
 
-//     // Step 2: Build product map
+//     // Step 3: Build product map
 //     const productMap = new Map();
 //     for (const product of allProducts) {
 //       if (product.slug) {
@@ -289,7 +230,7 @@ exports.searchByImage = async (req, res) => {
 //       }
 //     }
 
-//     // Step 3: Enrich results
+//     // Step 4: Enrich and deduplicate results
 //     const seenSlugs = new Set();
 //     const enrichedResults = [];
 
@@ -328,53 +269,44 @@ exports.searchByImage = async (req, res) => {
 // };
 
 /**
- * System Status Endpoint
- * Returns the current status of the AI service
+ * @desc Check system and AI service health status.
  */
 exports.checkSystemStatus = async (req, res) => {
   try {
-    const health = aiService.checkHealth();
-
-    return res.json({
+    const health = await aiService.checkHealth();
+    logger.info('System health checked', { health });
+    res.json({
       success: true,
       aiService: health,
       isIndexed: aiService.isIndexed,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      error: error.message,
-    });
+    logger.error('Error checking system status', { error });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
 /**
- * Remove Index Endpoint
- * Removes the index for a specific application
+ * @desc Remove the existing product index.
  */
 exports.removeIndex = async (req, res) => {
+  const { company_id, application_id } = req.query;
+
+  if (!company_id || !application_id) {
+    logger.warn('Missing identifiers for removeIndex');
+    return res.status(400).json({ error: 'Company ID and Application ID are required' });
+  }
+
   try {
-    const { platformClient } = req;
-    const { company_id, application_id } = req.query;
-
-    if (!company_id) {
-      return res.status(400).json({ error: 'Company ID is required' });
-    }
-
-    if (!application_id) {
-      return res.status(400).json({ error: 'Application ID is required' });
-    }
-
     await aiService.removeIndex(application_id);
+    logger.info('Index removed', { company_id, application_id });
 
-    return res.json({
+    res.json({
       success: true,
-      message: `Successfully removed index for company ${company_id} and application ${application_id}`,
+      message: `Index removed for company ${company_id}, application ${application_id}`,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      error: error.message,
-    });
+    logger.error('Error in removeIndex', { error, company_id, application_id });
+    res.status(500).json({ success: false, error: error.message });
   }
 };

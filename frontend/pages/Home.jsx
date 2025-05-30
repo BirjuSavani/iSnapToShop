@@ -14,6 +14,7 @@ const UPDATE_STATUS_API_URL =
   'https://asia-south1.workflow.boltic.app/86be8314-f7af-44f1-919f-2b10a413bf48';
 
 export const Home = () => {
+  const [showPopup, setShowPopup] = useState(false);
   const [state, setState] = useState({
     isLoading: false,
     searchResults: [],
@@ -28,6 +29,18 @@ export const Home = () => {
 
   const fileInputRef = useRef(null);
   const { application_id, company_id } = useParams();
+
+  // useEffect(() => {
+  //   setShowPopup(true);
+  // }, []);
+
+  useEffect(() => {
+    if (!state.apiStatusLoading && !state.isActive) {
+      setShowPopup(true);
+    } else {
+      setShowPopup(false);
+    }
+  }, [state.apiStatusLoading, state.isActive]);
 
   // Fetch initial status from both localStorage and API
   useEffect(() => {
@@ -189,6 +202,7 @@ export const Home = () => {
           isInitializing: false,
           error: null,
           previewImage: null,
+          searchResults: [],
         }));
       } else {
         // Activating (start init-index)
@@ -228,6 +242,7 @@ export const Home = () => {
           isActive: true,
           isInitializing: false,
           error: null,
+          searchResults: [],
         }));
       }
     } catch (error) {
@@ -318,6 +333,12 @@ export const Home = () => {
     return profileImg?.url || DEFAULT_NO_IMAGE;
   };
 
+  const status = isActive
+    ? { text: 'Active', className: 'active' }
+    : isInitializing || apiStatusLoading
+    ? { text: 'Activating...', className: 'activating' }
+    : { text: 'Inactive', className: 'inactive' };
+
   return (
     <div className='scan-container'>
       <header className='app-header'>
@@ -331,7 +352,17 @@ export const Home = () => {
             <h3>System Controls</h3>
             <div className='toggle-container'>
               <label className='toggle-label'>
-                <span className='status-label'>Product Index Status:</span>
+                <span className='status-label'>
+                  Product Index Status:
+                  <span
+                    className='info-tooltip'
+                    data-tooltip='Product Index Status determines if the system will process uploaded product images. Turn it off to disable analysis.'
+                  >
+                    <svg className='info-icon' viewBox='0 0 24 24'>
+                      <path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z' />
+                    </svg>
+                  </span>
+                </span>
                 <div className='toggle-switch'>
                   <input
                     type='checkbox'
@@ -341,8 +372,8 @@ export const Home = () => {
                   />
                   <span className='slider round'></span>
                 </div>
-                <span className={`toggle-status ${isActive ? 'active' : 'inactive'}`}>
-                  {isActive ? 'Active' : 'Inactive'}
+                <span className={`toggle-status ${status.className}`}>
+                  {status.text}
                   {(isInitializing || apiStatusLoading) && <span className='loading-dots'></span>}
                 </span>
               </label>
@@ -463,6 +494,30 @@ export const Home = () => {
           )
         )}
       </div>
+      {showPopup && (
+        <div className='popup-overlay'>
+          <div className='popup-box'>
+            <h2 style={{ color: '#010228' }}>Welcome to iSnapToShop!</h2>
+            <p className='popup-message'>
+              Please ensure <span className='highlight'>product indexing is active</span>
+              <span
+                className='toggle-switch animated-toggle'
+                aria-label='Active toggle'
+                role='switch'
+                aria-checked='true'
+              >
+                <span className='toggle-track'>
+                  <span className='toggle-thumb' />
+                </span>
+              </span>{' '}
+              before uploading an image.
+            </p>
+            <button onClick={() => setShowPopup(false)} className='popup-close-button'>
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

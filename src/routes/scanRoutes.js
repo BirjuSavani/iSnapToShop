@@ -1,24 +1,73 @@
 const express = require('express');
-const router = express.Router();
-const scanController = require('../controller/scanController');
 const multer = require('multer');
+const scanController = require('../controller/scanController');
+const { asyncHandler } = require('../utils/asyncHandler');
 
-const upload = multer({ storage: multer.memoryStorage() });
+const router = express.Router();
 
-router.post('/init-index', scanController.initProductIndexing);
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 }, // Max 5MB
+  fileFilter: (req, file, cb) => {
+    if (!file.mimetype.startsWith('image/')) {
+      return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+  },
+});
 
-router.get('/index-status', scanController.getIndexStatus);
+/**
+ * @route POST /init-index
+ * @desc Initialize full product indexing
+ */
+router.post('/init-index', asyncHandler(scanController.initProductIndexing));
 
-router.post('/index-product/:productId', scanController.indexSingleProduct);
+/**
+ * @route GET /index-status
+ * @desc Get indexing status and progress
+ */
+router.get('/index-status', asyncHandler(scanController.getIndexStatus));
 
-router.post('/search-by-image', upload.single('image'), scanController.searchByImage);
+/**
+ * @route POST /index-product/:productId
+ * @desc Index a single product by its ID
+ */
+router.post('/index-product/:productId', asyncHandler(scanController.indexSingleProduct));
 
-router.get('/system-status', scanController.checkSystemStatus);
+/**
+ * @route POST /search-by-image
+ * @desc Search products using an uploaded image (in-memory)
+ */
+router.post(
+  '/search-by-image',
+  (req, res, next) =>
+    upload.single('image')(req, res, err => {
+      if (err instanceof multer.MulterError || err) {
+        return res.status(400).json({ success: false, error: err.message });
+      }
+      next();
+    }),
+  asyncHandler(scanController.searchByImage)
+);
 
-router.post('/remove-index', scanController.removeIndex);
+/**
+ * @route GET /system-status
+ * @desc Check internal AI search/indexing system status
+ */
+router.get('/system-status', asyncHandler(scanController.checkSystemStatus));
 
+/**
+ * @route POST /remove-index
+ * @desc Remove or reset the product index
+ */
+router.post('/remove-index', asyncHandler(scanController.removeIndex));
+
+/**
+ * @route GET /
+ * @desc Simple ping route for Scan API
+ */
 router.get('/', (req, res) => {
-  res.status(200).json({ message: 'Scan API is working!' });
+  res.status(200).json({ success: true, message: 'Scan API is working!' });
 });
 
 module.exports = router;

@@ -30,7 +30,7 @@
 /* ===== Two Column Layout ===== */
 .two-column-layout {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
+  grid-template-columns: 1.2fr 1.3fr;
   gap: 30px;
   margin: 2rem 0;
   align-items: flex-start;
@@ -87,6 +87,73 @@
   min-width: 140px;
 }
 
+.status-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0px;
+}
+
+.info-tooltip {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.info-icon {
+  width: 16px;
+  height: 16px;
+  fill: #666;
+  transition: fill 0.2s;
+}
+
+.info-tooltip:hover .info-icon {
+  fill: #333;
+}
+
+.info-tooltip::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  width: 200px;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 100;
+  margin-bottom: 8px;
+}
+
+.info-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 100;
+  margin-bottom: 3px;
+}
+
+.info-tooltip:hover::before,
+.info-tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
 .toggle-switch {
   position: relative;
   display: inline-block;
@@ -141,6 +208,10 @@ input:checked + .slider:before {
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
   font-size: 0.85rem;
+}
+.toggle-status.activating {
+  color:white;
+  background-color: #000027;
 }
 
 .toggle-status.active {
@@ -532,5 +603,154 @@ input:checked + .slider:before {
   .upload-button {
     padding: 0.7rem 1rem;
     font-size: 0.9rem;
+  }
+}
+
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.popup-box {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 2rem 2.25rem;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: popupEnter 0.35s ease-out forwards;
+  transform: translateY(40px);
+  opacity: 0;
+  border: 1px solid #e5e7eb;
+}
+
+.popup-box h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #111827; /* Tailwind slate-900 */
+}
+
+.popup-box p {
+  font-size: 0.95rem;
+  color: #4b5563; /* Tailwind gray-600 */
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.popup-box span {
+  font-weight: 600;
+  color: #2563eb; /* Tailwind blue-600 */
+}
+
+.popup-close-button {
+  background: #f0801a; /* Tailwind blue-600 */
+  color: white;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.popup-close-button:hover {
+  background: #000027; /* Tailwind blue-700 */
+  transform: translateY(-1px);
+}
+
+.popup-message {
+  font-size: 0.95rem;
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  justify-content: center;
+}
+
+.popup-message span {
+  font-weight: 600;
+  color: #000027;
+  display: flex;
+  align-items: center;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0.25rem;
+}
+
+.toggle-track {
+  width: 40px;
+  height: 20px;
+  background-color: #d1d5db; /* gray-300 */
+  border-radius: 999px;
+  position: relative;
+  transition: background-color 0.3s ease;
+  animation: toggleOn 0.6s ease-out forwards;
+}
+
+.toggle-thumb {
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 999px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  animation: thumbSlide 0.6s ease-out forwards;
+}
+
+@keyframes toggleOn {
+  from {
+    background-color: #d1d5db;
+  }
+  to {
+    background-color: #000027;
+  }
+}
+
+@keyframes thumbSlide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(20px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popupEnter {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }

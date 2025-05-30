@@ -81,6 +81,92 @@ const styles = {
     marginTop: '20px',
     fontWeight: 'bold',
   },
+  // Mobile choice modal styles
+  mobileModalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    zIndex: 2000,
+  },
+  mobileModalContent: {
+    backgroundColor: 'white',
+    width: '100%',
+    borderTopLeftRadius: '20px',
+    borderTopRightRadius: '20px',
+    padding: '20px',
+    maxHeight: '50vh',
+    animation: 'slideUp 0.3s ease-out',
+  },
+  mobileModalTitle: {
+    fontSize: '18px',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: '20px',
+    color: '#333',
+  },
+  mobileChoiceButton: {
+    width: '100%',
+    padding: '15px',
+    backgroundColor: '#f8f9fa',
+    border: '1px solid #e9ecef',
+    borderRadius: '10px',
+    marginBottom: '10px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: '15px',
+    fontSize: '16px',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+  },
+  mobileChoiceButtonHover: {
+    backgroundColor: '#e9ecef',
+    transform: 'translateY(-1px)',
+  },
+  mobileChoiceIcon: {
+    width: '24px',
+    height: '24px',
+    fill: '#3949ab',
+  },
+  mobileChoiceText: {
+    color: '#333',
+    fontWeight: '500',
+  },
+  mobileModalCancel: {
+    width: '100%',
+    padding: '15px',
+    backgroundColor: 'transparent',
+    border: 'none',
+    borderRadius: '10px',
+    marginTop: '10px',
+    fontSize: '16px',
+    color: '#666',
+    cursor: 'pointer',
+    fontWeight: '500',
+  },
+  // Main upload button for mobile
+  mobileUploadMainButton: {
+    backgroundColor: '#3949ab',
+    color: '#fff',
+    padding: '15px 30px',
+    borderRadius: '12px',
+    cursor: 'pointer',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '10px',
+    fontWeight: 'bold',
+    border: 'none',
+    fontSize: '18px',
+    width: '100%',
+    maxWidth: '300px',
+  },
   // Popup styles
   popupOverlay: {
     position: 'fixed',
@@ -88,116 +174,192 @@ const styles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1000,
     padding: '20px',
+    backdropFilter: 'blur(6px)',
+    WebkitBackdropFilter: 'blur(6px)',
   },
   popupContent: {
-    backgroundColor: 'white',
-    borderRadius: '12px',
+    background: 'linear-gradient(135deg, #ffffff, #f9f9f9)',
+    borderRadius: '16px',
     maxWidth: '1000px',
+    width: '100%',
     maxHeight: '90vh',
     overflow: 'auto',
-    position: 'relative',
-    width: '100%',
+    boxShadow: '0 15px 30px rgba(0, 0, 0, 0.2)',
+    animation: 'fadeIn 0.4s ease-in-out',
+    marginTop: '12px',
   },
   popupHeader: {
     padding: '20px',
-    borderBottom: '1px solid #eee',
+    borderBottom: '1px solid #ddd',
+    backgroundColor: '#ffffffcc',
+    backdropFilter: 'blur(4px)',
     position: 'sticky',
     top: 0,
-    backgroundColor: 'white',
-    zIndex: 1001,
+    zIndex: 1,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   popupTitle: {
-    fontSize: '24px',
-    fontWeight: 'bold',
-    margin: '0',
-    color: '#333',
+    fontSize: '1.75rem',
+    fontWeight: '700',
+    color: '#2c3e50',
+    margin: 0,
   },
   closeButton: {
-    background: 'none',
+    background: '#f1f1f1',
     border: 'none',
-    fontSize: '24px',
-    cursor: 'pointer',
-    color: '#666',
-    padding: '0',
-    width: '30px',
-    height: '30px',
+    borderRadius: '50%',
+    width: '32px',
+    height: '32px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    cursor: 'pointer',
+    transition: 'background 0.2s ease',
+    '&:hover': {
+      background: '#ddd',
+    },
   },
   popupBody: {
     padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
   },
   grid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-    gap: '20px',
-    padding: '0',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+    gap: '24px',
   },
   card: {
-    border: '1px solid #ddd',
-    borderRadius: '12px',
-    padding: '16px',
-    backgroundColor: '#fff',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-    transition: 'transform 0.2s, box-shadow 0.2s',
+    border: 'none',
+    borderRadius: '14px',
+    background: '#fff',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    overflow: 'hidden',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
   },
   cardHover: {
-    transform: 'translateY(-2px)',
-    boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+    transform: 'translateY(-5px)',
+    boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
   },
   cardImage: {
     width: '100%',
-    height: '180px',
+    height: '200px',
     objectFit: 'cover',
-    borderRadius: '8px',
-    marginBottom: '12px',
   },
   cardTitle: {
-    fontSize: '16px',
-    fontWeight: 'bold',
-    margin: '0 0 8px 0',
-    color: '#333',
-    lineHeight: '1.4',
+    fontSize: '1rem',
+    fontWeight: '600',
+    padding: '10px 16px 0 16px',
+    color: '#2d3436',
   },
   cardPrice: {
-    fontSize: '18px',
+    fontSize: '1.1rem',
     fontWeight: 'bold',
-    color: '#e53e3e',
-    margin: '8px 0',
+    color: '#d63031',
+    padding: '0 16px',
   },
   cardOriginalPrice: {
-    fontSize: '14px',
-    color: '#999',
+    fontSize: '0.9rem',
+    color: '#b2bec3',
     textDecoration: 'line-through',
-    marginLeft: '8px',
+    marginLeft: '6px',
   },
   cardCategory: {
-    fontSize: '12px',
-    color: '#666',
+    fontSize: '0.85rem',
+    color: '#636e72',
     textTransform: 'capitalize',
-    marginBottom: '8px',
+    padding: '0 16px 10px 16px',
   },
   viewDetailsButton: {
-    backgroundColor: '#3949ab',
-    color: 'white',
+    margin: '0 16px 16px 16px',
+    padding: '10px',
+    backgroundColor: '#F0801A',
+    color: '#fff',
     border: 'none',
-    padding: '8px 16px',
-    borderRadius: '6px',
+    borderRadius: '8px',
     cursor: 'pointer',
+    fontWeight: '600',
+    fontSize: '14px',
+    transition: 'background 0.2s ease',
+    '&:hover': {
+      backgroundColor: '#000027',
+    },
+  },
+  mobileCard: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    padding: '15px',
+    borderBottom: '1px solid #eee',
+    width: '100%',
+  },
+  mobileCardImage: {
+    width: '120px',
+    height: '120px',
+    objectFit: 'cover',
+    borderRadius: '8px',
+    marginRight: '15px',
+  },
+  mobileCardContent: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+  mobileCardTitle: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: '#2d3436',
+    marginBottom: '4px',
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  mobileCardPrice: {
     fontSize: '14px',
     fontWeight: 'bold',
+    color: '#d63031',
+    marginBottom: '8px',
+  },
+  mobileCardOriginalPrice: {
+    fontSize: '12px',
+    color: '#b2bec3',
+    textDecoration: 'line-through',
+    marginLeft: '6px',
+  },
+  mobileViewDetailsButton: {
+    padding: '8px 12px',
+    backgroundColor: '#F0801A',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    fontWeight: '600',
+    fontSize: '12px',
+    alignSelf: 'flex-start',
+    transition: 'background 0.2s ease',
+    '&:hover': {
+      backgroundColor: '#000027',
+    },
+  },
+  mobileProductsContainer: {
     width: '100%',
-    marginTop: '12px',
+  },
+  // Add fadeIn animation
+  ['@keyframes fadeIn']: {
+    '0%': { opacity: 0, transform: 'scale(0.95)' },
+    '100%': { opacity: 1, transform: 'scale(1)' },
   },
   noProductsText: {
     textAlign: 'center',
@@ -265,6 +427,10 @@ const styles = {
     '0%, 80%, 100%': { transform: 'translateY(0)' },
     '40%': { transform: 'translateY(-10px)' },
   },
+  '@keyframes slideUp': {
+    '0%': { transform: 'translateY(100%)' },
+    '100%': { transform: 'translateY(0)' },
+  },
 };
 
 export function Component({ props }) {
@@ -276,9 +442,22 @@ export function Component({ props }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showMobileModal, setShowMobileModal] = useState(false);
 
   const API_BASE_URL_2 = `/ext/ab/api/proxy/scan`;
   const title = props?.title?.value ?? 'Snap & Shop - Find Products by Image';
+
+  useEffect(() => {
+    if (showPopup) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showPopup]);
 
   // Check if device is mobile
   useEffect(() => {
@@ -296,18 +475,24 @@ export function Component({ props }) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const handleImageUpload = async e => {
-    const file = e.target.files[0];
+  const handleImageUpload = async (e, isCapture = false) => {
+    const file = e.target.files && e.target.files[0];
     if (!file) return;
 
-    setSelectedImage(URL.createObjectURL(file));
-    setLoading(true);
-
-    const formData = new FormData();
-    formData.append('image', file);
-    formData.append('company_id', company_id);
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      alert('Please select a valid image file');
+      return;
+    }
 
     try {
+      setSelectedImage(URL.createObjectURL(file));
+      setLoading(true);
+
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('company_id', company_id);
+
       const response = await fetch(
         `${API_BASE_URL_2}/search-by-image?application_id=${application_id}&company_id=${company_id}`,
         {
@@ -329,17 +514,18 @@ export function Component({ props }) {
     } catch (error) {
       console.error('Error during image upload search:', error);
       setProductFilterList([]);
+      alert('Error processing image. Please try again.');
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   const handleViewDetails = product => {
     // Redirect to product description page using the product slug
     const productSlug =
       product.slug || product.id || product.name.toLowerCase().replace(/\s+/g, '-');
-    window.location.href = `/product/${productSlug}`;
-    window.open(window.location.href, '_blank');
+    const productUrl = `/product/${productSlug}`;
+    window.open(productUrl, '_blank');
   };
 
   const openProductListPopup = () => {
@@ -348,6 +534,7 @@ export function Component({ props }) {
 
   const closePopup = () => {
     setShowPopup(false);
+    setSelectedImage(null);
   };
 
   const formatPrice = price => {
@@ -359,17 +546,85 @@ export function Component({ props }) {
     return category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   };
 
+  // Handle mobile button click - show modal
+  const handleMobileUploadClick = () => {
+    setShowMobileModal(true);
+  };
+
+  // Handle mobile modal choice selection
+  const handleMobileChoice = choiceType => {
+    setShowMobileModal(false); // Close modal first
+
+    // Small delay to ensure modal is closed before showing file picker
+    setTimeout(() => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.multiple = false;
+
+      if (choiceType === 'camera') {
+        input.capture = 'environment'; // Use back camera
+      }
+
+      // Handle file selection
+      input.addEventListener('change', e => {
+        if (e.target.files && e.target.files[0]) {
+          handleImageUpload(e, choiceType === 'camera');
+        }
+        // Clean up
+        input.remove();
+      });
+
+      // Handle cancel (when user closes file picker without selecting)
+      input.addEventListener('cancel', () => {
+        input.remove();
+      });
+
+      // Add to document, click, then remove
+      document.body.appendChild(input);
+      input.style.display = 'none';
+      input.click();
+    }, 100);
+  };
+
+  // Close mobile modal
+  const closeMobileModal = () => {
+    setShowMobileModal(false);
+  };
+
   // Font Awesome camera icon component
   const CameraIcon = () => (
-    <svg style={styles.cameraIcon} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-      <path d='M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z' />
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      stroke='black'
+      strokeWidth={1}
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      width={24}
+      height={24}
+    >
+      <path d='M4 7h2.586A2 2 0 0 0 8.414 6l.172-.172A2 2 0 0 1 10 5h4a2 2 0 0 1 1.414.586l.172.172A2 2 0 0 0 17.414 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z' />
+      <circle cx='12' cy='13' r='3' />
     </svg>
   );
 
   const FolderIcon = () => (
-    <svg style={styles.cameraIcon} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>  
-      <path d='M464 128H352V16c0-8.8-7.2-16-16-16H176c-8.8 0-16 7.2-16 16v112H48c-26.5 0-48 21.5-48 48v320c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V176c0-26.5-21.5-48-48-48zM176 32h128v96H176V32zm240 448H96V192h320v288z' />
-      <path d='M256 192a64 64 0 1 0 0 128 64 64 0 1 0 0-128zm0 96a32 32 0 1 1 0-64 32 32 0 1 1 0 64z' />
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      stroke='black'
+      strokeWidth={1}
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      width={24}
+      height={24}
+    >
+      <path d='M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2' />
+      <polyline points='12 12 12 3 8 7' />
+      <line x1='12' y1='3' x2='16' y2='7' />
     </svg>
   );
 
@@ -412,29 +667,9 @@ export function Component({ props }) {
       <div style={styles.uploadSection}>
         {isMobile ? (
           <div style={styles.mobileButtonContainer}>
-            <label htmlFor='imageCaptureUpload'>
-              <CameraIcon /> Capture Image
-            </label>
-            <input
-              id='imageCaptureUpload'
-              type='file'
-              accept='image/*'
-              capture='environment'
-              style={styles.hiddenInput}
-              onChange={e => handleImageUpload(e, true)}
-            />
-
-            <label htmlFor='imageFileUpload'>
-              {/* <CameraIcon /> */}
-              <FolderIcon /> Upload Image
-            </label>
-            <input
-              id='imageFileUpload'
-              type='file'
-              accept='image/*'
-              style={styles.hiddenInput}
-              onChange={e => handleImageUpload(e, false)}
-            />
+            <button onClick={handleMobileUploadClick}>
+              <CameraIcon />
+            </button>
           </div>
         ) : (
           <div style={styles.desktopButtonContainer}>
@@ -460,6 +695,7 @@ export function Component({ props }) {
           </div>
         </div>
       )}
+
       {loading ? (
         <>{/* <p style={styles.loadingText}>Finding perfect matches for you</p> */}</>
       ) : (
@@ -467,9 +703,51 @@ export function Component({ props }) {
           {productFilterList.length === 0 && selectedImage && (
             <p style={styles.noProductsText}>No matching products found.</p>
           )}
-          {/* {productFilterList.length === 0 && !selectedImage && (
-            <p style={styles.noProductsText}>Upload an image to start searching.</p>
-          )} */}
+        </div>
+      )}
+
+      {/* Mobile Choice Modal */}
+      {showMobileModal && (
+        <div style={styles.mobileModalOverlay} onClick={closeMobileModal}>
+          <div style={styles.mobileModalContent} onClick={e => e.stopPropagation()}>
+            <h3 style={styles.mobileModalTitle}>Choose Image Source</h3>
+
+            <button
+              style={styles.mobileChoiceButton}
+              onClick={() => handleMobileChoice('camera')}
+              onMouseEnter={e => {
+                e.target.style.backgroundColor = styles.mobileChoiceButtonHover.backgroundColor;
+                e.target.style.transform = styles.mobileChoiceButtonHover.transform;
+              }}
+              onMouseLeave={e => {
+                e.target.style.backgroundColor = styles.mobileChoiceButton.backgroundColor;
+                e.target.style.transform = 'none';
+              }}
+            >
+              <CameraIcon />
+              <span style={styles.mobileChoiceText}>Take Photo</span>
+            </button>
+
+            <button
+              style={styles.mobileChoiceButton}
+              onClick={() => handleMobileChoice('gallery')}
+              onMouseEnter={e => {
+                e.target.style.backgroundColor = styles.mobileChoiceButtonHover.backgroundColor;
+                e.target.style.transform = styles.mobileChoiceButtonHover.transform;
+              }}
+              onMouseLeave={e => {
+                e.target.style.backgroundColor = styles.mobileChoiceButton.backgroundColor;
+                e.target.style.transform = 'none';
+              }}
+            >
+              <FolderIcon />
+              <span style={styles.mobileChoiceText}>Choose from Gallery</span>
+            </button>
+
+            <button style={styles.mobileModalCancel} onClick={closeMobileModal}>
+              Cancel
+            </button>
+          </div>
         </div>
       )}
 
@@ -488,45 +766,95 @@ export function Component({ props }) {
 
             <div style={styles.popupBody}>
               {productFilterList.length > 0 ? (
-                <div style={styles.grid}>
-                  {productFilterList.map((product, index) => (
-                    <div key={index} style={styles.card}>
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        style={styles.cardImage}
-                        onError={e => {
-                          e.target.src =
-                            'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
-                        }}
-                      />
-                      <h3 style={styles.cardTitle}>{product.name}</h3>
+                isMobile ? (
+                  <div style={styles.mobileProductsContainer}>
+                    {productFilterList.map((product, index) => (
+                      <div key={index} style={styles.mobileCard}>
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          style={styles.mobileCardImage}
+                          onError={e => {
+                            e.target.src =
+                              'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
+                          }}
+                        />
+                        <div style={styles.mobileCardContent}>
+                          <h3 style={styles.mobileCardTitle}>{product.name}</h3>
 
-                      {product.category && (
-                        <p style={styles.cardCategory}>{formatCategoryName(product.category)}</p>
-                      )}
-
-                      {product.sizes && product.sizes.length > 0 && (
-                        <div style={styles.cardPrice}>
-                          {formatPrice(product.sizes[0].price.effective.min)}
-                          {product.sizes[0].price.marked.min >
-                            product.sizes[0].price.effective.min && (
-                            <span style={styles.cardOriginalPrice}>
-                              {formatPrice(product.sizes[0].price.marked.min)}
-                            </span>
+                          {product.category && (
+                            <p style={styles.cardCategory}>
+                              {formatCategoryName(product.category)}
+                            </p>
                           )}
-                        </div>
-                      )}
 
-                      <button
-                        style={styles.viewDetailsButton}
-                        onClick={() => handleViewDetails(product)}
-                      >
-                        View Details
-                      </button>
-                    </div>
-                  ))}
-                </div>
+                          {product.sizes && product.sizes.length > 0 && (
+                            <div style={styles.mobileCardPrice}>
+                              {formatPrice(product.sizes[0].price.effective.min)}
+                              {product.sizes[0].price.marked.min >
+                                product.sizes[0].price.effective.min && (
+                                <span style={styles.mobileCardOriginalPrice}>
+                                  {formatPrice(product.sizes[0].price.marked.min)}
+                                </span>
+                              )}
+                            </div>
+                          )}
+
+                          <button
+                            style={styles.mobileViewDetailsButton}
+                            onClick={() => handleViewDetails(product)}
+                          >
+                            View Details
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div style={styles.grid}>
+                    {productFilterList.map((product, index) => (
+                      <div key={index} style={styles.card}>
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          style={styles.cardImage}
+                          onError={e => {
+                            e.target.src =
+                              'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
+                          }}
+                        />
+                        <h3 style={styles.cardTitle}>
+                          {product.name.length > 27
+                            ? product.name.slice(0, 27) + '...'
+                            : product.name}
+                        </h3>
+
+                        {product.category && (
+                          <p style={styles.cardCategory}>{formatCategoryName(product.category)}</p>
+                        )}
+
+                        {product.sizes && product.sizes.length > 0 && (
+                          <div style={styles.cardPrice}>
+                            {formatPrice(product.sizes[0].price.effective.min)}
+                            {product.sizes[0].price.marked.min >
+                              product.sizes[0].price.effective.min && (
+                              <span style={styles.cardOriginalPrice}>
+                                {formatPrice(product.sizes[0].price.marked.min)}
+                              </span>
+                            )}
+                          </div>
+                        )}
+
+                        <button
+                          style={styles.viewDetailsButton}
+                          onClick={() => handleViewDetails(product)}
+                        >
+                          View Details
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )
               ) : (
                 <p style={styles.noProductsText}>No products found.</p>
               )}
@@ -544,7 +872,7 @@ Component.serverFetch = async ({ fpi }) => {
 };
 
 export const settings = {
-  label: 'Product List',
+  label: 'iSnapToShop',
   name: 'product-list',
   props: [
     {
