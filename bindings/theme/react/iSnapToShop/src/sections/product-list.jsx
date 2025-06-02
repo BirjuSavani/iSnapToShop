@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 // Styles object for component styling
 const styles = {
   container: {
-    padding: '20px',
-    maxWidth: '1200px',
+    // padding: '20px',
+    // maxWidth: '1200px',
     margin: '0 auto',
     fontFamily: 'Arial, sans-serif',
   },
@@ -45,6 +45,52 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
+  customUploadContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    gap: '10px',
+    backgroundColor: '#0A4A65',
+    padding: '16px',
+    borderRadius: '0px',
+    marginBottom: '-30px',
+    color: '#fff',
+    cursor: 'pointer',
+  },
+
+  uploadLabel: {
+    cursor: 'pointer',
+    textAlign: 'center',
+    width: '100%',
+  },
+
+  uploadButtonStyled: {
+    backgroundColor: '#fff',
+    color: '#007bff',
+    border: '2px solid #7fd7f7',
+    borderRadius: '999px',
+    padding: '10px 20px',
+    fontWeight: 'bold',
+    fontSize: '16px',
+    display: 'inline-block',
+  },
+
+  uploadSubtitle: {
+    marginTop: '8px',
+    fontSize: '14px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '5px',
+  },
+
+  quickText: {
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    marginLeft: '10px'
+  },
+
   hiddenInput: {
     display: 'none',
   },
@@ -53,9 +99,42 @@ const styles = {
     marginBottom: '20px',
   },
   selectedImage: {
-    maxWidth: '300px',
+    maxWidth: '200px',
     borderRadius: '10px',
     border: '1px solid #ccc',
+  },
+  popupImageSection: {
+    padding: '20px',
+    backgroundColor: '#f8f9fa',
+    borderRadius: '12px',
+    marginBottom: '24px',
+    border: '1px solid #e0e0e0',
+    textAlign: 'center',
+    maxHeight: "250px"
+  },
+  popupImageTitle: {
+    fontSize: '18px',
+    fontWeight: 'bold',
+    marginBottom: '12px',
+    color: '#333',
+  },
+  popupSelectedImage: {
+    maxWidth: '100%',
+    maxHeight: '180px',
+    borderRadius: '8px',
+    border: '1px solid #ddd',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+  },
+  resultsSection: {
+    marginTop: '24px',
+    borderTop: '2px solid #eee',
+    paddingTop: '24px',
+  },
+  resultsTitle: {
+    fontSize: '20px',
+    fontWeight: 'bold',
+    marginBottom: '16px',
+    color: '#333',
   },
   loadingText: {
     textAlign: 'center',
@@ -195,7 +274,7 @@ const styles = {
     marginTop: '12px',
   },
   popupHeader: {
-    padding: '20px',
+    padding: '5px',
     borderBottom: '1px solid #ddd',
     backgroundColor: '#ffffffcc',
     backdropFilter: 'blur(4px)',
@@ -231,7 +310,7 @@ const styles = {
     padding: '20px',
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px',
+    // gap: '20px',
   },
   grid: {
     display: 'grid',
@@ -375,7 +454,7 @@ const styles = {
   selectedImageWrapper: {
     position: 'relative',
     display: 'inline-block',
-    marginBottom: '20px',
+    // marginBottom: 'px',
   },
   aiProcessingOverlay: {
     position: 'absolute',
@@ -494,7 +573,7 @@ export function Component({ props }) {
       formData.append('company_id', company_id);
 
       const response = await fetch(
-        `${API_BASE_URL_2}/search-by-image?application_id=${application_id}&company_id=${company_id}`,
+        `${API_BASE_URL_2}/search-by-image?company_id=${company_id}`,
         {
           method: 'POST',
           body: formData,
@@ -672,39 +751,21 @@ export function Component({ props }) {
             </button>
           </div>
         ) : (
-          <div style={styles.desktopButtonContainer}>
-            <label htmlFor='imageUpload'>
-              <CameraIcon />
+          <div style={styles.customUploadContainer}>
+            <label htmlFor='imageUpload' style={styles.uploadLabel}>
+              <div style={styles.uploadButtonStyled}>📤 Upload Your Style</div>
+              <span style={styles.quickText}>iSnapToShop</span> Capture your style. Discover the match.
             </label>
             <input
-              id='imageUpload'
-              type='file'
-              accept='image/*'
+              id="imageUpload"
+              type="file"
+              accept="image/*"
               style={styles.hiddenInput}
               onChange={handleImageUpload}
             />
           </div>
         )}
       </div>
-
-      {selectedImage && (
-        <div style={styles.selectedImageContainer}>
-          <div style={styles.selectedImageWrapper}>
-            <img src={selectedImage} alt='Selected' style={styles.selectedImage} />
-            {loading && <AIProcessingOverlay />}
-          </div>
-        </div>
-      )}
-
-      {loading ? (
-        <>{/* <p style={styles.loadingText}>Finding perfect matches for you</p> */}</>
-      ) : (
-        <div>
-          {productFilterList.length === 0 && selectedImage && (
-            <p style={styles.noProductsText}>No matching products found.</p>
-          )}
-        </div>
-      )}
 
       {/* Mobile Choice Modal */}
       {showMobileModal && (
@@ -751,13 +812,15 @@ export function Component({ props }) {
         </div>
       )}
 
-      {/* Product List Popup */}
-      {showPopup && (
+      {/* Product List Popup - Now includes selected image and loading state */}
+      {(showPopup || loading) && (
         <div style={styles.popupOverlay} onClick={closePopup}>
           <div style={styles.popupContent} onClick={e => e.stopPropagation()}>
             <div style={styles.popupHeader}>
               <h2 style={styles.popupTitle}>
-                Search Results ({productFilterList.length} products)
+                {productFilterList.length > 0
+                  ? `Search Results (${productFilterList.length} products)`
+                  : 'Searching for products'}
               </h2>
               <button style={styles.closeButton} onClick={closePopup}>
                 ×
@@ -765,98 +828,123 @@ export function Component({ props }) {
             </div>
 
             <div style={styles.popupBody}>
-              {productFilterList.length > 0 ? (
-                isMobile ? (
-                  <div style={styles.mobileProductsContainer}>
-                    {productFilterList.map((product, index) => (
-                      <div key={index} style={styles.mobileCard}>
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          style={styles.mobileCardImage}
-                          onError={e => {
-                            e.target.src =
-                              'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
-                          }}
-                        />
-                        <div style={styles.mobileCardContent}>
-                          <h3 style={styles.mobileCardTitle}>{product.name}</h3>
-
-                          {product.category && (
-                            <p style={styles.cardCategory}>
-                              {formatCategoryName(product.category)}
-                            </p>
-                          )}
-
-                          {product.sizes && product.sizes.length > 0 && (
-                            <div style={styles.mobileCardPrice}>
-                              {formatPrice(product.sizes[0].price.effective.min)}
-                              {product.sizes[0].price.marked.min >
-                                product.sizes[0].price.effective.min && (
-                                <span style={styles.mobileCardOriginalPrice}>
-                                  {formatPrice(product.sizes[0].price.marked.min)}
-                                </span>
-                              )}
-                            </div>
-                          )}
-
-                          <button
-                            style={styles.mobileViewDetailsButton}
-                            onClick={() => handleViewDetails(product)}
-                          >
-                            View Details
-                          </button>
-                        </div>
-                      </div>
-                    ))}
+              {/* Show selected image in a dedicated section */}
+              {selectedImage && (
+                <div style={styles.popupImageSection}>
+                  <div style={styles.popupImageTitle}>Your Uploaded Image</div>
+                  <div style={styles.selectedImageWrapper}>
+                    <img
+                      src={selectedImage}
+                      alt='Uploaded for search'
+                      style={styles.popupSelectedImage}
+                    />
+                    {loading && <AIProcessingOverlay />}
                   </div>
-                ) : (
-                  <div style={styles.grid}>
-                    {productFilterList.map((product, index) => (
-                      <div key={index} style={styles.card}>
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          style={styles.cardImage}
-                          onError={e => {
-                            e.target.src =
-                              'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
-                          }}
-                        />
-                        <h3 style={styles.cardTitle}>
-                          {product.name.length > 27
-                            ? product.name.slice(0, 27) + '...'
-                            : product.name}
-                        </h3>
+                </div>
+              )}
 
-                        {product.category && (
-                          <p style={styles.cardCategory}>{formatCategoryName(product.category)}</p>
-                        )}
-
-                        {product.sizes && product.sizes.length > 0 && (
-                          <div style={styles.cardPrice}>
-                            {formatPrice(product.sizes[0].price.effective.min)}
-                            {product.sizes[0].price.marked.min >
-                              product.sizes[0].price.effective.min && (
-                              <span style={styles.cardOriginalPrice}>
-                                {formatPrice(product.sizes[0].price.marked.min)}
-                              </span>
-                            )}
-                          </div>
-                        )}
-
-                        <button
-                          style={styles.viewDetailsButton}
-                          onClick={() => handleViewDetails(product)}
-                        >
-                          View Details
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )
+              {loading ? (
+                <p style={styles.loadingText}>Finding perfect matches for you...</p>
               ) : (
-                <p style={styles.noProductsText}>No products found.</p>
+                <>
+                  {productFilterList.length > 0 && (
+                    <div style={styles.resultsSection}>
+                      <div style={styles.resultsTitle}>Matching Products</div>
+                      {isMobile ? (
+                        <div style={styles.mobileProductsContainer}>
+                          {productFilterList.map((product, index) => (
+                            <div key={index} style={styles.mobileCard}>
+                              <img
+                                src={product.image}
+                                alt={product.name}
+                                style={styles.mobileCardImage}
+                                onError={e => {
+                                  e.target.src =
+                                    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
+                                }}
+                              />
+                              <div style={styles.mobileCardContent}>
+                                <h3 style={styles.mobileCardTitle}>{product.name}</h3>
+
+                                {product.category && (
+                                  <p style={styles.cardCategory}>
+                                    {formatCategoryName(product.category)}
+                                  </p>
+                                )}
+
+                                {product.sizes && product.sizes.length > 0 && (
+                                  <div style={styles.mobileCardPrice}>
+                                    {formatPrice(product.sizes[0].price.effective.min)}
+                                    {product.sizes[0].price.marked.min >
+                                      product.sizes[0].price.effective.min && (
+                                        <span style={styles.mobileCardOriginalPrice}>
+                                          {formatPrice(product.sizes[0].price.marked.min)}
+                                        </span>
+                                      )}
+                                  </div>
+                                )}
+
+                                <button
+                                  style={styles.mobileViewDetailsButton}
+                                  onClick={() => handleViewDetails(product)}
+                                >
+                                  View Details
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div style={styles.grid}>
+                          {productFilterList.map((product, index) => (
+                            <div key={index} style={styles.card}>
+                              <img
+                                src={product.image}
+                                alt={product.name}
+                                style={styles.cardImage}
+                                onError={e => {
+                                  e.target.src =
+                                    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
+                                }}
+                              />
+                              <h3 style={styles.cardTitle}>
+                                {product.name.length > 27
+                                  ? product.name.slice(0, 27) + '...'
+                                  : product.name}
+                              </h3>
+
+                              {product.category && (
+                                <p style={styles.cardCategory}>{formatCategoryName(product.category)}</p>
+                              )}
+
+                              {product.sizes && product.sizes.length > 0 && (
+                                <div style={styles.cardPrice}>
+                                  {formatPrice(product.sizes[0].price.effective.min)}
+                                  {product.sizes[0].price.marked.min >
+                                    product.sizes[0].price.effective.min && (
+                                      <span style={styles.cardOriginalPrice}>
+                                        {formatPrice(product.sizes[0].price.marked.min)}
+                                      </span>
+                                    )}
+                                </div>
+                              )}
+
+                              <button
+                                style={styles.viewDetailsButton}
+                                onClick={() => handleViewDetails(product)}
+                              >
+                                View Details
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                    {productFilterList.length === 0 && !loading && (
+                        <p style={styles.noProductsText}>No matching products found.</p>
+                    )}
+                </>
               )}
             </div>
           </div>
