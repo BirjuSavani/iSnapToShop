@@ -15,6 +15,7 @@ const UPDATE_STATUS_API_URL =
 
 export const Home = () => {
   const [showPopup, setShowPopup] = useState(false);
+  const [showActivationPopup, setShowActivationPopup] = useState(false);
   const [state, setState] = useState({
     isLoading: false,
     searchResults: [],
@@ -22,27 +23,32 @@ export const Home = () => {
     error: null,
     uploadProgress: 0,
     isActive: false,
-    isInitializing: false,
-    statusMessage: '',
+    isInitializing: true, // Start with true to show activation process
+    statusMessage: 'Preparing your shopping assistant...',
     apiStatusLoading: true,
+    firstTimeVisit: true, // Track first time visit
   });
 
   const fileInputRef = useRef(null);
   const { application_id, company_id } = useParams();
 
-  // useEffect(() => {
-  //   setShowPopup(true);
-  // }, []);
+  useEffect(() => {
+    if (state.isInitializing && !state.isActive) {
+      setShowActivationPopup(true);
+    } else {
+      setShowActivationPopup(false);
+    }
+  }, [state.isInitializing, state.isActive]);
 
   useEffect(() => {
-    if (!state.apiStatusLoading && !state.isActive) {
+    if (!state.apiStatusLoading && !state.isActive && state.firstTimeVisit) {
       setShowPopup(true);
     } else {
       setShowPopup(false);
     }
-  }, [state.apiStatusLoading, state.isActive]);
+  }, [state.apiStatusLoading, state.isActive, state.firstTimeVisit]);
 
-  // Fetch initial status from both localStorage and API
+  // Fetch initial status and activate if needed
   useEffect(() => {
     let isMounted = true;
 
@@ -54,19 +60,23 @@ export const Home = () => {
           const record = response.data.data.result.data.find(item => item._id === application_id);
 
           if (record) {
-            setState(prev => ({
-              ...prev,
-              isActive: record.active === 'true',
-              apiStatusLoading: false,
-            }));
+            if (record.active === 'true') {
+              // Already active
+              setState(prev => ({
+                ...prev,
+                isActive: true,
+                isInitializing: false,
+                apiStatusLoading: false,
+                firstTimeVisit: false,
+                statusMessage: 'Ready to search products!',
+              }));
+            } else {
+              // Need to activate
+              await toggleActiveStatus(true);
+            }
           } else {
-            // Create new record with default inactive status
-            await updateStatusOnServer(false);
-            setState(prev => ({
-              ...prev,
-              isActive: false,
-              apiStatusLoading: false,
-            }));
+            // New record - activate by default
+            await toggleActiveStatus(true);
           }
         }
       } catch (error) {
@@ -75,7 +85,9 @@ export const Home = () => {
           setState(prev => ({
             ...prev,
             apiStatusLoading: false,
-            error: 'Failed to initialize status',
+            isInitializing: false,
+            error: 'Failed to initialize shopping assistant',
+            firstTimeVisit: false,
           }));
         }
       }
@@ -88,26 +100,14 @@ export const Home = () => {
     };
   }, [application_id]);
 
-  // Update both localStorage and API when status changes
-  useEffect(() => {
-    if (!state.apiStatusLoading) {
-      localStorage.setItem('isActive', state.isActive);
-      updateStatusOnServer(state.isActive).catch(error => {
-        console.error('Failed to update API status:', error);
-      });
-    }
-  }, [state.isActive, state.apiStatusLoading]);
-
   const updateStatusOnServer = async activeStatus => {
     try {
-      // First get the record by application_id
       const getResponse = await axios.get(`${GET_STATUS_API_URL}?_id=${application_id}`);
 
       if (getResponse.data?.status === 'success') {
         const record = getResponse.data.data.result.data.find(item => item._id === application_id);
 
         if (!record) {
-          // If no record exists, create a new one
           const createResponse = await axios.post(STATUS_API_URL, {
             _id: application_id,
             url: window.location.href,
@@ -117,9 +117,8 @@ export const Home = () => {
           return createResponse.data.id;
         }
 
-        // Update existing record
         const updateData = {
-          id: record.id, // Use the record's id from the GET response
+          id: record.id,
           _id: application_id,
           url: window.location.href,
           title: `iSnapToShop - ${application_id}`,
@@ -135,58 +134,18 @@ export const Home = () => {
     }
   };
 
-  const pollIndexStatus = async () => {
-    const POLL_INTERVAL = 3000;
-    const MAX_TIMEOUT = 60000;
-    const start = Date.now();
-
-    while (Date.now() - start < MAX_TIMEOUT) {
-      try {
-        const res = await axios.get(urlJoin(EXAMPLE_MAIN_URL, '/api/platform/scan/index-status'), {
-          headers: { 'x-company-id': company_id },
-          params: { application_id },
-        });
-
-        if (res.data?.status === 'ready') {
-          setState(prev => ({
-            ...prev,
-            isInitializing: false,
-            isActive: true,
-            statusMessage: 'Product index is ready.',
-          }));
-          return;
-        }
-
-        await new Promise(resolve => setTimeout(resolve, POLL_INTERVAL));
-      } catch (err) {
-        console.error('Polling failed:', err);
-        setState(prev => ({
-          ...prev,
-          isInitializing: false,
-          isActive: false,
-          error: 'Failed to check index status.',
-        }));
-        return;
-      }
-    }
-
-    setState(prev => ({
-      ...prev,
-      isInitializing: false,
-      isActive: false,
-      error: 'Initialization timed out.',
-    }));
-  };
-
-  const toggleActiveStatus = async () => {
+  const toggleActiveStatus = async (isAutoActivate = false) => {
     try {
       setState(prev => ({
         ...prev,
         isInitializing: true,
         error: null,
+        statusMessage: isAutoActivate 
+          ? 'Setting up your shopping assistant...' 
+          : 'Updating your settings...',
       }));
 
-      if (state.isActive) {
+      if (state.isActive && !isAutoActivate) {
         // Deactivating
         await axios.post(
           urlJoin(EXAMPLE_MAIN_URL, '/api/platform/scan/remove-index'),
@@ -200,12 +159,14 @@ export const Home = () => {
           ...prev,
           isActive: false,
           isInitializing: false,
+          firstTimeVisit: false,
           error: null,
           previewImage: null,
           searchResults: [],
+          statusMessage: 'Shopping assistant is inactive',
         }));
       } else {
-        // Activating (start init-index)
+        // Activating
         await axios.post(
           urlJoin(EXAMPLE_MAIN_URL, '/api/platform/scan/init-index'),
           {},
@@ -230,9 +191,15 @@ export const Home = () => {
             if (res.data.status.status === 'completed') {
               return true;
             }
+            setState(prev => ({
+              ...prev,
+              statusMessage: i < 5 
+                ? 'Getting your product catalog ready...' 
+                : 'Almost done! Just a moment...',
+            }));
             await new Promise(r => setTimeout(r, interval));
           }
-          throw new Error('Indexing did not complete in time.');
+          throw new Error('Something went wrong during setup. Please try again.');
         };
 
         await pollStatus();
@@ -241,19 +208,22 @@ export const Home = () => {
           ...prev,
           isActive: true,
           isInitializing: false,
+          firstTimeVisit: false,
           error: null,
           searchResults: [],
+          statusMessage: 'Ready to search products!',
         }));
       }
     } catch (error) {
       setState(prev => ({
         ...prev,
         isInitializing: false,
-        error:
-          error.response?.data?.error ||
+        firstTimeVisit: false,
+        error: error.response?.data?.error ||
           (state.isActive
-            ? 'Failed to deactivate product index'
-            : 'Failed to activate product index'),
+            ? 'Failed to pause shopping assistant'
+            : 'Failed to start shopping assistant'),
+        statusMessage: 'Something went wrong. Please try again.',
       }));
     }
   };
@@ -315,6 +285,12 @@ export const Home = () => {
     fileInputRef.current.click();
   };
 
+  const productProfileImage = media => {
+    if (!media || !media.length) return DEFAULT_NO_IMAGE;
+    const profileImg = media.find(m => m.type === 'image');
+    return profileImg?.url || DEFAULT_NO_IMAGE;
+  };
+
   const {
     isLoading,
     searchResults,
@@ -327,18 +303,6 @@ export const Home = () => {
     apiStatusLoading,
   } = state;
 
-  const productProfileImage = media => {
-    if (!media || !media.length) return DEFAULT_NO_IMAGE;
-    const profileImg = media.find(m => m.type === 'image');
-    return profileImg?.url || DEFAULT_NO_IMAGE;
-  };
-
-  const status = isActive
-    ? { text: 'Active', className: 'active' }
-    : isInitializing || apiStatusLoading
-    ? { text: 'Activating...', className: 'activating' }
-    : { text: 'Inactive', className: 'inactive' };
-
   return (
     <div className='scan-container'>
       <header className='app-header'>
@@ -350,41 +314,6 @@ export const Home = () => {
         <div className='left-column'>
           <div className='status-card'>
             <h3>System Controls</h3>
-            <div className='toggle-container'>
-              <label className='toggle-label'>
-                <span className='status-label'>
-                  Product Index Status:
-                  <span
-                    className='info-tooltip'
-                    data-tooltip='Product Index Status determines if the system will process uploaded product images. Turn it off to disable analysis.'
-                  >
-                    <svg className='info-icon' viewBox='0 0 24 24'>
-                      <path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z' />
-                    </svg>
-                  </span>
-                </span>
-                <div className='toggle-switch'>
-                  <input
-                    type='checkbox'
-                    checked={isActive}
-                    onChange={toggleActiveStatus}
-                    disabled={isInitializing || apiStatusLoading}
-                  />
-                  <span className='slider round'></span>
-                </div>
-                <span className={`toggle-status ${status.className}`}>
-                  {status.text}
-                  {(isInitializing || apiStatusLoading) && <span className='loading-dots'></span>}
-                </span>
-              </label>
-              {(isInitializing || apiStatusLoading) && (
-                <div className='initializing-message'>
-                  <div className='spinner small'></div>
-                  {statusMessage || 'Initializing, please wait...'}
-                </div>
-              )}
-            </div>
-
             <div className='upload-controls'>
               <input
                 type='file'
@@ -418,7 +347,7 @@ export const Home = () => {
               </button>
 
               {!isActive && (
-                <p className='helper-text'>Activate Product Index to enable image uploads</p>
+                <p className='helper-text'>Shopping assistant is getting ready...</p>
               )}
             </div>
           </div>
@@ -434,6 +363,9 @@ export const Home = () => {
                     <div className='processing-text'>
                       <div className='spinner'></div>
                       Analyzing your image...
+                      {uploadProgress > 0 && (
+                        <div className='progress-text'>{uploadProgress}% complete</div>
+                      )}
                     </div>
                   </div>
                 )}
@@ -494,26 +426,40 @@ export const Home = () => {
           )
         )}
       </div>
+
+      {showActivationPopup && (
+        <div className='popup-overlay'>
+          <div className='popup-box activation-popup'>
+            <div className='activation-spinner'>
+              <div className='spinner large'></div>
+            </div>
+            <h2 style={{ color: '#010228', marginTop: '1rem' }}>Getting Things Ready</h2>
+            <p className='popup-message'>
+              {statusMessage}
+            </p>
+            <div className='progress-text'>
+              This may take a few moments...
+            </div>
+          </div>
+        </div>
+      )}
+
       {showPopup && (
         <div className='popup-overlay'>
           <div className='popup-box'>
             <h2 style={{ color: '#010228' }}>Welcome to iSnapToShop!</h2>
             <p className='popup-message'>
-              Please ensure <span className='highlight'>product indexing is active</span>
-              <span
-                className='toggle-switch animated-toggle'
-                aria-label='Active toggle'
-                role='switch'
-                aria-checked='true'
-              >
-                <span className='toggle-track'>
-                  <span className='toggle-thumb' />
-                </span>
-              </span>{' '}
-              before uploading an image.
+              Your shopping assistant is ready to help you find products. 
+              Just upload an image to get started!
             </p>
-            <button onClick={() => setShowPopup(false)} className='popup-close-button'>
-              Got it
+            <button 
+              onClick={() => {
+                setShowPopup(false);
+                setState(prev => ({ ...prev, firstTimeVisit: false }));
+              }} 
+              className='popup-close-button'
+            >
+              Start Shopping
             </button>
           </div>
         </div>
