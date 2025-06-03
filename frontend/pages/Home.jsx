@@ -601,10 +601,12 @@ export const Home = () => {
             } else {
               // Need to activate
               await toggleActiveStatus(true);
+              await updateStatusOnServer(true);
             }
           } else {
             // New record - activate by default
             await toggleActiveStatus(true);
+            await updateStatusOnServer(true);
           }
         }
       } catch (error) {
@@ -621,12 +623,25 @@ export const Home = () => {
       }
     };
 
-    fetchInitialStatus();
+    // fetchInitialStatus();
+
+    // ✅ Call fetch only if not already active
+    if (!state.isActive) {
+      fetchInitialStatus();
+    } else {
+      setState(prev => ({
+        ...prev,
+        isInitializing: false,
+        apiStatusLoading: false,
+        statusMessage: 'Ready to search products!',
+        firstTimeVisit: false,
+      }));
+    }
 
     return () => {
       isMounted = false;
     };
-  }, [application_id]);
+  }, [application_id, state.isActive]);
 
   const updateStatusOnServer = async activeStatus => {
     try {
