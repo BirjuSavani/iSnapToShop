@@ -1,4 +1,17 @@
-from flask import Flask, request, jsonify
+import subprocess
+import sys
+
+def install_requirements():
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
+
+try:
+    from PIL import Image
+except ImportError:
+    print("PIL module not found. Installing requirements...")
+    install_requirements()
+
+from flask import Flask, request, jsonify, send_file
+import mimetypes
 from PIL import Image
 from utils import (
     txt2image_embeddings,
@@ -7,6 +20,7 @@ from utils import (
     format_results,
     check_api_key,
     collection,
+    generate_image_bytes,
 )
 
 app = Flask(__name__)
@@ -74,6 +88,46 @@ def delete_embeddings():
 
     except Exception as e:
         return jsonify({"error": f"Internal error: {str(e)}"}), 500
+    
+# @app.route("/generate_prompts_to_image", methods=["POST"])
+# def generate_image_api():
+#     data = request.get_json()
+#     if not data or "prompt" not in data:
+#         return jsonify({"error": "Missing 'prompt' in request body"}), 400
+
+#     prompt = data["prompt"]
+#     image_io, mime_type = generate_image_bytes(prompt)
+
+#     if image_io is None:
+#         return jsonify({"error": "Image generation failed"}), 500
+
+#     ext = mimetypes.guess_extension(mime_type) or ".png"
+#     return send_file(image_io, mimetype=mime_type, download_name=f"generated_image{ext}") 
+
+@app.route("/generate_prompts_to_image", methods=["POST"])
+def generate_image_api():
+    try:
+        data = request.get_json()
+        if not data or "prompt" not in data:
+            return jsonify({"error": "Missing 'prompt' in request body"}), 400
+
+        prompt = data["prompt"]
+
+        image_io, mime_type = generate_image_bytes(prompt)
+
+        if image_io is None:
+            return jsonify({"error": "Image generation failed"}), 500
+
+        ext = mimetypes.guess_extension(mime_type) or ".png"
+        return send_file(
+            image_io,
+            mimetype=mime_type,
+            download_name=f"generated_image{ext}",
+            as_attachment=False,
+        )
+
+    except Exception as e:
+        return jsonify({"error": f"Internal server error: {str(e)}"}), 500
 
 @app.route("/health", methods=["GET"])
 def health_check():
@@ -82,257 +136,3 @@ def health_check():
 if __name__ == "__main__":
     # For production, use gunicorn or another WSGI server, disable debug mode.
     app.run(debug=True, host="0.0.0.0", port=5000)
-
-
-# from flask import Flask, request, jsonify
-# from PIL import Image
-# import numpy as np
-# import torch
-# from utils import txt2image_embeddings, get_image_embedding_by_image, chroma_search, format_results, check_api_key
-# from utils import model, processor, collection
-
-# # -------------------- Init Flask --------------------
-# app = Flask(__name__)
-# # -------------------- ROUTE FOR HOME --------------------
-# @app.route("/", methods=["GET"])
-# def home():
-#    return "Welcome to the CLIP + ChromaDB API"
-
-# # -------------------- ROUTE FOR STORE IMAGE EMBEDDINGS --------------------
-# @app.route("/embeddings_store", methods=["POST"])
-# def embeddings_store():
-#    data = request.get_json()
-#    headers = request.headers
-#    print("Headers:", headers)
-#    api_key = headers.get('X-API-KEY')
-#    if not check_api_key(api_key):
-#        return jsonify({"message": "Wrong API key"}), 401
-
-#    if not data:
-#        return jsonify({"error": "No file provided"}), 400
-
-#    result = txt2image_embeddings(data)
-#    return jsonify({"message": result})
-
-# # ------------------- ROUTE FOR SEARCHING SIMILAR IMAGE --------------------
-# @app.route("/search/image", methods=["POST"])
-# def search_by_image():
-#    if "image" not in request.files:
-#        return jsonify({"error": "Missing image file in request"}), 400
-
-#    file = request.files["image"]
-#    headers = request.headers
-#    api_key = headers.get('X-API-KEY')
-  
-#    if not check_api_key(api_key):
-#        return jsonify({"message": "Wrong API key"}), 401
-
-#    try:
-#        img = Image.open(file.stream)
-#        q_emb = get_image_embedding_by_image(img)
-#        result = chroma_search(q_emb)
-#        formatted_result = format_results(result)
-#        return jsonify(formatted_result) if len(formatted_result)>0 else {"message" : "No match found"}
-#    except Exception as e:
-#        return jsonify({"error": str(e)}), 500
-
-# # -------------------- ROUTE FOR DELETE EMBEDDING DATA --------------------
-# @app.route("/delete_embeddings", methods=["POST"])
-# def delete_embeddings():
-#    data = request.get_json()
-#    headers = request.headers
-#    api_key = headers.get('X-API-KEY')
-
-#    if not check_api_key(api_key):
-#        return jsonify({"message": "Wrong API key"}), 401
-
-#    application_id = data.get("application_id")
-#    print("Received data:", application_id)
-#    if not application_id:
-#        return jsonify({"error": "application_id not provided"}), 400
-
-#    try:
-#        # Query for matching embeddings
-#        results = collection.get(
-#            where={"application_id": application_id}
-#        )
-
-#        if not results or len(results["ids"]) == 0:
-#            return jsonify({"message": "No embeddings found for this application_id."}), 404
-
-#        # Delete them
-#        collection.delete(ids=results["ids"])
-#        return jsonify({"message": f"Deleted {len(results['ids'])} embeddings for application_id: {application_id}"}), 200
-
-
-#    except Exception as e:
-#        print(f"Error deleting embeddings: {e}")
-#        return jsonify({"error": str(e)}), 500
-
-# # -------------------- ROUTE FOR HEALTH --------------------
-# @app.route("/health", methods=["GET"])
-# def health_check():
-#    return jsonify({"status": "ok"}), 200
-
-# # -------------------- Run App --------------------
-# if __name__ == "__main__":
-#    app.run(debug=True)
-
-
-
-
-
-
-
-
-
-
-
-# from flask import Flask, request, jsonify
-# from PIL import Image
-# import numpy as np
-# import torch
-# from utils import txt2image_embeddings, get_image_embedding_by_image, chroma_search, format_results, check_api_key 
-# from utils import model, processor, collection
-
-# # -------------------- Init Flask --------------------
-# app = Flask(__name__)
-
-# # -------------------- ROUTE FOR HOME --------------------
-# @app.route("/", methods=["GET"])
-# def home():
-#     return "Welcome to the CLIP + ChromaDB API"
-
-# # -------------------- ROUTE FOR STORE IMAGE EMBEDDINGS --------------------
-# @app.route("/embeddings_store", methods=["POST"])
-# def embeddings_store():
-#     data = request.get_json()
-#     headers = request.headers
-
-#     print("Headers:", headers)
-#     api_key = headers.get('X-API-KEY')
-    
-#     if not check_api_key(api_key):
-#         return jsonify({"message": "Wrong API key"}), 401
-
-#     if not data:
-#         return jsonify({"error": "No file provided"}), 400
-
-#     result = txt2image_embeddings(data)
-#     return jsonify({"message": result})
-
-# # -------------------- ROUTE FOR SEARCHING SIMILAR IMAGE --------------------
-# @app.route("/search/image", methods=["POST"])
-# def search_by_image():
-#     if "image" not in request.files:
-#         return jsonify({"error": "Missing image file in request"}), 400
-
-#     file = request.files["image"]
-#     headers = request.headers
-#     api_key = headers.get('X-API-KEY')
-    
-#     if not check_api_key(api_key):
-#         return jsonify({"message": "Wrong API key"}), 401
-
-#     try:
-#         img = Image.open(file.stream)
-#         q_emb = get_image_embedding_by_image(img)
-#         result = chroma_search(q_emb)
-#         formatted_result = format_results(result)
-#         return jsonify(formatted_result) if len(formatted_result)>0 else {"message" : "No match found"}
-
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
-
-# # -------------------- ROUTE FOR DELETE EMBEDDING DATA --------------------
-# @app.route("/delete_embeddings", methods=["POST"])
-# def delete_embeddings():
-#     data = request.get_json()
-#     headers = request.headers
-#     api_key = headers.get('X-API-KEY')
-
-#     if not check_api_key(api_key):
-#         return jsonify({"message": "Wrong API key"}), 401
-
-#     application_id = data.get("application_id")
-#     print("Received data:", application_id)
-#     if not application_id:
-#         return jsonify({"error": "application_id not provided"}), 400
-
-#     try:
-#         # Query for matching embeddings
-#         results = collection.get(
-#             where={"application_id": application_id}
-#         )
-
-#         if not results or len(results["ids"]) == 0:
-#             return jsonify({"message": "No embeddings found for this application_id."}), 404
-
-#         # Delete them
-#         collection.delete(ids=results["ids"])
-#         return jsonify({"message": f"Deleted {len(results['ids'])} embeddings for application_id: {application_id}"}), 200
-
-#     except Exception as e:
-#         print(f"❌ Error deleting embeddings: {e}")
-#         return jsonify({"error": str(e)}), 500
-
-# # -------------------- ROUTE FOR HEALTH --------------------
-# @app.route("/health", methods=["GET"])
-# def health_check():
-#     return jsonify({"status": "ok"}), 200
-
-# # -------------------- Run App --------------------
-# if __name__ == "__main__":
-#     app.run(debug=True)
-
-
-# # from flask import Flask, request, jsonify
-# # from PIL import Image
-# # import numpy as np
-# # import torch
-# # from utils import txt2image_embeddings, get_image_embedding_by_image, chroma_search, format_results
-# # from utils import model, processor, collection
-
-# # # -------------------- Init Flask --------------------
-# # app = Flask(__name__)
-
-# # # -------------------- ROUTE FOR HOME --------------------
-# # @app.route("/", methods=["GET"])
-# # def home():
-# #     return "Welcome to the CLIP + ChromaDB API"
-
-# # # -------------------- ROUTE FOR STORE IMAGE EMBEDDINGS --------------------
-# # @app.route("/embeddings_store", methods=["POST"])
-# # def embeddings_store():
-# #     data = request.get_json()
-# #     print("Received data:", data)
-# #     if not data:
-# #         return jsonify({"error": "No file provided"}), 400
-
-# #     result = txt2image_embeddings(data)
-# #     return jsonify({"message": result})
-
-# # # -------------------- ROUTE FOR SEARCHING SIMILAR IMAGE --------------------
-# # @app.route("/search/image", methods=["POST"])
-# # def search_by_image():
-# #     if "image" not in request.files:
-# #         return jsonify({"error": "Missing image file in request"}), 400
-
-# #     file = request.files["image"]
-# #     try:
-# #         img = Image.open(file.stream)
-# #         q_emb = get_image_embedding_by_image(img)
-# #         result = chroma_search(q_emb)
-# #         return jsonify(format_results(result))
-
-# #     except Exception as e:
-# #         return jsonify({"error": str(e)}), 500
-
-# # # -------------------- ROUTE FOR HEALTH --------------------
-# # @app.route("/health", methods=["GET"])
-# # def health_check():
-# #     return jsonify({"status": "ok"}), 200
-
-# # # -------------------- Run App --------------------
-# # if __name__ == "__main__":
-# #     app.run(debug=True)

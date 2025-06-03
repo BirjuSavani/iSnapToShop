@@ -2,3 +2,4 @@ clip_model
 slug_chroma_db
 venv
 __pycache__
+.env
