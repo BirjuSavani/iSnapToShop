@@ -664,6 +664,7 @@ export const Home = () => {
 
   const toggleActiveStatus = async (isAutoActivate = false) => {
     try {
+      if (state.isActive && isAutoActivate) return;
       setState(prev => ({
         ...prev,
         isInitializing: true,
@@ -819,44 +820,111 @@ export const Home = () => {
     return profileImg?.url || DEFAULT_NO_IMAGE;
   };
     
+  // const generateImageFromPrompt = async function (prompt) {
+  //   try {
+  //     const response = await axios.post(
+  //       urlJoin(EXAMPLE_MAIN_URL, '/api/platform/scan/generate-prompts-to-image'),
+  //       { prompt },
+  //       {
+  //         headers: { 'x-company-id': company_id },
+  //         params: { application_id, company_id },
+  //       }
+  //     );
+
+  //     const data = response.data;
+  //     if (data.success && data.imageUrl) {
+  //       console.log('Generated image URL:', data.imageUrl);
+
+  //       // ✅ Just set the URL directly to previewImage state
+  //       setState(prev => ({
+  //         ...prev,
+  //         previewImage: data.imageUrl,
+  //       }));
+  //       setShowImageModal(false);
+  //     } else {
+  //       throw new Error('Image generation failed');
+  //     }
+  //   } catch (err) {
+  //     console.error('Error generating image:', err);
+  //   }
+  // };
+  
+  const base64ToFile = (base64String, filename) => {
+    const arr = base64String.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) u8arr[n] = bstr.charCodeAt(n);
+    return new File([u8arr], filename, { type: mime });
+  };
+
   const generateImageFromPrompt = async function (prompt) {
-      try {
-        const response = await axios.post(
-          urlJoin(EXAMPLE_MAIN_URL, '/api/platform/scan/generate-prompts-to-image'),
-          { prompt },
+    try {
+      const response = await axios.post(
+        urlJoin(EXAMPLE_MAIN_URL, '/api/platform/scan/generate-prompts-to-image'),
+        { prompt },
+        {
+          headers: { 'x-company-id': company_id },
+          params: { application_id, company_id },
+        }
+      );
+
+      const data = response.data;
+      if (data.success && data.imageBase64) {
+        const file = base64ToFile(data.imageBase64, 'generated-image.png');
+
+        // Preview
+        const reader = new FileReader();
+        reader.onload = e => {
+          setState(prev => ({ ...prev, previewImage: e.target.result }));
+        };
+        reader.readAsDataURL(file);
+
+        const formData = new FormData();
+        formData.append('image', file);
+
+        setState(prev => ({
+          ...prev,
+          isLoading: true,
+          error: null,
+          uploadProgress: 0,
+          searchResults: [],
+        }));
+
+        const searchResponse = await axios.post(
+          urlJoin(EXAMPLE_MAIN_URL, '/api/platform/scan/search-by-image'),
+          formData,
           {
-            headers: { 'x-company-id': company_id },
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              'x-company-id': company_id,
+            },
             params: { application_id, company_id },
+            onUploadProgress: progressEvent => {
+              const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+              setState(prev => ({ ...prev, uploadProgress: progress }));
+            },
           }
         );
 
-        const data = response.data;
-        if (data.success && data.imageUrl) {
-          console.log('Generated image URL:', data.imageUrl);
+        setState(prev => ({
+          ...prev,
+          isLoading: false,
+          searchResults: searchResponse.data.results || [],
+          uploadProgress: 100,
+        }));
 
-          // Fetch image as blob
-          const imageResponse = await axios.get(data.imageUrl, { responseType: 'blob' });
-
-          const imageBlob = imageResponse.data;
-          const fileName = 'generated_image.png';
-          const file = new File([imageBlob], fileName, { type: imageBlob.type });
-
-          // Mimic file input event to reuse your existing handleImageUpload
-          const mockEvent = {
-            target: {
-              files: [file],
-            },
-          };
-
-          handleImageUpload(mockEvent);
-        } else {
-          throw new Error('Image generation failed');
-        }
-      } catch (err) {
-        console.error('Error generating image:', err);
+        setShowImageModal(false);
+      } else {
+        throw new Error('Image generation failed or imageBase64 missing');
       }
+    } catch (err) {
+      console.error('Error generating/searching image:', err);
+      setState(prev => ({ ...prev, isLoading: false, error: 'Failed to generate or search image' }));
     }
-
+  };  
+  
   const {
     isLoading,
     searchResults,
@@ -900,7 +968,7 @@ export const Home = () => {
                 onChange={e => setPromptText(e.target.value)}
               />
               <button
-                onClick={generateImageFromPrompt("black shoes")}
+                onClick={() => generateImageFromPrompt(promptText)}
                 className="generate-button"
               >
                 Generate & Use Image
