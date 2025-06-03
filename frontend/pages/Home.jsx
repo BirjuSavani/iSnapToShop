@@ -820,45 +820,6 @@ export const Home = () => {
     return profileImg?.url || DEFAULT_NO_IMAGE;
   };
     
-  // const generateImageFromPrompt = async function (prompt) {
-  //   try {
-  //     const response = await axios.post(
-  //       urlJoin(EXAMPLE_MAIN_URL, '/api/platform/scan/generate-prompts-to-image'),
-  //       { prompt },
-  //       {
-  //         headers: { 'x-company-id': company_id },
-  //         params: { application_id, company_id },
-  //       }
-  //     );
-
-  //     const data = response.data;
-  //     if (data.success && data.imageUrl) {
-  //       console.log('Generated image URL:', data.imageUrl);
-
-  //       // ✅ Just set the URL directly to previewImage state
-  //       setState(prev => ({
-  //         ...prev,
-  //         previewImage: data.imageUrl,
-  //       }));
-  //       setShowImageModal(false);
-  //     } else {
-  //       throw new Error('Image generation failed');
-  //     }
-  //   } catch (err) {
-  //     console.error('Error generating image:', err);
-  //   }
-  // };
-  
-  const base64ToFile = (base64String, filename) => {
-    const arr = base64String.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-    while (n--) u8arr[n] = bstr.charCodeAt(n);
-    return new File([u8arr], filename, { type: mime });
-  };
-
   const generateImageFromPrompt = async function (prompt) {
     try {
       const response = await axios.post(
@@ -871,8 +832,14 @@ export const Home = () => {
       );
 
       const data = response.data;
-      if (data.success && data.imageBase64) {
-        const file = base64ToFile(data.imageBase64, 'generated-image.png');
+      if (data.success && data.imageUrl) {
+        // Fetch image blob from imageUrl
+        const imageResponse = await axios.get(data.imageUrl, { responseType: 'blob' });
+        const imageBlob = imageResponse.data;
+
+        const file = new File([imageBlob], 'generated-image.png', {
+          type: imageBlob.type || 'image/png',
+        });
 
         // Preview
         const reader = new FileReader();
@@ -914,16 +881,22 @@ export const Home = () => {
           searchResults: searchResponse.data.results || [],
           uploadProgress: 100,
         }));
+        setPromptText('');
 
         setShowImageModal(false);
       } else {
-        throw new Error('Image generation failed or imageBase64 missing');
+        throw new Error('Image generation failed or imageUrl missing');
       }
     } catch (err) {
       console.error('Error generating/searching image:', err);
-      setState(prev => ({ ...prev, isLoading: false, error: 'Failed to generate or search image' }));
+      setState(prev => ({
+        ...prev,
+        isLoading: false,
+        error: 'Failed to generate or search image',
+      }));
     }
-  };  
+  };
+  
   
   const {
     isLoading,
