@@ -63,6 +63,12 @@ router.get('/system-status', asyncHandler(scanController.checkSystemStatus));
 router.post('/remove-index', asyncHandler(scanController.removeIndex));
 
 /**
+ * @route POST /generate-prompts
+ * @desc Generate prompts for the product images
+ */
+router.post('/generate-prompts-to-image', asyncHandler(scanController.generatePromptsToImage));
+
+/**
  * @route GET /
  * @desc Simple ping route for Scan API
  */

@@ -40,3 +40,5 @@ coverage_output.json
 #session_storage.db
 
 logs
+
+public/generated/*.png

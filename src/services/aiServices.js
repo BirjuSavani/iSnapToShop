@@ -173,7 +173,8 @@ const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 const https = require('https');
-
+const path = require('path');
+const uuidv4 = require('uuid').v4;
 const DEFAULT_BASE_URL = 'http://localhost:5000';
 // const DEFAULT_TIMEOUT_MS = 5000;
 
@@ -228,10 +229,9 @@ class AIService {
       console.log(
         `Indexing ${products.length} products for company=${companyId}, app=${applicationId}`
       );
-
       const response = await this.axiosInstance.post('/embeddings_store', {
         products,
-        application_id: applicationId,
+        application_id: companyId,
       });
 
       console.log('Product indexing successful');
@@ -301,6 +301,53 @@ class AIService {
     } catch (error) {
       console.error(`Index removal failed: ${error.message}`, { applicationId });
       throw new Error(`Index removal failed: ${error.response?.data?.error || error.message}`);
+    }
+  }
+
+  // async generatePromptsToImage(prompt) {
+  //   try {
+  //     console.log(`Generating prompts to image for prompt=${prompt}`);
+  //     const response = await this.axiosInstance.post('/generate_prompts_to_image', {
+  //       prompt,
+  //     });
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error(`Generate prompts to image failed: ${error.message}`, {
+  //       prompt,
+  //     });
+  //     throw new Error(
+  //       `Generate prompts to image failed: ${error.response?.data?.error || error.message}`
+  //     );
+  //   }
+  // }
+  async generatePromptsToImage(prompt) {
+    try {
+      const response = await this.axiosInstance.post(
+        '/generate_prompts_to_image',
+        { prompt },
+        { responseType: 'stream' }
+      );
+
+      const contentType = response.headers['content-type'];
+      const ext = contentType?.split('/')[1] || 'png';
+      const fileName = `generated_image_${uuidv4()}.${ext}`;
+      const filePath = path.join(__dirname, '../../public/generated', fileName);
+
+      // Ensure public/generated dir exists
+      fs.mkdirSync(path.dirname(filePath), { recursive: true });
+
+      const writer = fs.createWriteStream(filePath);
+      response.data.pipe(writer);
+
+      return new Promise((resolve, reject) => {
+        writer.on('finish', () => resolve({ filePath, fileName }));
+        writer.on('error', reject);
+      });
+    } catch (error) {
+      console.error(`Generate prompts to image failed: ${error.message}`);
+      throw new Error(
+        `Generate prompts to image failed: ${error.response?.data?.error || error.message}`
+      );
     }
   }
 }

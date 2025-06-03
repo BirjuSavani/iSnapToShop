@@ -29,7 +29,7 @@ app.use(cookieParser('ext.session'));
 app.use(express.json());
 app.use(bodyParser.json({ limit: '2mb' }));
 app.use(serveStatic(STATIC_PATH, { index: false }));
-
+app.use('/generated', express.static(path.join(__dirname, 'public/generated')));
 app.use(requestLogger);
 
 // Enable CORS
@@ -38,6 +38,7 @@ app.options('*', cors('*'));
 // Platform client middleware
 app.use(async (req, res, next) => {
   try {
+    const company_id = req.headers['x-company-id'];
     const ptClient = await getPlatformClientAsync(req.query.company_id);
     req.platformClient = ptClient;
     next();
