@@ -542,7 +542,7 @@ export const Home = () => {
   const [showActivationPopup, setShowActivationPopup] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [promptText, setPromptText] = useState('');
-  const [generatedImageUrl, setGeneratedImageUrl] = useState(null);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const [state, setState] = useState({
     isLoading: false,
@@ -837,6 +837,7 @@ export const Home = () => {
     
   const generateImageFromPrompt = async function (prompt) {
     try {
+      setIsGenerating(true);
       const response = await axios.post(
         urlJoin(EXAMPLE_MAIN_URL, '/api/platform/scan/generate-prompts-to-image'),
         { prompt },
@@ -897,7 +898,7 @@ export const Home = () => {
           uploadProgress: 100,
         }));
         setPromptText('');
-
+        setIsGenerating(false);
         setShowImageModal(false);
       } else {
         throw new Error('Image generation failed or imageUrl missing');
@@ -929,24 +930,24 @@ export const Home = () => {
     <div className='scan-container'>
       {/* Image Modal */}
       {showImageModal && (
-        <div className="upload-modal-overlay">
-          <div className="upload-modal-content">
+        <div className='upload-modal-overlay'>
+          <div className='upload-modal-content'>
             <h2>Upload or Generate Product Image</h2>
 
-            <div className="upload-modal-section">
+            <div className='upload-modal-section'>
               <label>Upload Image</label>
               <input
-                style={{ width: "94%" }}
-                type="file"
+                style={{ width: '94%' }}
+                type='file'
                 onChange={e => {
                   handleImageUpload(e);
                   setShowImageModal(false);
                 }}
-                accept="image/*"
+                accept='image/*'
               />
             </div>
-            <h4 style={{ textAlign: "center", marginBottom: "0px" }}>OR</h4>
-            <div className="upload-modal-section">
+            <h4 style={{ textAlign: 'center', marginBottom: '0px' }}>OR</h4>
+            {/* <div className="upload-modal-section">
               <label>Generate Image via Prompt</label>
               <input
                 type="text"
@@ -961,9 +962,52 @@ export const Home = () => {
               >
                 Generate & Use Image
               </button>
+            </div> */}
+            <div className='upload-modal-section'>
+              <label>Generate Image via Prompt</label>
+              <input
+                type='text'
+                style={{ width: '94%' }}
+                placeholder='Describe your product'
+                value={promptText}
+                onChange={e => setPromptText(e.target.value)}
+                disabled={isGenerating} // Optional: disable input during generation
+              />
+              <button
+                onClick={() => generateImageFromPrompt(promptText)}
+                className='generate-button'
+                disabled={isGenerating || !promptText} // Disable if generating or no prompt
+              >
+                {isGenerating ? (
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
+                    }}
+                  >
+                    <span
+                      className='spinner'
+                      style={{
+                        display: 'inline-block',
+                        width: '16px',
+                        height: '16px',
+                        border: '2px solid rgba(255, 255, 255, 0.3)',
+                        borderTopColor: 'white',
+                        borderRadius: '50%',
+                        animation: 'spin 1s linear infinite',
+                      }}
+                    ></span>
+                    <span>Generating...</span>
+                  </div>
+                ) : (
+                  'Generate & Use Image'
+                )}
+              </button>
             </div>
             <button
-              className="close-button"
+              className='close-button'
               onClick={() => {
                 setShowImageModal(false);
                 setPromptText('');
@@ -996,8 +1040,9 @@ export const Home = () => {
               />
 
               <button
-                className={`upload-button ${isLoading ? 'loading' : ''} ${!isActive ? 'disabled' : ''
-                  }`}
+                className={`upload-button ${isLoading ? 'loading' : ''} ${
+                  !isActive ? 'disabled' : ''
+                }`}
                 onClick={() => setShowImageModal(true)}
                 disabled={isLoading || !isActive}
               >
@@ -1016,9 +1061,7 @@ export const Home = () => {
                 )}
               </button>
 
-              {!isActive && (
-                <p className='helper-text'>Shopping assistant is getting ready...</p>
-              )}
+              {!isActive && <p className='helper-text'>Shopping assistant is getting ready...</p>}
             </div>
           </div>
         </div>
@@ -1069,11 +1112,7 @@ export const Home = () => {
               {searchResults.map(product => (
                 <div className='product-card' key={product._id}>
                   <div className='product-image'>
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      loading='lazy'
-                    />
+                    <img src={product.image} alt={product.name} loading='lazy' />
                   </div>
                   <div className='product-details'>
                     <h3>{product.name}</h3>
@@ -1100,16 +1139,23 @@ export const Home = () => {
       {/* Activation Popup */}
       {showActivationPopup && (
         <div className='popup-overlay'>
-          <div className='popup-box activation-popup'>
-            <div className='activation-spinner'>
-              <div className='spinner large'></div>
-            </div>
+          <div className='popup-box activation-popup' style={{ textAlign: 'center' }}>
             <h2 style={{ color: '#010228', marginTop: '1rem' }}>Getting Things Ready</h2>
-            <p className='popup-message'>
-              {statusMessage}
-            </p>
-            <div className='progress-text'>
-              This may take a few moments...
+            <p className='popup-message'>{statusMessage}</p>
+            <div
+              className='progress-container'
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '1rem',
+                margin: '1.5rem 0',
+              }}
+            >
+              <div className='spinner-container'>
+                <div className='spinner'></div>
+              </div>
+              <div className='progress-text'>This may take a few moments...</div>
             </div>
           </div>
         </div>
@@ -1121,8 +1167,8 @@ export const Home = () => {
           <div className='popup-box'>
             <h2 style={{ color: '#010228' }}>Welcome to iSnapToShop!</h2>
             <p className='popup-message'>
-              Your shopping assistant is ready to help you find products.
-              Just upload an image to get started!
+              Your shopping assistant is ready to help you find products. Just upload an image to
+              get started!
             </p>
             <button
               onClick={() => {
