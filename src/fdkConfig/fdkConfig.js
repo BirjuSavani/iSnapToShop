@@ -35,6 +35,7 @@ const fdkExtension = setupFdk({
   },
   storage: new SQLiteStorage(sqliteInstance, 'example-fynd-platform-extension'),
   access_mode: 'offline',
+  // debug: true,
   webhook_config: {
     api_path: '/api/webhook-events',
     notification_email: 'useremail@example.com',
@@ -57,7 +58,9 @@ const extensionId = fdkExtension.extension.api_key;
  */
 const getPlatformClientAsync = async company_id => {
   // TODO: Use company_id dynamically if supported
-  const ptClient = await fdkExtension.getPlatformClient("9095");
+  // console.log('Use company_id dynamically if supported');
+  // console.log(fdkExtension.getApplicationClient("9095"));
+  const ptClient = await fdkExtension.getPlatformClient('9095');
   return ptClient;
 };
 

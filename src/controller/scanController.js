@@ -2,6 +2,7 @@ const { AIService } = require('../services/aiServices');
 const NodeCache = require('node-cache');
 const { setStatus, getStatus } = require('./indexStatusStore');
 const { logger } = require('../utils/logger');
+// const { requestInfo } = require('src/utils/requestInfo');
 
 const CACHE_TTL = 1800; // 30 minutes
 const productCache = new NodeCache({ stdTTL: CACHE_TTL });
@@ -110,14 +111,52 @@ exports.indexSingleProduct = async (productData, companyId, platformClient) => {
  * @desc Search for products using uploaded image.
  * configuration.config.companyId
  */
+
+const requestInfo = req => {
+  try {
+    const { application_id, company_id } = req.query;
+
+    if (application_id && company_id) {
+      console.log('Using query params for app/company ID');
+      req.application_id = application_id;
+      req.company_id = company_id;
+      return { application_id, company_id };
+    } else if (req.headers['x-application-data']) {
+      const appData = JSON.parse(req.headers['x-application-data']);
+      req.application_id = appData._id;
+      req.company_id = appData.company_id;
+      return {
+        application_id: appData._id,
+        company_id: appData.company_id,
+      };
+    } else {
+      console.warn('Missing x-application-data header');
+      return null;
+    }
+  } catch (error) {
+    console.error('Error in requestInfo:', error.message);
+    return null;
+  }
+};
+
 exports.searchByImage = async (req, res) => {
   const { platformClient } = req;
-  const { application_id } = req.query;
-  // const company_id = platformClient.configuration.config.companyId;
-  const { company_id } = req.query;
-  // const cacheKey = `app-products-${company_id}`;
 
+  const info = requestInfo(req);
+  if (!info) {
+    return res.status(400).json({ error: 'Missing or invalid application/company ID' });
+  }
+
+  const { application_id, company_id } = info;
+
+  console.log('App ID:', application_id, 'Company ID:', company_id);
+
+  // const { platformClient } = req;
+  // console.log('request', req);
+  // const cacheKey = `app-products-${company_id}`;
+  // const {application_id, company_id} = requestInfo(req);
   try {
+    // const { application_id, company_id } = requestInfo(req);
     if (!req.file) {
       logger.warn('No image uploaded for search');
       return res.status(400).json({ error: 'No image uploaded' });
