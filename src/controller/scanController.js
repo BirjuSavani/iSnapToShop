@@ -31,7 +31,7 @@ const fetchProducts = async (platformClient, applicationId) => {
     const response = await fetchPage(i);
     allProducts.push(...(response.items || []));
   }
-  logger.info('Fetched all products', { productCount: allProducts.length, allProducts });
+  logger.info('Fetched all products', { productCount: allProducts.length });
   return allProducts;
 };
 
@@ -106,85 +106,87 @@ exports.indexSingleProduct = async (productData, companyId, platformClient) => {
   }
 };
 
-// /**
-//  * @desc Search for products using uploaded image.
-//  * configuration.config.companyId
-//  */
-// exports.searchByImage = async (req, res) => {
-//   const { platformClient } = req;
-//   const { application_id } = req.query;
-//   const company_id = platformClient.configuration.config.companyId;
-//   const cacheKey = `app-products-${company_id}`;
+/**
+ * @desc Search for products using uploaded image.
+ * configuration.config.companyId
+ */
+exports.searchByImage = async (req, res) => {
+  const { platformClient } = req;
+  const { application_id } = req.query;
+  // const company_id = platformClient.configuration.config.companyId;
+  const { company_id } = req.query;
+  // const cacheKey = `app-products-${company_id}`;
 
-//   try {
-//     if (!req.file) {
-//       logger.warn('No image uploaded for search');
-//       return res.status(400).json({ error: 'No image uploaded' });
-//     }
+  try {
+    if (!req.file) {
+      logger.warn('No image uploaded for search');
+      return res.status(400).json({ error: 'No image uploaded' });
+    }
 
-//     logger.info('Received image search request', { company_id, application_id });
+    logger.info('Received image search request', { company_id, application_id });
 
-//     const [aiResult, allProducts] = await Promise.all([
-//       aiService.searchByImage(req.file.buffer, company_id),
-//       (async () => {
-//         const cached = productCache.get(cacheKey);
-//         if (cached) {
-//           logger.debug('Using cached product list', { company_id });
-//           return cached;
-//         }
-//         console.log(application_id,'application_id');
-//         const items = await fetchProducts(platformClient, application_id);
-//         productCache.set(cacheKey, items);
-//         return items;
-//       })(),
-//     ]);
+    const [aiResult, allProducts] = await Promise.all([
+      aiService.searchByImage(req.file.buffer, company_id),
+      (async () => {
+        // const cached = productCache.get(cacheKey);
+        // if (cached) {
+        //   logger.debug('Using cached product list', { company_id });
+        //   return cached;
+        // }
+        console.log(application_id, 'application_id');
+        const items = await fetchProducts(platformClient, application_id);
+        // productCache.set(cacheKey, items);
+        return items;
+      })(),
+    ]);
 
-//     const { matches = [], metadata } = aiResult;
-//     if (!matches.length) {
-//       logger.info('No matches found', { application_id });
-//       return res.json({ success: true, results: [], metadata });
-//     }
+    const { matches = [], metadata } = aiResult;
+    if (!matches.length) {
+      logger.info('No matches found', { application_id });
+      return res.json({ success: true, results: [], metadata });
+    }
 
-//     const productMap = new Map(allProducts.map(p => [p.slug, p]));
-//     const enrichedResults = [];
+    const productMap = new Map(allProducts.map(p => [p.slug, p]));
+    const enrichedResults = [];
 
-//     const seenSlugs = new Set();
-//     for (const match of matches) {
-//       const slug = match.slug;
-//       if (!slug || seenSlugs.has(slug)) continue;
+    const seenSlugs = new Set();
+    for (const match of matches) {
+      const slug = match.slug;
+      if (!slug || seenSlugs.has(slug)) continue;
 
-//       const product = productMap.get(slug);
-//       if (!product) continue;
+      const product = productMap.get(slug);
+      if (!product) continue;
 
-//       seenSlugs.add(slug);
+      seenSlugs.add(slug);
 
-//       enrichedResults.push({
-//         name: match.name || product.name,
-//         slug,
-//         image: match.image,
-//         text: match.text,
-//         description: product.description || '',
-//         short_description: product.short_description || '',
-//         category: product.category_slug || '',
-//         media: product.media || [],
-//         sizes: (product.all_sizes || []).map(size => ({
-//           size: size.size,
-//           price: {
-//             marked: size.price?.marked || {},
-//             effective: size.price?.effective || {},
-//           },
-//           sellable: size.sellable,
-//         })),
-//       });
-//     }
+      enrichedResults.push({
+        name: match.name || product.name,
+        slug,
+        image: match.image,
+        text: match.text,
+        description: product.description || '',
+        short_description: product.short_description || '',
+        category: product.category_slug || '',
+        brand: product.brand || '',
+        media: product.media || [],
+        sizes: (product.all_sizes || []).map(size => ({
+          size: size.size,
+          price: {
+            marked: size.price?.marked || {},
+            effective: size.price?.effective || {},
+          },
+          sellable: size.sellable,
+        })),
+      });
+    }
 
-//     logger.info('Returning image search results', { count: enrichedResults.length });
-//     res.json({ success: true, results: enrichedResults, metadata });
-//   } catch (error) {
-//     logger.error('Error in searchByImage', { error, company_id, application_id });
-//     res.status(500).json({ success: false, error: error.message });
-//   }
-// };
+    logger.info('Returning image search results', { count: enrichedResults.length });
+    res.json({ success: true, results: enrichedResults, metadata });
+  } catch (error) {
+    logger.error('Error in searchByImage', { error, company_id, application_id });
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
 
 // exports.searchByImage = async (req, res) => {
 //   try {
@@ -265,58 +267,58 @@ exports.indexSingleProduct = async (productData, companyId, platformClient) => {
 //   }
 // };
 
-/**
- * @desc Search for products using uploaded image.
- * configuration.config.companyId
- */
-exports.searchByImage = async (req, res) => {
-  const { platformClient } = req;
-  const { application_id } = req.query;
-  const company_id = platformClient.configuration.config.companyId;
+// /**
+//  * @desc Search for products using uploaded image.
+//  * configuration.config.companyId
+//  */
+// exports.searchByImage = async (req, res) => {
+//   const { platformClient } = req;
+//   const { application_id } = req.query;
+//   const company_id = platformClient.configuration.config.companyId;
 
-  try {
-    if (!req.file) {
-      logger.warn('No image uploaded for search');
-      return res.status(400).json({ error: 'No image uploaded' });
-    }
+//   try {
+//     if (!req.file) {
+//       logger.warn('No image uploaded for search');
+//       return res.status(400).json({ error: 'No image uploaded' });
+//     }
 
-    logger.info('Received image search request', { company_id, application_id });
+//     logger.info('Received image search request', { company_id, application_id });
 
-    const aiResult = await aiService.searchByImage(req.file.buffer, company_id);
-    const { matches = [], metadata } = aiResult;
-    // console.log(aiResult,'aiResult');
-    if (!matches.length) {
-      logger.info('No matches found', { application_id });
-      return res.json({ success: true, results: [], metadata });
-    }
+//     const aiResult = await aiService.searchByImage(req.file.buffer, company_id);
+//     const { matches = [], metadata } = aiResult;
+//     // console.log(aiResult,'aiResult');
+//     if (!matches.length) {
+//       logger.info('No matches found', { application_id });
+//       return res.json({ success: true, results: [], metadata });
+//     }
 
-    // Deduplicate matches by slug while preserving order
-    const uniqueMatches = [];
-    const seenSlugs = new Set();
+//     // Deduplicate matches by slug while preserving order
+//     const uniqueMatches = [];
+//     const seenSlugs = new Set();
 
-    for (const match of matches) {
-      const slug = match.slug;
-      if (!slug || seenSlugs.has(slug)) continue;
+//     for (const match of matches) {
+//       const slug = match.slug;
+//       if (!slug || seenSlugs.has(slug)) continue;
 
-      seenSlugs.add(slug);
-      uniqueMatches.push(match);
-    }
+//       seenSlugs.add(slug);
+//       uniqueMatches.push(match);
+//     }
 
-    logger.info('Returning image search results', {
-      originalCount: matches.length,
-      uniqueCount: uniqueMatches.length,
-    });
+//     logger.info('Returning image search results', {
+//       originalCount: matches.length,
+//       uniqueCount: uniqueMatches.length,
+//     });
 
-    res.json({
-      success: true,
-      results: uniqueMatches,
-      metadata,
-    });
-  } catch (error) {
-    logger.error('Error in searchByImage', { error, company_id, application_id });
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
+//     res.json({
+//       success: true,
+//       results: uniqueMatches,
+//       metadata,
+//     });
+//   } catch (error) {
+//     logger.error('Error in searchByImage', { error, company_id, application_id });
+//     res.status(500).json({ success: false, error: error.message });
+//   }
+// };
 
 /**
  * @desc Check system and AI service health status.
@@ -392,9 +394,10 @@ exports.generatePromptsToImage = async (req, res) => {
     }
 
     const imageUrl = `${
-      process.env.PUBLIC_BASE_URL || 'http://localhost:42288'
+      process.env.PUBLIC_BASE_URL || 'http://localhost:46474'
     }/generated/${fileName}`;
 
+    logger.info('Generated image URL', { imageUrl });
     // Respond with image URL so frontend can display it
     return res.json({ success: true, imageUrl });
   } catch (error) {

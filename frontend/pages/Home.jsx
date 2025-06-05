@@ -737,9 +737,8 @@ export const Home = () => {
             }
             setState(prev => ({
               ...prev,
-              statusMessage: i < 5
-                ? 'Getting your product catalog ready...'
-                : 'Almost done! Just a moment...',
+              statusMessage:
+                i < 5 ? 'Getting your product catalog ready...' : 'Almost done! Just a moment...',
             }));
             await new Promise(r => setTimeout(r, interval));
           }
@@ -763,7 +762,8 @@ export const Home = () => {
         ...prev,
         isInitializing: false,
         firstTimeVisit: false,
-        error: error.response?.data?.error ||
+        error:
+          error.response?.data?.error ||
           (state.isActive
             ? 'Failed to pause shopping assistant'
             : 'Failed to start shopping assistant'),
@@ -829,12 +829,12 @@ export const Home = () => {
     fileInputRef.current.click();
   };
 
-  const productProfileImage = image => {
-    if (!image || !image.length) return DEFAULT_NO_IMAGE;
-    const profileImg = image.find(m => m.type === 'image');
+  const productProfileImage = media => {
+    if (!media || !media.length) return DEFAULT_NO_IMAGE;
+    const profileImg = media.find(m => m.type === 'image');
     return profileImg?.url || DEFAULT_NO_IMAGE;
   };
-    
+
   const generateImageFromPrompt = async function (prompt) {
     try {
       setIsGenerating(true);
@@ -912,8 +912,7 @@ export const Home = () => {
       }));
     }
   };
-  
-  
+
   const {
     isLoading,
     searchResults,
@@ -1112,15 +1111,21 @@ export const Home = () => {
               {searchResults.map(product => (
                 <div className='product-card' key={product._id}>
                   <div className='product-image'>
-                    <img src={product.image} alt={product.name} loading='lazy' />
+                    <img
+                      src={productProfileImage(product.media)}
+                      alt={product.name}
+                      loading='lazy'
+                    />
                   </div>
                   <div className='product-details'>
                     <h3>{product.name}</h3>
-                    {product.brand && <p className='brand'>{product.brand}</p>}
-                    {product.price_effective && <p className='price'>{product.price_effective}</p>}
+                    {product.brand && <p className='brand'>{product.brand.name}</p>}
+                    {product.sizes && product.sizes.length > 0 && (
+                      <p className='price'>₹{product.sizes[0].price.effective.min}</p>
+                    )}
                   </div>
                 </div>
-              ))}
+              ))}{' '}
             </div>
           </>
         ) : (

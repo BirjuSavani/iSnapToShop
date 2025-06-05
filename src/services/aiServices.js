@@ -231,7 +231,7 @@ class AIService {
       );
       const response = await this.axiosInstance.post('/embeddings_store', {
         products,
-        application_id: companyId,
+        application_id: applicationId,
       });
 
       console.log('Product indexing successful');
