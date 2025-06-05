@@ -133,7 +133,6 @@ exports.searchByImage = async (req, res) => {
         //   logger.debug('Using cached product list', { company_id });
         //   return cached;
         // }
-        console.log(application_id, 'application_id');
         const items = await fetchProducts(platformClient, application_id);
         // productCache.set(cacheKey, items);
         return items;

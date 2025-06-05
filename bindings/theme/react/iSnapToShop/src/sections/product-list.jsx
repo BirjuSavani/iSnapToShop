@@ -665,7 +665,7 @@ const styles = {
 export function Component({ props }) {
   console.log(props.application_id.value,'application_id');
   const application_id = props.application_id.value;
-  const company_id = '9095';
+  const company_id = props.company_id.value;
 
   const [productFilterList, setProductFilterList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -1316,6 +1316,14 @@ export const settings = {
       type: 'text',
       default: '',
       info: 'Page Title',
+    },
+    {
+      id:'company_id',
+      label: 'Company ID',
+      type: 'text',
+      default: '',
+      info: 'Company ID',
+      require:true
     },
     {
       id:'application_id',
