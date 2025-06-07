@@ -60,7 +60,7 @@ const getPlatformClientAsync = async company_id => {
   // TODO: Use company_id dynamically if supported
   // console.log('Use company_id dynamically if supported');
   // console.log(fdkExtension.getApplicationClient("9095"));
-  const ptClient = await fdkExtension.getPlatformClient('9095');
+  const ptClient = await fdkExtension.getPlatformClient(company_id);
   return ptClient;
 };
 

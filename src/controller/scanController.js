@@ -2,11 +2,45 @@ const { AIService } = require('../services/aiServices');
 const NodeCache = require('node-cache');
 const { setStatus, getStatus } = require('./indexStatusStore');
 const { logger } = require('../utils/logger');
-// const { requestInfo } = require('src/utils/requestInfo');
+const Sentry = require('../utils/instrument');
+const { logEvent } = require('../controller/analyticsController');
+const { fdkExtension } = require('../fdkConfig/fdkConfig');
 
 const CACHE_TTL = 1800; // 30 minutes
 const productCache = new NodeCache({ stdTTL: CACHE_TTL });
 const aiService = new AIService();
+
+const requestInfo = req => {
+  try {
+    // console.log(req, "req");
+    // if (!req) return null;
+
+    const { application_id, company_id } = req.query || null;
+    if (application_id && company_id) {
+      return { application_id, company_id };
+    }
+
+    const appDataHeader = req.headers['x-application-data'];
+    if (appDataHeader) {
+      try {
+        const appData =
+          typeof appDataHeader === 'string' ? JSON.parse(appDataHeader) : appDataHeader;
+
+        return {
+          application_id: appData?._id,
+          company_id: appData?.company_id,
+        };
+      } catch (e) {
+        logger.error('Failed to parse x-application-data', { error: e });
+      }
+    }
+    return null;
+  } catch (error) {
+    logger.error('Error in requestInfo', { error });
+    Sentry.captureException(error);
+    return null;
+  }
+};
 
 /**
  * Fetches all products with pagination support.
@@ -15,7 +49,6 @@ const fetchProducts = async (platformClient, applicationId) => {
   const pageSize = 50;
   let pageNo = 1;
   let allProducts = [];
-
   const fetchPage = async page => {
     return applicationId
       ? await platformClient
@@ -42,6 +75,12 @@ const fetchProducts = async (platformClient, applicationId) => {
 exports.initProductIndexing = async (req, res) => {
   const { platformClient } = req;
   const { company_id, application_id } = req.query;
+  // const info = requestInfo(req);
+  // if (!info) {
+  //   return res.status(400).json({ error: 'Missing or invalid application/company ID' });
+  // }
+
+  // const { application_id, company_id } = info;
 
   try {
     const products = await fetchProducts(platformClient, application_id);
@@ -73,6 +112,7 @@ exports.initProductIndexing = async (req, res) => {
     res.json({ success: true, message: 'Indexing started in background' });
   } catch (error) {
     logger.error('Error in initProductIndexing', { error, application_id, company_id });
+    Sentry.captureException('Error in initProductIndexing function', error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
@@ -103,6 +143,7 @@ exports.indexSingleProduct = async (productData, companyId, platformClient) => {
     return { success: true, result: { products: product } };
   } catch (error) {
     logger.error('Error indexing single product', { error, companyId });
+    Sentry.captureException('Error in indexSingleProduct function', error);
     throw error;
   }
 };
@@ -111,37 +152,8 @@ exports.indexSingleProduct = async (productData, companyId, platformClient) => {
  * @desc Search for products using uploaded image.
  * configuration.config.companyId
  */
-
-const requestInfo = req => {
-  try {
-    const { application_id, company_id } = req.query;
-
-    if (application_id && company_id) {
-      console.log('Using query params for app/company ID');
-      req.application_id = application_id;
-      req.company_id = company_id;
-      return { application_id, company_id };
-    } else if (req.headers['x-application-data']) {
-      const appData = JSON.parse(req.headers['x-application-data']);
-      req.application_id = appData._id;
-      req.company_id = appData.company_id;
-      return {
-        application_id: appData._id,
-        company_id: appData.company_id,
-      };
-    } else {
-      console.warn('Missing x-application-data header');
-      return null;
-    }
-  } catch (error) {
-    console.error('Error in requestInfo:', error.message);
-    return null;
-  }
-};
-
 exports.searchByImage = async (req, res) => {
   const { platformClient } = req;
-
   const info = requestInfo(req);
   if (!info) {
     return res.status(400).json({ error: 'Missing or invalid application/company ID' });
@@ -149,12 +161,11 @@ exports.searchByImage = async (req, res) => {
 
   const { application_id, company_id } = info;
 
-  console.log('App ID:', application_id, 'Company ID:', company_id);
-
   // const { platformClient } = req;
   // console.log('request', req);
   // const cacheKey = `app-products-${company_id}`;
-  // const {application_id, company_id} = requestInfo(req);
+  // const {application_id, company_id} = req.query;
+  // console.log(application_id, company_id,"applicaiton_id, company_id");
   try {
     // const { application_id, company_id } = requestInfo(req);
     if (!req.file) {
@@ -218,13 +229,117 @@ exports.searchByImage = async (req, res) => {
       });
     }
 
+    // Always log the image search attempt
+    await logEvent({
+      applicationId: application_id,
+      companyId: company_id,
+      type: matches.length ? 'image_search' : 'image_not_found',
+      query: matches.length
+        ? JSON.stringify(matches[0])
+        : JSON.stringify({ message: 'No matches found' }),
+    });
+
     logger.info('Returning image search results', { count: enrichedResults.length });
     res.json({ success: true, results: enrichedResults, metadata });
   } catch (error) {
     logger.error('Error in searchByImage', { error, company_id, application_id });
+    Sentry.captureException('Error in searchByImage function', error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
+// exports.searchByImageUsingStoreFront = async (req, res) => {
+//   const info = requestInfo(req);
+//   if (!info) {
+//     return res.status(400).json({ error: 'Missing or invalid application/company ID' });
+//   }
+
+//   const { application_id, company_id } = info;
+
+//   const ptClient = await fdkExtension.getPlatformClient(company_id);
+//   req.platformClient = ptClient;
+//   const { platformClient } = req;
+
+//   try {
+//     if (!req.file) {
+//       logger.warn('No image uploaded for search');
+//       return res.status(400).json({ error: 'No image uploaded' });
+//     }
+
+//     logger.info('Received image search request', { company_id, application_id });
+
+//     const [aiResult, allProducts] = await Promise.all([
+//       aiService.searchByImage(req.file.buffer, company_id),
+//       (async () => {
+//         // const cached = productCache.get(cacheKey);
+//         // if (cached) {
+//         //   logger.debug('Using cached product list', { company_id });
+//         //   return cached;
+//         // }
+//         const items = await fetchProducts(platformClient, application_id);
+//         // productCache.set(cacheKey, items);
+//         return items;
+//       })(),
+//     ]);
+
+//     const { matches = [], metadata } = aiResult;
+//     if (!matches.length) {
+//       logger.info('No matches found', { application_id });
+//       return res.json({ success: true, results: [], metadata });
+//     }
+
+//     const productMap = new Map(allProducts.map(p => [p.slug, p]));
+//     const enrichedResults = [];
+
+//     const seenSlugs = new Set();
+//     for (const match of matches) {
+//       const slug = match.slug;
+//       if (!slug || seenSlugs.has(slug)) continue;
+
+//       const product = productMap.get(slug);
+//       if (!product) continue;
+
+//       seenSlugs.add(slug);
+
+//       enrichedResults.push({
+//         name: match.name || product.name,
+//         slug,
+//         image: match.image,
+//         text: match.text,
+//         description: product.description || '',
+//         short_description: product.short_description || '',
+//         category: product.category_slug || '',
+//         brand: product.brand || '',
+//         media: product.media || [],
+//         sizes: (product.all_sizes || []).map(size => ({
+//           size: size.size,
+//           price: {
+//             marked: size.price?.marked || {},
+//             effective: size.price?.effective || {},
+//           },
+//           sellable: size.sellable,
+//         })),
+//       });
+//     }
+
+//     // Always log the image search attempt
+//     await logEvent({
+//       applicationId: application_id,
+//       companyId: company_id,
+//       type: enrichedResults.length ? 'image_search' : 'image_not_found',
+//       query: matches.length
+//         ? JSON.stringify(matches[0])
+//         : JSON.stringify({ message: 'No matches found' }),
+//     });
+
+//     logger.info('Returning image search results', { count: enrichedResults.length });
+//     res.json({ success: true, results: enrichedResults, metadata });
+//   } catch (error) {
+//     logger.error('Error in searchByImage', { error, company_id, application_id });
+//     Sentry.captureException('Error in searchByImage function', error);
+//     res.status(500).json({ success: false, error: error.message });
+//   }
+// };
 
 // exports.searchByImage = async (req, res) => {
 //   try {
@@ -358,6 +473,115 @@ exports.searchByImage = async (req, res) => {
 //   }
 // };
 
+exports.searchByImageUsingStoreFront = async (req, res) => {
+  const info = requestInfo(req);
+  if (!info) {
+    return res.status(400).json({ error: 'Missing or invalid application/company ID' });
+  }
+
+  const { application_id, company_id } = info;
+
+  const ptClient = await fdkExtension.getPlatformClient(company_id);
+  req.platformClient = ptClient;
+  const { platformClient } = req;
+
+  try {
+    if (!req.file) {
+      logger.warn('No image uploaded for search');
+
+      await logEvent({
+        applicationId: application_id,
+        companyId: company_id,
+        type: 'image_not_found',
+        query: JSON.stringify({ message: 'No image uploaded' }),
+      });
+
+      return res.status(400).json({ error: 'No image uploaded' });
+    }
+
+    logger.info('Received image search request', { company_id, application_id });
+
+    const [aiResult, allProducts] = await Promise.all([
+      (async () => {
+        try {
+          return await aiService.searchByImage(req.file.buffer, company_id);
+        } catch (err) {
+          logger.error('AI service failed', { error: err.message });
+          await logEvent({
+            applicationId: application_id,
+            companyId: company_id,
+            type: 'image_not_found',
+            query: JSON.stringify({ message: 'No matches found' }),
+          });    
+          throw new Error(`AI service error: ${err.response?.status || 500} - ${err.message}`);
+        }
+      })(),
+      (async () => {
+        const items = await fetchProducts(platformClient, application_id);
+        return items;
+      })(),
+    ]);
+
+    const { matches = [], metadata } = aiResult;
+    if (!matches.length) {
+      logger.info('No matches found', { application_id });
+      return res.json({ success: true, results: [], metadata });
+    }
+
+    const productMap = new Map(allProducts.map(p => [p.slug, p]));
+    const enrichedResults = [];
+
+    const seenSlugs = new Set();
+    for (const match of matches) {
+      const slug = match.slug;
+      if (!slug || seenSlugs.has(slug)) continue;
+
+      const product = productMap.get(slug);
+      if (!product) continue;
+
+      seenSlugs.add(slug);
+
+      enrichedResults.push({
+        name: match.name || product.name,
+        slug,
+        image: match.image,
+        text: match.text,
+        description: product.description || '',
+        short_description: product.short_description || '',
+        category: product.category_slug || '',
+        brand: product.brand || '',
+        media: product.media || [],
+        sizes: (product.all_sizes || []).map(size => ({
+          size: size.size,
+          price: {
+            marked: size.price?.marked || {},
+            effective: size.price?.effective || {},
+          },
+          sellable: size.sellable,
+        })),
+      });
+    }
+
+    // Always log the image search attempt
+    await logEvent({
+      applicationId: application_id,
+      companyId: company_id,
+      type: enrichedResults.length ? 'image_search' : 'image_not_found',
+      query: matches.length
+        ? JSON.stringify(matches[0])
+        : JSON.stringify({ message: 'No matches found' }),
+    });
+
+    logger.info('Returning image search results', { count: enrichedResults.length });
+    res.json({ success: true, results: enrichedResults, metadata });
+  } catch (error) {
+    logger.error('Error in searchByImage', { error, company_id, application_id });
+    Sentry.captureException('Error in searchByImage function', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+
 /**
  * @desc Check system and AI service health status.
  */
@@ -372,6 +596,7 @@ exports.checkSystemStatus = async (req, res) => {
     });
   } catch (error) {
     logger.error('Error checking system status', { error });
+    Sentry.captureException('Error in checkSystemStatus function', error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
@@ -380,6 +605,13 @@ exports.checkSystemStatus = async (req, res) => {
  * @desc Remove the existing product index.
  */
 exports.removeIndex = async (req, res) => {
+  // const { company_id, application_id } = req.query;
+  // const info = requestInfo(req);
+  // if (!info) {
+  //   return res.status(400).json({ error: 'Missing or invalid application/company ID' });
+  // }
+
+  // const { application_id, company_id } = info;
   const { company_id, application_id } = req.query;
 
   if (!company_id || !application_id) {
@@ -397,6 +629,7 @@ exports.removeIndex = async (req, res) => {
     });
   } catch (error) {
     logger.error('Error in removeIndex', { error, company_id, application_id });
+    Sentry.captureException('Error in removeIndex function', error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
@@ -407,18 +640,62 @@ exports.removeIndex = async (req, res) => {
 // exports.generatePromptsToImage = async (req, res) => {
 //   const { platformClient } = req;
 //   const { prompt } = req.body;
+
+//   const info = requestInfo(req);
+//   if (!info) {
+//     return res.status(400).json({ error: 'Missing or invalid application/company ID' });
+//   }
+
+//   const { application_id, company_id } = info;
+
+//   if (!prompt) {
+//     return res.status(400).json({ success: false, error: 'Missing prompt in request body' });
+//   }
+
 //   try {
-//     const aiResult = await aiService.generatePromptsToImage(prompt);
-//     res.json({ success: true, results: aiResult });
+//     const { filePath, fileName } = await aiService.generatePromptsToImage(prompt);
+
+//     if (!filePath) {
+//       return res.status(500).json({ success: false, error: 'Image generation failed' });
+//     }
+
+//     const imageUrl = `${
+//       process.env.PUBLIC_BASE_URL || 'http://localhost:40633'
+//     }/generated/${fileName}`;
+
+//     await logEvent({
+//       application_id,
+//       company_id,
+//       event_type: 'prompt_image_generation',
+//       metadata: {
+//         prompt,
+//         image_url: imageUrl,
+//       },
+//     });
+
+//     logger.info('Generated image URL', { imageUrl });
+//     // Respond with image URL so frontend can display it
+//     return res.json({ success: true, imageUrl });
 //   } catch (error) {
-//     logger.error('Error in generatePromptsToImage', { error, company_id, application_id });
-//     res.status(500).json({ success: false, error: error.message });
+//     logger.error('Error in generatePromptsToImage', { error });
+//     Sentry.captureException('Error in generatePromptsToImage function', error);
+//     res.status(500).json({ success: false, error: 'Server error during image generation' });
 //   }
 // };
 
 exports.generatePromptsToImage = async (req, res) => {
   const { platformClient } = req;
   const { prompt } = req.body;
+
+  // const info = requestInfo(req);
+  // if (!info) {
+  //   return res.status(400).json({ error: 'Missing or invalid application/company ID' });
+  // }
+
+  // const { application_id, company_id } = info;
+  // console.log(application_id, company_id);
+
+  const { company_id, application_id } = req.query;
 
   if (!prompt) {
     return res.status(400).json({ success: false, error: 'Missing prompt in request body' });
@@ -432,14 +709,31 @@ exports.generatePromptsToImage = async (req, res) => {
     }
 
     const imageUrl = `${
-      process.env.PUBLIC_BASE_URL || 'http://localhost:46474'
+      process.env.PUBLIC_BASE_URL || 'http://localhost:41261'
     }/generated/${fileName}`;
 
+    // Log the successful image generation event
+    await logEvent({
+      applicationId: application_id,
+      companyId: company_id,
+      type: 'prompt_image_generation',
+      query: JSON.stringify({ prompt, imageUrl }),
+    });
+
     logger.info('Generated image URL', { imageUrl });
-    // Respond with image URL so frontend can display it
     return res.json({ success: true, imageUrl });
   } catch (error) {
-    console.error('Error in generatePromptsToImage', error);
+    logger.error('Error in generatePromptsToImage', { error });
+    Sentry.captureException('Error in generatePromptsToImage function', error);
+
+    // Optional: log a failed generation event
+    await logEvent({
+      applicationId: application_id,
+      companyId: company_id,
+      type: 'prompt_image_failed',
+      query: JSON.stringify({ prompt, error: error.message }),
+    });
+
     res.status(500).json({ success: false, error: 'Server error during image generation' });
   }
 };

@@ -6,7 +6,8 @@
     "start": "npm run start:dev",
     "start:dev": "nodemon index.js",
     "start:prod": "NODE_ENV=production node index.js",
-    "test": "jest --config jest.config.js --no-cache --detectOpenHandles --json --outputFile=./coverage/coverage.json"
+    "test": "jest --config jest.config.js --no-cache --detectOpenHandles --json --outputFile=./coverage/coverage.json",
+    "sonar": "node sonar.js"
   },
   "nodemonConfig": {
     "ignore": [
@@ -16,6 +17,8 @@
   "dependencies": {
     "@gofynd/fdk-client-javascript": "^1.6.4",
     "@gofynd/fdk-extension-javascript": "^1.1.0",
+    "@sentry/node": "^9.27.0",
+    "@sentry/profiling-node": "^9.27.0",
     "axios": "^1.9.0",
     "body-parser": "^1.20.2",
     "cls-hooked": "^4.2.2",
@@ -26,6 +29,7 @@
     "express": "^4.19.2",
     "express-validator": "^7.2.1",
     "ioredis": "^5.6.1",
+    "mongoose": "^8.15.1",
     "multer": "^2.0.0",
     "node-cache": "^5.1.2",
     "react-icons": "^5.5.0",
@@ -41,6 +45,7 @@
     "concurrently": "^8.2.2",
     "jest": "^29.7.0",
     "nodemon": "^3.1.4",
+    "sonarqube-scanner": "^4.3.0",
     "supertest": "^6.3.0"
   },
   "engines": {

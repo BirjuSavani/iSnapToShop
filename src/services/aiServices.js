@@ -252,7 +252,7 @@ class AIService {
       contentType: 'image/jpeg',
     });
     formData.append('company_id', companyId);
-
+    
     try {
       const response = await this.axiosInstance.post('/search/image', formData, {
         headers: {

@@ -10,12 +10,14 @@ const utc = require('dayjs/plugin/utc');
 const timezone = require('dayjs/plugin/timezone');
 const cors = require('cors');
 const { logger, requestLogger } = require('./src/utils/logger');
+const Sentry = require('./src/utils/instrument');
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const scanRoutes = require('./src/routes/scanRoutes');
 const proxyRoutes = require('./src/routes/proxyRoutes');
+const analyticsRoutes = require('./src/routes/analyticsRoutes');
 
 const STATIC_PATH =
   process.env.NODE_ENV === 'production'
@@ -36,17 +38,17 @@ app.use(requestLogger);
 app.options('*', cors('*'));
 
 // Platform client middleware
-app.use(async (req, res, next) => {
-  try {
-    const company_id = req.headers['x-company-id'];
-    const ptClient = await getPlatformClientAsync(req.query.company_id);
-    req.platformClient = ptClient;
-    next();
-  } catch (error) {
-    logger.error(`Failed to get platform client`, { error });
-    next(error);
-  }
-});
+// app.use(async (req, res, next) => {
+//   try {
+//     // const company_id = req.headers['x-company-id'];
+//     const ptClient = await getPlatformClientAsync(req.query.company_id);
+//     req.platformClient = ptClient;
+//     next();
+//   } catch (error) {
+//     logger.error(`Failed to get platform client`, { error });
+//     next(error);
+//   }
+// });
 
 // API Routes Setup
 const platformApiRoutes = fdkExtension.platformApiRoutes;
@@ -60,6 +62,8 @@ app.use('/api/platform', platformApiRoutes);
 app.use('/api', applicationProxyRoutes);
 app.use('/', fdkExtension.fdkHandler);
 
+app.use('/api/analytics', analyticsRoutes);
+
 // Webhook handler
 app.post('/api/webhook-events', async (req, res) => {
   try {
@@ -68,6 +72,7 @@ app.post('/api/webhook-events', async (req, res) => {
     return res.status(200).json({ success: true });
   } catch (err) {
     logger.error(`Error Processing Webhook`, { error: err });
+    Sentry.captureException('Error in webhook handler function', err);
     return res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -79,6 +84,7 @@ app.get('/health', (req, res) => {
     res.json({ success: true, message: 'Server is running' });
   } catch (error) {
     logger.error('Error in health check', { error });
+    Sentry.captureException('Error in health check function', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });

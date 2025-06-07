@@ -1,5 +1,6 @@
 const { fdkExtension } = require('../fdkConfig/fdkConfig');
 const { logger } = require('../utils/logger');
+const Sentry = require('../utils/instrument');
 
 /**
  * Add a new proxy path for the given application.
@@ -8,6 +9,10 @@ exports.addProxyPath = async (req, res) => {
   const requestId = req.requestId || 'unknown';
   const { platformClient } = req;
   const { application_id, attached_path, proxy_url } = req.body;
+
+  // const { application_id } = req.query;
+  // const attached_path = 'ab';
+  // const proxy_url = process.env.EXTENSION_BASE_URL;
 
   try {
     logger.info('Adding proxy path', { requestId });
@@ -53,6 +58,7 @@ exports.addProxyPath = async (req, res) => {
       requestId,
       error: error.stack || error.message,
     });
+    Sentry.captureException("Error in addProxyPath function",error);
     return res.status(500).json({
       message: 'Failed to add proxy path',
       error: error.message,
@@ -107,6 +113,7 @@ exports.removeProxyPath = async (req, res) => {
       requestId,
       error: error.stack || error.message,
     });
+    Sentry.captureException("Error in removeProxyPath function",error);
     return res.status(500).json({
       message: 'Failed to remove proxy path',
       error: error.message,

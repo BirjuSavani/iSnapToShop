@@ -51,6 +51,22 @@ router.post(
 );
 
 /**
+ * @route POST /search-by-image-using-store-front
+ * @desc Search products using an uploaded image (in-memory)
+ */
+router.post(
+  '/search-by-image-using-store-front',
+  (req, res, next) =>
+    upload.single('image')(req, res, err => {
+      if (err instanceof multer.MulterError || err) {
+        return res.status(400).json({ success: false, error: err.message });
+      }
+      next();
+    }),
+  asyncHandler(scanController.searchByImageUsingStoreFront)
+);
+
+/**
  * @route GET /system-status
  * @desc Check internal AI search/indexing system status
  */
