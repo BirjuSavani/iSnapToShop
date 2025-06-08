@@ -37,19 +37,6 @@ app.use(requestLogger);
 // Enable CORS
 app.options('*', cors('*'));
 
-// Platform client middleware
-// app.use(async (req, res, next) => {
-//   try {
-//     // const company_id = req.headers['x-company-id'];
-//     const ptClient = await getPlatformClientAsync(req.query.company_id);
-//     req.platformClient = ptClient;
-//     next();
-//   } catch (error) {
-//     logger.error(`Failed to get platform client`, { error });
-//     next(error);
-//   }
-// });
-
 // API Routes Setup
 const platformApiRoutes = fdkExtension.platformApiRoutes;
 const applicationProxyRoutes = fdkExtension.applicationProxyRoutes;

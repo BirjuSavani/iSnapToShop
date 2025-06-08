@@ -1249,7 +1249,7 @@ export const Home = () => {
   const fetchAnalyticsData = async () => {
     try {
       const response = await fetch(
-        `${EXAMPLE_MAIN_URL}/api/analytics/report?applicationId=672ddc7346bed2c768faf043&startDate=05-06-2025&endDate=08-06-2025`
+        `${EXAMPLE_MAIN_URL}/api/analytics/report?applicationId=${application_id}&companyId=${company_id}&startDate=05-06-2025&endDate=08-06-2025`
       );
       const data = await response.json();
 
@@ -1294,37 +1294,7 @@ export const Home = () => {
 
   useEffect(() => {
     if (activeTab === 'analytics') {
-      const timer = setTimeout(() => {
-        // setAnalyticsData({
-        //   totalSearches: 1243,
-        //   successfulMatches: 892,
-        //   matchRate: 71.8,
-        //   popularProducts: [
-        //     { name: 'Nike Air Max', searches: 215 },
-        //     { name: 'Adidas Ultraboost', searches: 187 },
-        //     { name: 'Apple Watch Series 7', searches: 156 },
-        //     { name: 'Samsung Galaxy S22', searches: 132 },
-        //     { name: 'Bose QuietComfort 45', searches: 98 },
-        //   ],
-        //   searchTrends: [
-        //     { day: 'Mon', searches: 120 },
-        //     { day: 'Tue', searches: 145 },
-        //     { day: 'Wed', searches: 132 },
-        //     { day: 'Thu', searches: 168 },
-        //     { day: 'Fri', searches: 210 },
-        //     { day: 'Sat', searches: 245 },
-        //     { day: 'Sun', searches: 223 },
-        //   ],
-        //   deviceBreakdown: [
-        //     { device: 'Mobile', percentage: 68 },
-        //     { device: 'Desktop', percentage: 25 },
-        //     { device: 'Tablet', percentage: 7 },
-        //   ],
-        // });
-        fetchAnalyticsData();
-      }, 800);
-
-      return () => clearTimeout(timer);
+      fetchAnalyticsData();
     }
   }, [activeTab]);
 
@@ -1792,6 +1762,7 @@ export const Home = () => {
               onClick={() => {
                 setShowImageModal(false);
                 setPromptText('');
+                setIsGenerating(false);
               }}
             >
               Cancel
@@ -1957,7 +1928,7 @@ export const Home = () => {
         </>
       ) : (
         <div className='analytics-dashboard'>
-          <div className='metrics-grid'>
+          {/* <div className='metrics-grid'>
             <div className='metric-card'>
               <div className='metric-value'>{analyticsData.totalSearches}</div>
               <div className='metric-label'>Total Searches</div>
@@ -1981,6 +1952,33 @@ export const Home = () => {
               <div className='metric-label'>Avg. Daily Searches</div>
               <div className='metric-trend up'>↑ 15% from last week</div>
             </div>
+          </div> */}
+          <div className='metrics-grid'>
+            <div className='metric-card'>
+              <div className='metric-value'>{analyticsData?.totalSearches ?? 0}</div>
+              <div className='metric-label'>Total Searches</div>
+              <div className='metric-trend up'>↑ 12% from last week</div>
+            </div>
+
+            <div className='metric-card'>
+              <div className='metric-value'>{analyticsData?.successfulMatches ?? 0}</div>
+              <div className='metric-label'>Successful Matches</div>
+              <div className='metric-trend up'>↑ 8% from last week</div>
+            </div>
+
+            <div className='metric-card'>
+              <div className='metric-value'>{analyticsData?.matchRate ?? 0}%</div>
+              <div className='metric-label'>Match Rate</div>
+              <div className='metric-trend down'>↓ 2% from last week</div>
+            </div>
+
+            <div className='metric-card'>
+              <div className='metric-value'>
+                {analyticsData?.totalSearches ? Math.round(analyticsData.totalSearches / 7) : 0}/day
+              </div>
+              <div className='metric-label'>Avg. Daily Searches</div>
+              <div className='metric-trend up'>↑ 15% from last week</div>
+            </div>
           </div>
 
           <div className='chart-row'>
@@ -2001,7 +1999,7 @@ export const Home = () => {
               </div>
             </div>
 
-            <div className='chart-card'>
+            {/* <div className='chart-card'>
               <h3>Device Breakdown</h3>
               <div className='chart-container'>
                 <Pie
@@ -2016,10 +2014,10 @@ export const Home = () => {
                   }}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
 
-          <div className='chart-row'>
+          {/* <div className='chart-row'>
             <div className='chart-card full-width'>
               <h3>Most Popular Products</h3>
               <div className='chart-container'>
@@ -2041,9 +2039,9 @@ export const Home = () => {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <div className='recent-searches'>
+          {/* <div className='recent-searches'>
             <h3>Recent Search Activity</h3>
             <div className='search-table'>
               <div className='table-header'>
@@ -2098,7 +2096,7 @@ export const Home = () => {
                 <div className='table-cell success'>Successful</div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
 

@@ -42,3 +42,10 @@ coverage_output.json
 logs
 
 public/generated/*.png
+
+# SonarQube
+sonar-project.properties
+sonar.js
+.scannerwork/
+.sonar/
+.sonarlint/

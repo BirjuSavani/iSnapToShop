@@ -252,7 +252,7 @@ class AIService {
       contentType: 'image/jpeg',
     });
     formData.append('company_id', companyId);
-    
+
     try {
       const response = await this.axiosInstance.post('/search/image', formData, {
         headers: {
@@ -304,22 +304,6 @@ class AIService {
     }
   }
 
-  // async generatePromptsToImage(prompt) {
-  //   try {
-  //     console.log(`Generating prompts to image for prompt=${prompt}`);
-  //     const response = await this.axiosInstance.post('/generate_prompts_to_image', {
-  //       prompt,
-  //     });
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error(`Generate prompts to image failed: ${error.message}`, {
-  //       prompt,
-  //     });
-  //     throw new Error(
-  //       `Generate prompts to image failed: ${error.response?.data?.error || error.message}`
-  //     );
-  //   }
-  // }
   async generatePromptsToImage(prompt) {
     try {
       const response = await this.axiosInstance.post(

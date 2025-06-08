@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-// import './Component.css'
+import React, { useEffect, useRef, useState } from 'react';
+import { useGlobalStore, useFPI } from 'fdk-core/utils';
 
 // Styles object for component styling
 const styles = {
@@ -8,16 +8,16 @@ const styles = {
     fontFamily:
       '"Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     background: 'linear-gradient(135deg,#0C5273 0%,#0C5272 100%)',
-    // minHeight: '100vh',
+    minHeight: '0vh',
     position: 'relative',
     overflow: 'hidden',
+    // padding: '0 16px',
   },
 
   title: {
     textAlign: 'center',
     color: '#ffffff',
-    // marginBottom: '40px',
-    fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+    fontSize: 'clamp(2rem, 8vw, 4rem)',
     fontWeight: '800',
     background: 'linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%)',
     WebkitBackgroundClip: 'text',
@@ -25,34 +25,37 @@ const styles = {
     backgroundClip: 'text',
     textShadow: '0 4px 20px rgba(255,255,255,0.3)',
     letterSpacing: '-0.02em',
-    paddingTop: '20px',
+    padding: '5px',
+    margin: '0',
   },
 
   uploadSection: {
     textAlign: 'center',
     marginBottom: '20px',
     position: 'relative',
+    padding: '0 10px',
   },
 
   customUploadContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    marginLeft: '19%',
     flexDirection: 'column',
     gap: '20px',
-    // background: 'rgba(255, 255, 255, 0.1)',
     backdropFilter: 'blur(20px)',
     WebkitBackdropFilter: 'blur(20px)',
-    padding: '20px 30px',
+    padding: '20px 20px',
     borderRadius: '24px',
     marginBottom: '0px',
     color: '#fff',
     cursor: 'pointer',
-    // border: '2px solid rgba(255, 255, 255, 0.2)',
-    // boxShadow: '0 25px 50px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+    maxWidth: '910px',
+    width: '100%',
     transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
     position: 'relative',
     overflow: 'hidden',
+    border: '2px solid rgba(255, 255, 255, 0.1)',
   },
 
   mainUploadButton: {
@@ -60,12 +63,12 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     gap: '12px',
-    padding: '16px 32px',
+    padding: '16px 24px',
     background: 'linear-gradient(135deg, #e9e9e9 0%, #e2d4e9 50%, #efefef 100%)',
     color: 'black',
     border: 'none',
     borderRadius: '50px',
-    fontSize: '16px',
+    fontSize: 'clamp(14px, 3vw, 16px)',
     fontWeight: '600',
     cursor: 'pointer',
     transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
@@ -74,6 +77,8 @@ const styles = {
     boxShadow: '0 10px 30px rgba(102, 126, 234, 0.4)',
     position: 'relative',
     overflow: 'hidden',
+    width: '100%',
+    maxWidth: '300px',
     '&:hover': {
       transform: 'translateY(-2px)',
       boxShadow: '0 15px 40px rgba(102, 126, 234, 0.6)',
@@ -85,14 +90,14 @@ const styles = {
 
   quickText: {
     fontWeight: '700',
-    fontSize: '1.2em',
+    fontSize: 'clamp(1rem, 4vw, 1.2em)',
     background: 'linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
   },
 
-  // Modal Styles - Completely redesigned
+  // Modal Styles
   modalOverlay: {
     position: 'fixed',
     top: 0,
@@ -107,6 +112,7 @@ const styles = {
     justifyContent: 'center',
     zIndex: 1000,
     animation: 'modalFadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+    padding: '20px',
   },
 
   modalContent: {
@@ -114,10 +120,10 @@ const styles = {
     backdropFilter: 'blur(20px)',
     WebkitBackdropFilter: 'blur(20px)',
     borderRadius: '24px',
-    width: '90%',
+    width: '100%',
     maxWidth: '500px',
     maxHeight: '90vh',
-    overflow: 'hidden',
+    overflow: 'auto',
     border: '2px solid rgba(255, 255, 255, 0.3)',
     boxShadow: '0 25px 50px rgba(0, 0, 0, 0.25)',
     animation: 'modalSlideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
@@ -127,14 +133,16 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '25px 30px',
+    padding: '20px',
     borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
     background: 'rgba(255, 255, 255, 0.5)',
+    position: 'sticky',
+    top: 0,
   },
 
   modalTitle: {
     margin: 0,
-    fontSize: '22px',
+    fontSize: 'clamp(18px, 5vw, 22px)',
     fontWeight: '700',
     background: 'linear-gradient(135deg, #2d3436 0%, #636e72 100%)',
     WebkitBackgroundClip: 'text',
@@ -149,8 +157,8 @@ const styles = {
     cursor: 'pointer',
     color: '#636e72',
     padding: '0',
-    width: '40px',
-    height: '40px',
+    width: '36px',
+    height: '36px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -166,17 +174,17 @@ const styles = {
   },
 
   modalBody: {
-    padding: '30px',
+    padding: '20px',
   },
 
   modalSection: {
-    marginBottom: '25px',
+    marginBottom: '20px',
   },
 
   modalSectionLabel: {
     display: 'block',
-    marginBottom: '12px',
-    fontSize: '15px',
+    marginBottom: '10px',
+    fontSize: 'clamp(14px, 3vw, 15px)',
     fontWeight: '600',
     color: '#2d3436',
     letterSpacing: '0.5px',
@@ -184,10 +192,10 @@ const styles = {
 
   fileInput: {
     width: '100%',
-    padding: '16px 20px',
+    padding: '14px 16px',
     border: '2px solid rgba(102, 126, 234, 0.2)',
     borderRadius: '16px',
-    fontSize: '15px',
+    fontSize: 'clamp(14px, 3vw, 15px)',
     background: 'rgba(255, 255, 255, 0.8)',
     backdropFilter: 'blur(10px)',
     WebkitBackdropFilter: 'blur(10px)',
@@ -201,7 +209,7 @@ const styles = {
 
   modalDivider: {
     textAlign: 'center',
-    margin: '30px 0',
+    margin: '25px 0',
     position: 'relative',
     '&:before': {
       content: '""',
@@ -216,9 +224,9 @@ const styles = {
 
   modalDividerText: {
     background: 'rgba(255, 255, 255, 0.9)',
-    padding: '0 20px',
+    padding: '0 15px',
     color: '#636e72',
-    fontSize: '14px',
+    fontSize: 'clamp(13px, 3vw, 14px)',
     fontWeight: '600',
     position: 'relative',
     zIndex: 1,
@@ -226,11 +234,11 @@ const styles = {
 
   promptInput: {
     width: '100%',
-    padding: '16px 20px',
+    padding: '14px 16px',
     border: '2px solid rgba(102, 126, 234, 0.2)',
     borderRadius: '16px',
-    fontSize: '15px',
-    marginBottom: '20px',
+    fontSize: 'clamp(14px, 3vw, 15px)',
+    marginBottom: '16px',
     boxSizing: 'border-box',
     background: 'rgba(255, 255, 255, 0.8)',
     backdropFilter: 'blur(10px)',
@@ -245,19 +253,19 @@ const styles = {
 
   generateButton: {
     width: '100%',
-    padding: '16px 24px',
+    padding: '14px 20px',
     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     color: 'white',
     border: 'none',
     borderRadius: '16px',
-    fontSize: '16px',
+    fontSize: 'clamp(14px, 3vw, 16px)',
     fontWeight: '600',
     cursor: 'pointer',
     transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '10px',
+    gap: '8px',
     boxShadow: '0 10px 25px rgba(102, 126, 234, 0.3)',
     position: 'relative',
     overflow: 'hidden',
@@ -274,7 +282,7 @@ const styles = {
     boxShadow: 'none',
   },
 
-  // Popup Styles - Major redesign
+  // Popup Styles
   popupOverlay: {
     position: 'fixed',
     top: 0,
@@ -288,8 +296,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1000,
-    padding: '20px',
-    animation: 'modalFadeIn 0.4s ease',
+    padding: '16px',
   },
 
   popupContent: {
@@ -297,7 +304,7 @@ const styles = {
     backdropFilter: 'blur(20px)',
     WebkitBackdropFilter: 'blur(20px)',
     borderRadius: '24px',
-    maxWidth: '1200px',
+    maxWidth: '800px',
     width: '100%',
     maxHeight: '90vh',
     overflow: 'hidden',
@@ -307,7 +314,7 @@ const styles = {
   },
 
   popupHeader: {
-    padding: '25px 30px',
+    padding: '20px',
     borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
     background: 'rgba(255, 255, 255, 0.6)',
     backdropFilter: 'blur(10px)',
@@ -321,7 +328,7 @@ const styles = {
   },
 
   popupTitle: {
-    fontSize: '1.8rem',
+    fontSize: 'clamp(1.4rem, 6vw, 1.8rem)',
     fontWeight: '800',
     background: 'linear-gradient(135deg, #2d3436 0%, #636e72 100%)',
     WebkitBackgroundClip: 'text',
@@ -335,8 +342,8 @@ const styles = {
     background: 'rgba(255, 255, 255, 0.8)',
     border: 'none',
     borderRadius: '50%',
-    width: '42px',
-    height: '42px',
+    width: '36px',
+    height: '36px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -344,7 +351,7 @@ const styles = {
     transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
     backdropFilter: 'blur(10px)',
     WebkitBackdropFilter: 'blur(10px)',
-    fontSize: '18px',
+    fontSize: '16px',
     color: '#636e72',
     '&:hover': {
       background: 'rgba(239, 68, 68, 0.1)',
@@ -356,17 +363,17 @@ const styles = {
   popupBody: {
     maxHeight: '80vh',
     overflowY: 'auto',
-    paddingRight: '10px',
-    paddingLeft: '10px',
-    boxSizing: 'border-box',
+    padding: '16px',
   },
+
   popupImageSection: {
-    padding: '25px',
+    padding: '20px',
+    margin: '16px',
     background: 'rgba(255, 255, 255, 0.6)',
     backdropFilter: 'blur(10px)',
     WebkitBackdropFilter: 'blur(10px)',
     borderRadius: '20px',
-    marginBottom: '30px',
+    marginBottom: '24px',
     border: '2px solid rgba(102, 126, 234, 0.1)',
     textAlign: 'center',
     maxHeight: '300px',
@@ -375,9 +382,9 @@ const styles = {
   },
 
   popupImageTitle: {
-    fontSize: '20px',
+    fontSize: 'clamp(16px, 4vw, 20px)',
     fontWeight: '700',
-    marginBottom: '15px',
+    marginBottom: '12px',
     background: 'linear-gradient(135deg, #2d3436 0%, #636e72 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
@@ -402,15 +409,15 @@ const styles = {
   },
 
   resultsSection: {
-    marginTop: '30px',
+    marginTop: '24px',
     borderTop: '2px solid rgba(102, 126, 234, 0.1)',
-    paddingTop: '30px',
+    paddingTop: '24px',
   },
 
   resultsTitle: {
-    fontSize: '24px',
+    fontSize: 'clamp(18px, 5vw, 24px)',
     fontWeight: '800',
-    marginBottom: '25px',
+    marginBottom: '20px',
     background: 'linear-gradient(135deg, #2d3436 0%, #636e72 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
@@ -420,34 +427,33 @@ const styles = {
 
   loadingText: {
     textAlign: 'center',
-    fontSize: '20px',
+    fontSize: 'clamp(16px, 4vw, 20px)',
     fontWeight: '600',
     background: 'linear-gradient(135deg, #5DBDCA 0%, #7864AB 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
-    padding: '40px 0',
+    padding: '32px 0',
   },
 
   noProductsText: {
     textAlign: 'center',
-    fontSize: '18px',
+    fontSize: 'clamp(15px, 4vw, 18px)',
     color: '#636e72',
-    marginTop: '50px',
+    marginTop: '40px',
     fontWeight: '500',
   },
 
-  // Grid and Card Styles - Completely modern
+  // Grid and Card Styles
   grid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-    gap: '20px',
-    paddingBottom: '40px', // extra padding at bottom
+    gap: '16px',
+    paddingBottom: '32px',
   },
 
   card: {
-    // border: 'none',
-    borderRadius: '20px',
+    borderRadius: '16px',
     background: 'rgba(255, 255, 255, 0.96)',
     border: '1px solid rgba(231, 233, 255, 0.7)',
     backdropFilter: 'blur(10px)',
@@ -465,57 +471,57 @@ const styles = {
 
   cardImage: {
     width: '100%',
-    height: '220px',
+    height: '200px',
     objectFit: 'cover',
     transition: 'transform 0.4s ease',
   },
 
   cardTitle: {
-    fontSize: '1.1rem',
+    fontSize: 'clamp(14px, 3vw, 16px)',
     fontWeight: '700',
-    padding: '15px 20px 8px 20px',
+    padding: '12px 16px 8px',
     color: '#2d3436',
     lineHeight: '1.4',
     letterSpacing: '-0.01em',
   },
 
   cardPrice: {
-    fontSize: '1.3rem',
+    fontSize: 'clamp(16px, 4vw, 20px)',
     fontWeight: '800',
     background: 'linear-gradient(135deg, #e17055 0%, #d63031 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
-    padding: '0 20px 8px 20px',
+    padding: '0 16px 8px',
   },
 
   cardOriginalPrice: {
-    fontSize: '1rem',
+    fontSize: 'clamp(13px, 3vw, 15px)',
     color: '#b2bec3',
     textDecoration: 'line-through',
-    marginLeft: '8px',
+    marginLeft: '6px',
     fontWeight: '500',
   },
 
   cardCategory: {
-    fontSize: '0.9rem',
+    fontSize: 'clamp(12px, 3vw, 14px)',
     color: '#636e72',
     textTransform: 'capitalize',
-    padding: '0 20px 15px 20px',
+    padding: '0 16px 12px',
     fontWeight: '500',
     opacity: 0.8,
   },
 
   viewDetailsButton: {
-    margin: '0 20px 0px 20px',
-    padding: '12px 20px',
+    margin: '0 16px 16px',
+    padding: '10px 16px',
     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     color: '#fff',
     border: 'none',
     borderRadius: '12px',
     cursor: 'pointer',
     fontWeight: '600',
-    fontSize: '15px',
+    fontSize: 'clamp(13px, 3vw, 15px)',
     transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
     boxShadow: '0 8px 20px rgba(102, 126, 234, 0.3)',
     position: 'relative',
@@ -531,24 +537,26 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
-    padding: '20px',
+    padding: '16px',
     background: 'rgba(255, 255, 255, 0.8)',
     backdropFilter: 'blur(10px)',
     WebkitBackdropFilter: 'blur(10px)',
     borderRadius: '16px',
-    marginBottom: '15px',
+    marginBottom: '12px',
     border: '2px solid rgba(255, 255, 255, 0.3)',
     boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
     transition: 'all 0.3s ease',
     width: '100%',
+    position: 'relative',
+    overflow: 'hidden',
   },
 
   mobileCardImage: {
-    width: '120px',
-    height: '120px',
+    width: '100px',
+    height: '100px',
     objectFit: 'cover',
     borderRadius: '12px',
-    marginRight: '15px',
+    marginRight: '12px',
     border: '2px solid rgba(255, 255, 255, 0.8)',
   },
 
@@ -560,7 +568,7 @@ const styles = {
   },
 
   mobileCardTitle: {
-    fontSize: '15px',
+    fontSize: '14px',
     fontWeight: '700',
     color: '#2d3436',
     marginBottom: '6px',
@@ -573,17 +581,17 @@ const styles = {
   },
 
   mobileCardPrice: {
-    fontSize: '16px',
+    fontSize: '15px',
     fontWeight: '800',
     background: 'linear-gradient(135deg, #e17055 0%, #d63031 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
-    marginBottom: '12px',
+    marginBottom: '10px',
   },
 
   mobileCardOriginalPrice: {
-    fontSize: '13px',
+    fontSize: '12px',
     color: '#b2bec3',
     textDecoration: 'line-through',
     marginLeft: '6px',
@@ -591,14 +599,14 @@ const styles = {
   },
 
   mobileViewDetailsButton: {
-    padding: '10px 16px',
+    padding: '8px 12px',
     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     color: '#fff',
     border: 'none',
     borderRadius: '10px',
     cursor: 'pointer',
     fontWeight: '600',
-    fontSize: '13px',
+    fontSize: '12px',
     alignSelf: 'flex-start',
     transition: 'all 0.3s ease',
     boxShadow: '0 6px 15px rgba(102, 126, 234, 0.3)',
@@ -607,8 +615,8 @@ const styles = {
   mobileProductsContainer: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px',
-    paddingBottom: '40px', // same here
+    gap: '16px',
+    paddingBottom: '32px',
   },
 
   // AI Processing Overlay
@@ -631,19 +639,19 @@ const styles = {
   },
 
   aiIcon: {
-    fontSize: '48px',
-    marginBottom: '15px',
+    fontSize: '40px',
+    marginBottom: '12px',
     animation: 'aiPulse 2s infinite',
   },
 
   aiProcessingText: {
-    fontSize: '20px',
+    fontSize: 'clamp(16px, 4vw, 20px)',
     fontWeight: '700',
-    marginBottom: '8px',
+    marginBottom: '6px',
   },
 
   aiSubtext: {
-    fontSize: '14px',
+    fontSize: 'clamp(12px, 3vw, 14px)',
     opacity: 0.9,
     fontWeight: '500',
   },
@@ -651,8 +659,8 @@ const styles = {
   // Loading Spinner
   spinner: {
     display: 'inline-block',
-    width: '18px',
-    height: '18px',
+    width: '16px',
+    height: '16px',
     border: '2px solid rgba(255, 255, 255, 0.3)',
     borderTopColor: 'white',
     borderRadius: '50%',
@@ -662,29 +670,33 @@ const styles = {
   generatingContent: {
     display: 'flex',
     alignItems: 'center',
-    gap: '10px',
+    gap: '8px',
   },
 
   imagePreview: {
     maxWidth: '100%',
-    maxHeight: '400px',
+    maxHeight: '300px',
     borderRadius: '8px',
-    marginBottom: '20px',
+    marginBottom: '16px',
   },
+
   previewButtonGroup: {
     display: 'flex',
     justifyContent: 'center',
-    gap: '15px',
-    marginTop: '20px',
+    gap: '12px',
+    marginTop: '16px',
+    flexWrap: 'wrap',
   },
+
   previewButton: {
-    padding: '10px 20px',
+    padding: '8px 16px',
     borderRadius: '4px',
     border: 'none',
     cursor: 'pointer',
-    fontSize: '16px',
+    fontSize: '14px',
     fontWeight: 'bold',
     transition: 'all 0.3s ease',
+    minWidth: '120px',
   },
 
   // Animations
@@ -727,30 +739,62 @@ const styles = {
   },
 
   // Responsive adjustments
-  '@media (max-width: 768px)': {
+  '@media (min-width: 768px)': {
+    container: {
+      padding: '0 24px',
+    },
     title: {
-      fontSize: '2.5rem',
-      paddingTop: '40px',
+      padding: '60px 0 30px',
     },
     customUploadContainer: {
-      padding: '30px 20px',
-      margin: '0 15px',
+      padding: '40px',
     },
-    popupContent: {
-      margin: '10px',
-      maxWidth: 'calc(100% - 20px)',
+    modalContent: {
+      width: '90%',
+    },
+    modalHeader: {
+      padding: '25px 30px',
+    },
+    modalBody: {
+      padding: '30px',
+    },
+    popupHeader: {
+      padding: '25px 30px',
     },
     popupBody: {
-      padding: '20px',
+      padding: '30px',
+    },
+    popupImageSection: {
+      padding: '30px',
+      margin: '20px 60px',
+    },
+    cardImage: {
+      height: '220px',
+    },
+    mobileCardImage: {
+      width: '120px',
+      height: '120px',
+    },
+  },
+
+  '@media (min-width: 1024px)': {
+    container: {
+      maxWidth: '1200px',
+      margin: '0 auto',
     },
     grid: {
-      gridTemplateColumns: '1fr',
-      gap: '20px',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+      gap: '24px',
+    },
+    cardImage: {
+      height: '240px',
     },
   },
 };
 // Required for FDK to register the server call
-export function Component({ props, fpi }) {
+export function Component({ props }) {
+  const fpi = useFPI();
+  console.log(fpi, 'FPI');
   const application_id = props.application_id.value;
   const company_id = props.company_id.value;
 
@@ -759,24 +803,120 @@ export function Component({ props, fpi }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  // New states for upload/generate modal
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [showGenerateModal, setShowGenerateModal] = useState(false);
+  const [showImagePreviewModal, setShowImagePreviewModal] = useState(false);
   const [promptText, setPromptText] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
-  const [showImagePreviewModal, setShowImagePreviewModal] = useState(false);
   const [generatedImageUrl, setGeneratedImageUrl] = useState(null);
-  // New states for add to cart
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [showCartOverlay, setShowCartOverlay] = useState(false);
-  const [selectedSize, setSelectedSize] = useState('');
-  const [pincode, setPincode] = useState('');
-  const [activeCartItemIndex, setActiveCartItemIndex] = useState(null); // Track which item has active cart overlay
+  const [activeDrawer, setActiveDrawer] = useState(null);
 
-  const API_BASE_URL_2 = `/ext/ab/api/proxy/scan`;
+  const API_BASE_URL_2 = `/ext/abc/api/proxy/scan`;
   const title = props?.title?.value ?? 'Snap & Shop - Find Products by Image';
 
+  // GraphQL Queries
+  const LOCALITY_QUERY = `
+ query locality($locality: LocalityEnum!, $localityValue: String!, $country: String) {
+ locality(locality: $locality, localityValue: $localityValue, country: $country) {
+ display_name
+ id
+ name
+ parent_ids
+ type
+ localities {
+ id
+ name
+ display_name
+ parent_ids
+ type
+ }
+ }
+ }
+ `;
+
+  const PRODUCT_PRICE_QUERY = `
+ query ProductPrice($slug: String!, $size: String!, $pincode: String!) {
+ productPrice(slug: $slug, size: $size, pincode: $pincode) {
+ article_id
+ discount
+ is_cod
+ is_gift
+ item_type
+ long_lat
+ pincode
+ quantity
+ seller_count
+ special_badge
+ price_per_piece {
+ currency_code
+ currency_symbol
+ effective
+ marked
+ selling
+ }
+ seller {
+ count
+ name
+ uid
+ }
+ store {
+ uid
+ name
+ count
+ }
+ }
+ }
+ `;
+
+  const ADD_TO_CART_MUTATION = `
+ mutation AddItemsToCart($buyNow: Boolean, $areaCode: String!, $addCartRequestInput: AddCartRequestInput) {
+ addItemsToCart(buyNow: $buyNow, areaCode: $areaCode, addCartRequestInput: $addCartRequestInput) {
+ message
+ partial
+ success
+ cart {
+ id
+ is_valid
+ items {
+ article {
+ identifier
+ size
+ seller {
+ name
+ uid
+ }
+ price {
+ base {
+ currency_code
+ currency_symbol
+ effective
+ marked
+ }
+ }
+ }
+ product {
+ name
+ slug
+ brand {
+ name
+ }
+ }
+ }
+ }
+ }
+ }
+ `;
+
+  const promptInputRef = useRef(null);
+
   useEffect(() => {
-    if (showPopup || showUploadModal || showCartOverlay) {
+    if (showUploadModal && promptInputRef.current) {
+      promptInputRef.current.focus();
+    }
+  }, [showUploadModal]);
+
+  useEffect(() => {
+    if (showPopup || showUploadModal) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -785,7 +925,7 @@ export function Component({ props, fpi }) {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [showPopup, showUploadModal, showCartOverlay]);
+  }, [showPopup, showUploadModal]);
 
   // Check if device is mobile
   useEffect(() => {
@@ -822,7 +962,7 @@ export function Component({ props, fpi }) {
       formData.append('company_id', company_id);
 
       const response = await fetch(
-        `${API_BASE_URL_2}//search-by-image-using-store-front?application_id=${application_id}&company_id=${company_id}`,
+        `${API_BASE_URL_2}/search-by-image-using-store-front?application_id=${application_id}&company_id=${company_id}`,
         {
           method: 'POST',
           body: formData,
@@ -905,7 +1045,8 @@ export function Component({ props, fpi }) {
     }
   };
 
-  const handleRegenerateImage = () => {
+  const handleRegenerateImage = previousPrompt => {
+    setPromptText(previousPrompt); // ensure it's preserved
     setShowImagePreviewModal(false);
     setShowUploadModal(true);
   };
@@ -992,7 +1133,7 @@ export function Component({ props, fpi }) {
 
       // Send request with mobile-optimized headers
       const uploadResponse = await fetch(
-        `${API_BASE_URL_2}/search-by-image?application_id=${application_id}&company_id=${company_id}`,
+        `${API_BASE_URL_2}/search-by-image-using-store-front?application_id=${application_id}&company_id=${company_id}`,
         {
           method: 'POST',
           body: formData,
@@ -1031,28 +1172,8 @@ export function Component({ props, fpi }) {
     window.open(productUrl, '_blank');
   };
 
-  // New function to handle add to cart
-  const handleAddToCart = product => {
-    setSelectedProduct(product);
-    setShowCartOverlay(true);
-  };
-
-  // New function to submit cart
-  const handleCartSubmit = () => {
-    if (!selectedSize) {
-      alert('Please select a size');
-      return;
-    }
-    if (!pincode || pincode.length !== 6) {
-      alert('Please enter a valid 6-digit pincode');
-      return;
-    }
-
-    // Here you would typically call an API to add to cart
-    alert(`Added ${selectedProduct.name} (Size: ${selectedSize}) to cart for pincode ${pincode}`);
-    setShowCartOverlay(false);
-    setSelectedSize('');
-    setPincode('');
+  const handleAddToCart = productId => {
+    setActiveDrawer(prev => (prev === productId ? null : productId));
   };
 
   const openProductListPopup = () => {
@@ -1062,6 +1183,7 @@ export function Component({ props, fpi }) {
   const closePopup = () => {
     setShowPopup(false);
     setSelectedImage(null);
+    setActiveDrawer(null); // Close any open drawers when popup closes
   };
 
   const formatPrice = price => {
@@ -1082,7 +1204,7 @@ export function Component({ props, fpi }) {
   const closeUploadModal = () => {
     setShowUploadModal(false);
     setPromptText('');
-    setIsGenerating(false);
+    // setIsGenerating(false);
   };
 
   // Handle file input change for upload
@@ -1152,6 +1274,260 @@ export function Component({ props, fpi }) {
     </div>
   );
 
+  // In-Card Drawer Component for Add to Cart
+  const CardDrawer = ({ product, isActive, onClose }) => {
+    const [selectedSize, setSelectedSize] = useState('');
+    const [pincode, setPincode] = useState('');
+    const [isAddingToCart, setIsAddingToCart] = useState(false);
+    const [serviceabilityData, setServiceabilityData] = useState(null);
+
+    const checkServiceability = async () => {
+      if (!selectedSize) {
+        alert('Please select a size');
+        return;
+      }
+      if (!pincode || pincode.length !== 6) {
+        alert('Please enter a valid 6-digit pincode');
+        return;
+      }
+
+      try {
+        setIsAddingToCart(true);
+        const localityResult = await fpi.executeGQL(LOCALITY_QUERY, {
+          locality: 'pincode',
+          localityValue: pincode,
+          country: 'IN',
+        });
+        const localityData = localityResult?.data?.locality || localityResult?.locality;
+        if (!localityData) {
+          alert('Invalid pincode or locality service unavailable');
+          setIsAddingToCart(false);
+          return;
+        }
+        const priceResult = await fpi.executeGQL(PRODUCT_PRICE_QUERY, {
+          slug: product.slug,
+          size: selectedSize,
+          pincode: pincode,
+        });
+        const priceData = priceResult?.data?.productPrice || priceResult?.productPrice;
+        if (!priceData) {
+          alert('Product not available for this pincode and size combination');
+          setIsAddingToCart(false);
+          return;
+        }
+        setServiceabilityData(priceData);
+        await addToCart(priceData);
+      } catch (error) {
+        console.error('Serviceability check failed:', error);
+        alert(`Failed to check serviceability: ${error.message}`);
+        setIsAddingToCart(false);
+      }
+    };
+
+    const addToCart = async productData => {
+      try {
+        const addToCartResult = await fpi.executeGQL(ADD_TO_CART_MUTATION, {
+          buyNow: false,
+          areaCode: pincode,
+          addCartRequestInput: {
+            items: [
+              {
+                article_id: productData.article_id,
+                item_id: product.uid || parseInt(product.slug.split('-').pop()),
+                item_size: selectedSize,
+                quantity: 1,
+                seller_id: productData.seller.uid,
+                store_id: productData.store.uid,
+              },
+            ],
+          },
+        });
+        const cartResult = addToCartResult?.data?.addItemsToCart || addToCartResult?.addItemsToCart;
+        if (cartResult?.success) {
+          alert('Product added to cart successfully!');
+          onClose();
+        } else {
+          alert(`Failed to add product to cart: ${cartResult?.message || 'Unknown error'}`);
+        }
+      } catch (error) {
+        console.error('Add to cart failed:', error);
+        alert(`Failed to add product to cart: ${error.message}`);
+      } finally {
+        setIsAddingToCart(false);
+      }
+    };
+
+    const drawerStyles = {
+      container: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(252, 252, 252, 0.97)',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+        zIndex: 2,
+        transform: 'translateX(100%)', // Start hidden to the right
+        transition: 'transform 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
+        display: 'flex',
+        flexDirection: 'column',
+        boxSizing: 'border-box',
+        overflowY: 'auto',
+        boxShadow: '-5px 0px 20px rgba(0,0,0,0.1)',
+      },
+      containerActive: {
+        transform: 'translateX(0)', // Slide in to be visible
+      },
+      contentWrapper: {
+        padding: '20px',
+      },
+      header: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: '15px',
+        borderBottom: '1px solid #e0e0e0',
+        paddingBottom: '10px',
+      },
+      title: {
+        fontSize: '16px',
+        fontWeight: 'bold',
+        color: '#333',
+        margin: 0,
+      },
+      closeButton: {
+        background: 'transparent',
+        border: 'none',
+        fontSize: '24px',
+        cursor: 'pointer',
+        padding: '0 5px',
+        lineHeight: 1,
+        color: '#555',
+      },
+      label: {
+        display: 'block',
+        marginBottom: '8px',
+        fontWeight: '600',
+        fontSize: '14px',
+        color: '#333',
+      },
+      sizeContainer: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '8px',
+        marginBottom: '20px',
+      },
+      sizeButton: {
+        padding: '8px 12px',
+        border: '1px solid #ddd',
+        backgroundColor: '#fff',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        minWidth: '45px',
+        textAlign: 'center',
+        fontSize: '13px',
+        transition: 'all 0.2s ease',
+      },
+      sizeButtonSelected: {
+        borderColor: '#4CAF50',
+        backgroundColor: '#e8f5e9',
+        color: '#1e4620',
+        fontWeight: 'bold',
+      },
+      pincodeInput: {
+        width: '100%',
+        padding: '10px',
+        border: '1px solid #ddd',
+        borderRadius: '4px',
+        fontSize: '14px',
+        boxSizing: 'border-box',
+        marginBottom: '20px',
+      },
+      submitButton: {
+        width: '100%',
+        padding: '12px',
+        backgroundColor: '#4CAF50',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        fontSize: '15px',
+        fontWeight: 'bold',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '8px',
+      },
+      submitButtonDisabled: {
+        backgroundColor: '#aaa',
+        cursor: 'not-allowed',
+      },
+    };
+
+    return (
+      <div style={{ ...drawerStyles.container, ...(isActive ? drawerStyles.containerActive : {}) }}>
+        <div style={drawerStyles.contentWrapper}>
+          <div style={drawerStyles.header}>
+            <h3 style={drawerStyles.title}>Add to Cart</h3>
+            <button onClick={onClose} style={drawerStyles.closeButton}>
+              ×
+            </button>
+          </div>
+
+          {product.sizes && product.sizes.length > 0 && (
+            <div style={{ marginBottom: '15px' }}>
+              <label style={drawerStyles.label}>Select Size</label>
+              <div style={drawerStyles.sizeContainer}>
+                {product.sizes.map((size, index) => (
+                  <button
+                    key={index}
+                    style={{
+                      ...drawerStyles.sizeButton,
+                      ...(selectedSize === size.size ? drawerStyles.sizeButtonSelected : {}),
+                    }}
+                    onClick={() => setSelectedSize(size.size)}
+                  >
+                    {size.size}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          <div>
+            <label style={drawerStyles.label}>Enter Pincode</label>
+            <input
+              type='text'
+              value={pincode}
+              onChange={e => {
+                const value = e.target.value.replace(/\D/g, '');
+                if (value.length <= 6) setPincode(value);
+              }}
+              placeholder='6-digit pincode'
+              style={drawerStyles.pincodeInput}
+            />
+          </div>
+          <button
+            style={{
+              ...drawerStyles.submitButton,
+              ...(isAddingToCart ? drawerStyles.submitButtonDisabled : {}),
+            }}
+            onClick={checkServiceability}
+            disabled={isAddingToCart}
+          >
+            {isAddingToCart ? (
+              'Adding...'
+            ) : (
+              <>
+                <CartIcon /> Confirm & Add
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div style={styles.container}>
       <div>
@@ -1209,16 +1585,16 @@ export function Component({ props, fpi }) {
       </div>
 
       {/* Upload & Generate Modal */}
+      {/* Upload Image Modal */}
       {showUploadModal && (
         <div style={styles.modalOverlay}>
           <div style={styles.modalContent}>
             <div style={styles.modalHeader}>
-              <h2 style={styles.modalTitle}>Upload or Generate Product Image</h2>
+              <h2 style={styles.modalTitle}>Upload Product Image</h2>
               <button style={styles.modalCloseButton} onClick={closeUploadModal}>
                 ×
               </button>
             </div>
-
             <div style={styles.modalBody}>
               <div style={styles.modalSection}>
                 <label style={styles.modalSectionLabel}>Upload Image</label>
@@ -1229,15 +1605,47 @@ export function Component({ props, fpi }) {
                   style={styles.fileInput}
                 />
               </div>
-
               <div style={styles.modalDivider}>
                 <span style={styles.modalDividerText}>OR</span>
               </div>
-
               <div style={styles.modalSection}>
-                <label style={styles.modalSectionLabel}>Generate Image via Prompt</label>
+                <button
+                  onClick={() => {
+                    closeUploadModal();
+                    setShowGenerateModal(true);
+                  }}
+                  style={styles.generateButton}
+                >
+                  Generate Image via Prompt
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Generate Image Modal */}
+      {showGenerateModal && (
+        <div style={styles.modalOverlay}>
+          <div style={styles.modalContent}>
+            <div style={styles.modalHeader}>
+              <h2 style={styles.modalTitle}>Generate Product Image</h2>
+              <button
+                style={styles.modalCloseButton}
+                onClick={() => {
+                  setShowGenerateModal(false);
+                  setPromptText('');
+                }}
+              >
+                ×
+              </button>
+            </div>
+            <div style={styles.modalBody}>
+              <div style={styles.modalSection}>
+                <label style={styles.modalSectionLabel}>Describe your product</label>
                 <input
                   type='text'
+                  ref={promptInputRef}
                   style={styles.promptInput}
                   placeholder='Describe your product (e.g., "White jordan sneakers")'
                   value={promptText}
@@ -1258,99 +1666,108 @@ export function Component({ props, fpi }) {
                       <span>Generating...</span>
                     </div>
                   ) : (
-                    'Generate & Use Image'
+                    'Generate Image'
                   )}
                 </button>
-                {/* Generated Image Preview Modal */}
-                {showImagePreviewModal && generatedImageUrl && (
-                  <div style={styles.modalOverlay}>
-                    <div
-                      style={{
-                        ...styles.modalContent,
-                        maxWidth: '90%', // Changed from 600px to percentage for better responsiveness
-                        maxHeight: '90vh', // Added maxHeight with viewport units
-                        overflowY: 'auto', // Added scroll if content is too tall
-                        display: 'flex',
-                        flexDirection: 'column',
-                      }}
-                    >
-                      <div style={styles.modalHeader}>
-                        <h2 style={styles.modalTitle}>Preview Generated Image</h2>
-                        <button
-                          style={styles.modalCloseButton}
-                          onClick={() => setShowImagePreviewModal(false)}
-                        >
-                          ×
-                        </button>
-                      </div>
-
-                      <div
-                        style={{
-                          ...styles.modalBody,
-                          textAlign: 'center',
-                          flex: 1, // Takes remaining space
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'space-between', // Distributes space evenly
-                        }}
-                      >
-                        <div style={{ marginBottom: '20px', flex: 1 }}>
-                          <img
-                            src={generatedImageUrl}
-                            alt='Generated from prompt'
-                            style={{
-                              maxWidth: '100%',
-                              maxHeight: '60vh', // Limit image height
-                              borderRadius: '8px',
-                              objectFit: 'contain', // Ensures image maintains aspect ratio
-                            }}
-                          />
-                        </div>
-
-                        <div
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            gap: '15px',
-                            padding: '20px 0',
-                            flexWrap: 'wrap', // Allows buttons to wrap on small screens
-                          }}
-                        >
-                          <button
-                            onClick={handleRegenerateImage}
-                            style={{
-                              ...styles.generateButton,
-                              backgroundColor: '#f0f0f0',
-                              color: '#333',
-                              border: '1px solid #ccc',
-                              minWidth: '150px', // Ensures consistent button width
-                              margin: '5px',
-                            }}
-                          >
-                            Regenerate
-                          </button>
-                          <button
-                            onClick={handleAcceptGeneratedImage}
-                            style={{
-                              ...styles.generateButton,
-                              backgroundColor: '#4CAF50',
-                              minWidth: '150px', // Ensures consistent button width
-                              margin: '5px',
-                            }}
-                          >
-                            Use This Image
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                <div style={{ marginTop: '5px' }}>
+                  <button
+                    onClick={() => {
+                      setShowUploadModal(true);
+                      setShowGenerateModal(false);
+                    }}
+                    style={styles.generateButton}
+                  >
+                    Upload Image
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       )}
 
+      {/* Generated Image Preview Modal */}
+      {showImagePreviewModal && generatedImageUrl && (
+        <div style={styles.modalOverlay}>
+          <div
+            style={{
+              ...styles.modalContent,
+              maxWidth: '40%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <div style={styles.modalHeader}>
+              <h2 style={styles.modalTitle}>Preview Generated Image</h2>
+              <button
+                style={styles.modalCloseButton}
+                onClick={() => setShowImagePreviewModal(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div
+              style={{
+                ...styles.modalBody,
+                textAlign: 'center',
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div style={{ marginBottom: '20px', flex: 1 }}>
+                <img
+                  src={generatedImageUrl}
+                  alt='Generated from prompt'
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '27vh',
+                    borderRadius: '8px',
+                    objectFit: 'contain',
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: '15px',
+                  padding: '20px 0',
+                  flexWrap: 'wrap',
+                }}
+              >
+                <button
+                  onClick={() => handleRegenerateImage(promptText)}
+                  style={{
+                    ...styles.generateButton,
+                    backgroundColor: '#f0f0f0',
+                    color: 'white',
+                    border: '1px solid #ccc',
+                    minWidth: '150px',
+                    margin: '5px',
+                  }}
+                >
+                  Regenerate
+                </button>
+                <button
+                  onClick={handleAcceptGeneratedImage}
+                  style={{
+                    ...styles.generateButton,
+                    backgroundColor: '#4CAF50',
+                    minWidth: '150px',
+                    margin: '5px',
+                  }}
+                >
+                  Use This Image
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Product List Popup - Now includes selected image and loading state */}
       {(showPopup || loading) && (
         <div style={styles.popupOverlay} onClick={closePopup}>
@@ -1391,19 +1808,126 @@ export function Component({ props, fpi }) {
                       <div style={styles.resultsTitle}>Matching Products</div>
                       {isMobile ? (
                         <div style={styles.mobileProductsContainer}>
-                          {productFilterList.map((product, index) => (
-                            <div key={index} style={styles.mobileCard}>
-                              <img
-                                src={product.image}
-                                alt={product.name}
-                                style={styles.mobileCardImage}
-                                onError={e => {
-                                  e.target.src =
-                                    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
-                                }}
-                              />
-                              <div style={styles.mobileCardContent}>
-                                <h3 style={styles.mobileCardTitle}>{product.name}</h3>
+                          {productFilterList.map((product, index) => {
+                            const productId = product.slug || `mobile-product-${index}`;
+                            return (
+                              <div key={productId} style={styles.mobileCard}>
+                                <div
+                                  style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    width: '100%',
+                                    pointerEvents: activeDrawer === productId ? 'none' : 'auto',
+                                  }}
+                                >
+                                  <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    style={styles.mobileCardImage}
+                                    onError={e => {
+                                      e.target.src =
+                                        'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
+                                    }}
+                                  />
+                                  <div style={styles.mobileCardContent}>
+                                    <h3 style={styles.mobileCardTitle}>{product.name}</h3>
+
+                                    {product.category && (
+                                      <p style={styles.cardCategory}>
+                                        {formatCategoryName(product.category)}
+                                      </p>
+                                    )}
+
+                                    {product.sizes && product.sizes.length > 0 && (
+                                      <div style={styles.mobileCardPrice}>
+                                        {formatPrice(product.sizes[0].price.effective.min)}
+                                        {product.sizes[0].price.marked.min >
+                                          product.sizes[0].price.effective.min && (
+                                          <span style={styles.mobileCardOriginalPrice}>
+                                            {formatPrice(product.sizes[0].price.marked.min)}
+                                          </span>
+                                        )}
+                                      </div>
+                                    )}
+
+                                    <div
+                                      style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '8px',
+                                        marginTop: '10px',
+                                        flexWrap: 'nowrap',
+                                        alignItems: 'flex-start',
+                                      }}
+                                    >
+                                      <button
+                                        style={{
+                                          padding: '6px 14px',
+                                          fontSize: '13px',
+                                          borderRadius: '4px',
+                                          border: 'none',
+                                          backgroundColor: '#007BFF',
+                                          color: '#fff',
+                                          cursor: 'pointer',
+                                          width: '130px',
+                                        }}
+                                        onClick={() => handleViewDetails(product)}
+                                      >
+                                        View Details
+                                      </button>
+
+                                      <button
+                                        style={{
+                                          padding: '6px 14px',
+                                          fontSize: '13px',
+                                          borderRadius: '4px',
+                                          border: 'none',
+                                          backgroundColor: '#4CAF50',
+                                          color: '#fff',
+                                          cursor: 'pointer',
+                                          display: 'flex',
+                                          alignItems: 'center',
+                                          justifyContent: 'center',
+                                          gap: '5px',
+                                          width: '130px',
+                                        }}
+                                        onClick={() => handleAddToCart(productId)}
+                                      >
+                                        <CartIcon /> Add to Cart
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <CardDrawer
+                                  key={productId}
+                                  product={product}
+                                  isActive={activeDrawer === productId}
+                                  onClose={() => setActiveDrawer(null)}
+                                />
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div style={styles.grid}>
+                          {productFilterList.map((product, index) => {
+                            const productId = product.slug || `desktop-product-${index}`;
+                            return (
+                              <div key={productId} style={styles.card}>
+                                <img
+                                  src={product.image}
+                                  alt={product.name}
+                                  style={styles.cardImage}
+                                  onError={e => {
+                                    e.target.src =
+                                      'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
+                                  }}
+                                />
+                                <h3 style={styles.cardTitle}>
+                                  {product.name.length > 16
+                                    ? product.name.slice(0, 16) + '...'
+                                    : product.name}
+                                </h3>
 
                                 {product.category && (
                                   <p style={styles.cardCategory}>
@@ -1412,11 +1936,11 @@ export function Component({ props, fpi }) {
                                 )}
 
                                 {product.sizes && product.sizes.length > 0 && (
-                                  <div style={styles.mobileCardPrice}>
+                                  <div style={styles.cardPrice}>
                                     {formatPrice(product.sizes[0].price.effective.min)}
                                     {product.sizes[0].price.marked.min >
                                       product.sizes[0].price.effective.min && (
-                                      <span style={styles.mobileCardOriginalPrice}>
+                                      <span style={styles.cardOriginalPrice}>
                                         {formatPrice(product.sizes[0].price.marked.min)}
                                       </span>
                                     )}
@@ -1426,23 +1950,23 @@ export function Component({ props, fpi }) {
                                 <div
                                   style={{
                                     display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: '8px',
-                                    marginTop: '10px',
                                     flexWrap: 'nowrap',
-                                    alignItems: 'center', // optional: to center buttons horizontally
+                                    gap: '8px',
+                                    marginTop: '4px',
+                                    marginLeft: '20px',
+                                    marginBottom: '10px',
                                   }}
                                 >
                                   <button
                                     style={{
-                                      padding: '6px 14px',
-                                      fontSize: '13px',
+                                      padding: '4px 10px',
+                                      fontSize: '12px',
                                       borderRadius: '4px',
                                       border: 'none',
                                       backgroundColor: '#007BFF',
                                       color: '#fff',
                                       cursor: 'pointer',
-                                      width: '130px',
+                                      whiteSpace: 'nowrap',
                                     }}
                                     onClick={() => handleViewDetails(product)}
                                   >
@@ -1451,8 +1975,8 @@ export function Component({ props, fpi }) {
 
                                   <button
                                     style={{
-                                      padding: '6px 14px',
-                                      fontSize: '13px',
+                                      padding: '4px 10px',
+                                      fontSize: '12px',
                                       borderRadius: '4px',
                                       border: 'none',
                                       backgroundColor: '#4CAF50',
@@ -1460,103 +1984,23 @@ export function Component({ props, fpi }) {
                                       cursor: 'pointer',
                                       display: 'flex',
                                       alignItems: 'center',
-                                      justifyContent: 'center',
                                       gap: '5px',
-                                      width: '130px',
+                                      whiteSpace: 'nowrap',
                                     }}
-                                    onClick={() => handleAddToCart(product)}
+                                    onClick={() => handleAddToCart(productId)}
                                   >
-                                    <CartIcon /> Add to Cart
+                                    <CartIcon style={{ fontSize: '14px' }} /> Add to Cart
                                   </button>
                                 </div>
+                                <CardDrawer
+                                  key={productId}
+                                  product={product}
+                                  isActive={activeDrawer === productId}
+                                  onClose={() => setActiveDrawer(null)}
+                                />
                               </div>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <div style={styles.grid}>
-                          {productFilterList.map((product, index) => (
-                            <div key={index} style={styles.card}>
-                              <img
-                                src={product.image}
-                                alt={product.name}
-                                style={styles.cardImage}
-                                onError={e => {
-                                  e.target.src =
-                                    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
-                                }}
-                              />
-                              <h3 style={styles.cardTitle}>
-                                {product.name.length > 27
-                                  ? product.name.slice(0, 27) + '...'
-                                  : product.name}
-                              </h3>
-
-                              {product.category && (
-                                <p style={styles.cardCategory}>
-                                  {formatCategoryName(product.category)}
-                                </p>
-                              )}
-
-                              {product.sizes && product.sizes.length > 0 && (
-                                <div style={styles.cardPrice}>
-                                  {formatPrice(product.sizes[0].price.effective.min)}
-                                  {product.sizes[0].price.marked.min >
-                                    product.sizes[0].price.effective.min && (
-                                    <span style={styles.cardOriginalPrice}>
-                                      {formatPrice(product.sizes[0].price.marked.min)}
-                                    </span>
-                                  )}
-                                </div>
-                              )}
-
-                              <div
-                                style={{
-                                  display: 'flex',
-                                  flexWrap: 'nowrap',
-                                  gap: '8px',
-                                  marginTop: '4px',
-                                  marginLeft: '20px',
-                                  marginBottom: '10px',
-                                }}
-                              >
-                                <button
-                                  style={{
-                                    padding: '4px 10px',
-                                    fontSize: '12px',
-                                    borderRadius: '4px',
-                                    border: 'none',
-                                    backgroundColor: '#007BFF',
-                                    color: '#fff',
-                                    cursor: 'pointer',
-                                    whiteSpace: 'nowrap',
-                                  }}
-                                  onClick={() => handleViewDetails(product)}
-                                >
-                                  View Details
-                                </button>
-
-                                <button
-                                  style={{
-                                    padding: '4px 10px',
-                                    fontSize: '12px',
-                                    borderRadius: '4px',
-                                    border: 'none',
-                                    backgroundColor: '#4CAF50',
-                                    color: '#fff',
-                                    cursor: 'pointer',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '5px',
-                                    whiteSpace: 'nowrap',
-                                  }}
-                                  onClick={() => handleAddToCart(product)}
-                                >
-                                  <CartIcon style={{ fontSize: '14px' }} /> Add to Cart
-                                </button>
-                              </div>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       )}
                     </div>
@@ -1566,109 +2010,6 @@ export function Component({ props, fpi }) {
                   )}
                 </>
               )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Add to Cart Overlay */}
-      {showCartOverlay && selectedProduct && (
-        <div style={styles.modalOverlay}>
-          <div
-            style={{
-              ...styles.modalContent,
-              maxWidth: isMobile ? '90%' : '500px',
-              padding: '20px',
-            }}
-          >
-            <div style={styles.modalHeader}>
-              <h2 style={styles.modalTitle}>Add to Cart</h2>
-              <button
-                style={styles.modalCloseButton}
-                onClick={() => {
-                  setShowCartOverlay(false);
-                  setSelectedSize('');
-                  setPincode('');
-                }}
-              >
-                ×
-              </button>
-            </div>
-
-            <div style={styles.modalBody}>
-              <div style={{ marginBottom: '20px' }}>
-                <h3 style={{ marginBottom: '10px' }}>{selectedProduct.name}</h3>
-                {selectedProduct.sizes && selectedProduct.sizes.length > 0 && (
-                  <div style={{ marginBottom: '15px' }}>
-                    <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-                      Select Size
-                    </label>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                      {selectedProduct.sizes.map((size, index) => (
-                        <button
-                          key={index}
-                          style={{
-                            padding: '8px 12px',
-                            border: `1px solid ${selectedSize === size.size ? '#4CAF50' : '#ddd'}`,
-                            backgroundColor: selectedSize === size.size ? '#e8f5e9' : '#fff',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                            minWidth: '50px',
-                            textAlign: 'center',
-                          }}
-                          onClick={() => setSelectedSize(size.size)}
-                        >
-                          {size.size}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <div style={{ marginBottom: '15px' }}>
-                  <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-                    Enter Pincode
-                  </label>
-                  <input
-                    type='text'
-                    value={pincode}
-                    onChange={e => {
-                      const value = e.target.value.replace(/\D/g, '');
-                      if (value.length <= 6) {
-                        setPincode(value);
-                      }
-                    }}
-                    placeholder='6-digit pincode'
-                    style={{
-                      width: '100%',
-                      padding: '10px',
-                      border: '1px solid #ddd',
-                      borderRadius: '4px',
-                      fontSize: '16px',
-                    }}
-                  />
-                </div>
-
-                <button
-                  style={{
-                    width: '100%',
-                    padding: '12px',
-                    backgroundColor: '#4CAF50',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
-                    fontSize: '16px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px',
-                  }}
-                  onClick={handleCartSubmit}
-                >
-                  <CartIcon /> Add to Cart
-                </button>
-              </div>
             </div>
           </div>
         </div>

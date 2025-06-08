@@ -1,6 +1,7 @@
 const { logger } = require('../utils/logger');
 const Event = require('../models/Event');
 const Sentry = require('../utils/instrument');
+const { ensureProxyPath } = require('./proxyController');
 
 // Log an event
 exports.logEvent = async ({ applicationId, companyId, type, query, imageId }) => {
@@ -36,47 +37,9 @@ exports.logEvent = async ({ applicationId, companyId, type, query, imageId }) =>
   }
 };
 
-// exports.getReport = async (req, res) => {
-//   try {
-//     const { applicationId, startDate, endDate } = req.query;
-
-//     if (!applicationId) {
-//       return res.status(400).json({ error: 'applicationId is required' });
-//     }
-
-//     // Build match stage dynamically
-//     const matchStage = { applicationId };
-
-//     // Add date filter only if both startDate and endDate are provided and valid
-//     if (startDate && endDate) {
-//       matchStage.timestamp = {
-//         $gte: new Date(startDate),
-//         $lte: new Date(endDate),
-//       };
-//     }
-
-//     const aggregation = [
-//       { $match: matchStage },
-//       {
-//         $group: {
-//           _id: '$type',
-//           count: { $sum: 1 },
-//         },
-//       },
-//     ];
-
-//     const results = await Event.aggregate(aggregation);
-//     res.json({ report: results });
-//   } catch (error) {
-//     logger.error('Error getting analytics report:', error);
-//     Sentry.captureException('Error in getReport function', error);
-//     res.status(500).json({ error: 'Internal server error.' });
-//   }
-// };
-
 exports.getReport = async (req, res) => {
   try {
-    const { applicationId, startDate, endDate } = req.query;
+    const { applicationId, startDate, endDate, companyId } = req.query;
 
     if (!applicationId) {
       return res.status(400).json({ error: 'applicationId is required' });
@@ -158,6 +121,13 @@ exports.getReport = async (req, res) => {
       const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       return { date: dateStr, count: item.count };
     });
+
+    // ✅ Run proxy path creation in background — do not await
+    // if (companyId && applicationId) {
+    //   ensureProxyPath({ company_id: companyId, application_id: applicationId }).catch(err =>
+    //     logger.warn('Background proxy creation failed:', err.message)
+    //   );
+    // }
 
     res.json({
       report: typeCounts,

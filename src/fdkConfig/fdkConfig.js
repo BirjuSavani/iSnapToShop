@@ -57,9 +57,6 @@ const extensionId = fdkExtension.extension.api_key;
  * NOTE: Company ID argument is currently unused — consider using it if necessary.
  */
 const getPlatformClientAsync = async company_id => {
-  // TODO: Use company_id dynamically if supported
-  // console.log('Use company_id dynamically if supported');
-  // console.log(fdkExtension.getApplicationClient("9095"));
   const ptClient = await fdkExtension.getPlatformClient(company_id);
   return ptClient;
 };

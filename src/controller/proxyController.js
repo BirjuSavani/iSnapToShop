@@ -5,14 +5,10 @@ const Sentry = require('../utils/instrument');
 /**
  * Add a new proxy path for the given application.
  */
-exports.addProxyPath = async (req, res) => {
+exports.addProxyPath = async (req, res, next) => {
   const requestId = req.requestId || 'unknown';
   const { platformClient } = req;
   const { application_id, attached_path, proxy_url } = req.body;
-
-  // const { application_id } = req.query;
-  // const attached_path = 'ab';
-  // const proxy_url = process.env.EXTENSION_BASE_URL;
 
   try {
     logger.info('Adding proxy path', { requestId });
@@ -58,7 +54,8 @@ exports.addProxyPath = async (req, res) => {
       requestId,
       error: error.stack || error.message,
     });
-    Sentry.captureException("Error in addProxyPath function",error);
+    next();
+    Sentry.captureException('Error in addProxyPath function', error);
     return res.status(500).json({
       message: 'Failed to add proxy path',
       error: error.message,
@@ -113,10 +110,45 @@ exports.removeProxyPath = async (req, res) => {
       requestId,
       error: error.stack || error.message,
     });
-    Sentry.captureException("Error in removeProxyPath function",error);
+    Sentry.captureException('Error in removeProxyPath function', error);
     return res.status(500).json({
       message: 'Failed to remove proxy path',
       error: error.message,
     });
+  }
+};
+
+exports.ensureProxyPath = async ({ company_id, application_id }) => {
+  try {
+    const platformClient = await fdkExtension.getPlatformClient(company_id);
+
+    if (!platformClient || !application_id) {
+      throw new Error('Missing platform client or application ID');
+    }
+
+    const extensionId = fdkExtension.extension.configData.api_key;
+    const attached_path = process.env.ATTACHED_PATH;
+    // const proxy_url = process.env.EXTENSION_BASE_URL;
+    const proxy_url = 'https://catalog-cloudy-lemon-provincial.trycloudflare.com';
+
+    if (!attached_path || !proxy_url) {
+      throw new Error('Attached path or proxy URL is missing in env');
+    }
+
+    const result = await platformClient.application(application_id).partner.addProxyPath({
+      extensionId,
+      body: { attached_path, proxy_url },
+    });
+
+    logger.info('✅ Proxy path created', {
+      application_id,
+      attached_path,
+      proxy_url,
+    });
+
+    return result;
+  } catch (error) {
+    logger.warn('⚠️ Proxy creation failed (background):', error.message);
+    return null; // Or you can throw if you want to surface it later
   }
 };
