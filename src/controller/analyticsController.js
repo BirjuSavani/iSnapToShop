@@ -123,11 +123,11 @@ exports.getReport = async (req, res) => {
     });
 
     // ✅ Run proxy path creation in background — do not await
-    // if (companyId && applicationId) {
-    //   ensureProxyPath({ company_id: companyId, application_id: applicationId }).catch(err =>
-    //     logger.warn('Background proxy creation failed:', err.message)
-    //   );
-    // }
+    if (companyId && applicationId) {
+      ensureProxyPath({ company_id: companyId, application_id: applicationId }).catch(err =>
+        logger.warn('Background proxy creation failed:', err.message)
+      );
+    }
 
     res.json({
       report: typeCounts,

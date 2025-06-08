@@ -128,8 +128,8 @@ exports.ensureProxyPath = async ({ company_id, application_id }) => {
 
     const extensionId = fdkExtension.extension.configData.api_key;
     const attached_path = process.env.ATTACHED_PATH;
-    // const proxy_url = process.env.EXTENSION_BASE_URL;
-    const proxy_url = 'https://catalog-cloudy-lemon-provincial.trycloudflare.com';
+    const proxy_url = process.env.EXTENSION_BASE_URL;
+    // const proxy_url = 'https://catalog-cloudy-lemon-provincial.trycloudflare.com';
 
     if (!attached_path || !proxy_url) {
       throw new Error('Attached path or proxy URL is missing in env');
