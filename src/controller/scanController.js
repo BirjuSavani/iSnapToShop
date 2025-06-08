@@ -5,6 +5,9 @@ const { logger } = require('../utils/logger');
 const Sentry = require('../utils/instrument');
 const { logEvent } = require('../controller/analyticsController');
 const { fdkExtension } = require('../fdkConfig/fdkConfig');
+const { PixelbinConfig, PixelbinClient } = require('@pixelbin/admin');
+const fs = require('fs');
+const path = require('path');
 
 const CACHE_TTL = 1800; // 30 minutes
 const productCache = new NodeCache({ stdTTL: CACHE_TTL });
@@ -72,7 +75,7 @@ const fetchProducts = async (platformClient, applicationId) => {
 exports.initProductIndexing = async (req, res) => {
   const { platformClient } = req;
   const { company_id, application_id } = req.query;
-  
+
   try {
     const products = await fetchProducts(platformClient, application_id);
 
@@ -272,7 +275,7 @@ exports.searchByImageUsingStoreFront = async (req, res) => {
             companyId: company_id,
             type: 'image_not_found',
             query: JSON.stringify({ message: 'No matches found' }),
-          });    
+          });
           throw new Error(`AI service error: ${err.response?.status || 500} - ${err.message}`);
         }
       })(),
@@ -341,7 +344,6 @@ exports.searchByImageUsingStoreFront = async (req, res) => {
   }
 };
 
-
 /**
  * @desc Check system and AI service health status.
  */
@@ -390,6 +392,68 @@ exports.removeIndex = async (req, res) => {
 /**
  * @desc Generate prompts to image
  */
+// exports.generatePromptsToImage = async (req, res) => {
+//   const { platformClient } = req;
+//   const { prompt } = req.body;
+
+//   const info = requestInfo(req);
+//   if (!info) {
+//     return res.status(400).json({ error: 'Missing or invalid application/company ID' });
+//   }
+
+//   const { application_id, company_id } = info;
+
+//   if (!prompt) {
+//     return res.status(400).json({ success: false, error: 'Missing prompt in request body' });
+//   }
+
+//   try {
+//     const { filePath, fileName } = await aiService.generatePromptsToImage(prompt);
+
+//     if (!filePath) {
+//       return res.status(500).json({ success: false, error: 'Image generation failed' });
+//     }
+
+//     const imageUrl = `${
+//       process.env.PUBLIC_BASE_URL || 'http://localhost:49974'
+//     }/generated/${fileName}`;
+
+//     // Log the successful image generation event
+//     await logEvent({
+//       applicationId: application_id,
+//       companyId: company_id,
+//       type: 'prompt_image_generation',
+//       query: JSON.stringify({ prompt, imageUrl }),
+//     });
+
+//     logger.info('Generated image URL', { imageUrl });
+//     return res.json({ success: true, imageUrl });
+//   } catch (error) {
+//     logger.error('Error in generatePromptsToImage', { error });
+//     Sentry.captureException('Error in generatePromptsToImage function', error);
+
+//     // Optional: log a failed generation event
+//     await logEvent({
+//       applicationId: application_id,
+//       companyId: company_id,
+//       type: 'prompt_image_failed',
+//       query: JSON.stringify({ prompt, error: error.message }),
+//     });
+
+//     res.status(500).json({ success: false, error: 'Server error during image generation' });
+//   }
+// };
+
+// Create Pixelbin config
+const pixelbinConfig = new PixelbinConfig({
+  domain: 'https://api.pixelbin.io',
+  apiSecret: process.env.PIXELBIN_API_TOKEN,
+  integrationPlatform: 'iSnapToShop',
+});
+
+// Create pixelbin instance
+const pixelbin = new PixelbinClient(pixelbinConfig);
+
 exports.generatePromptsToImage = async (req, res) => {
   const { platformClient } = req;
   const { prompt } = req.body;
@@ -406,31 +470,63 @@ exports.generatePromptsToImage = async (req, res) => {
   }
 
   try {
+    // Generate image and get local file path
     const { filePath, fileName } = await aiService.generatePromptsToImage(prompt);
 
     if (!filePath) {
       return res.status(500).json({ success: false, error: 'Image generation failed' });
     }
 
-    const imageUrl = `${
-      process.env.PUBLIC_BASE_URL || 'http://localhost:49974'
-    }/generated/${fileName}`;
+    // Upload to Pixelbin
+    const pixelbinResult = await pixelbin.assets.fileUpload({
+      file: fs.createReadStream(filePath),
+      name: fileName,
+      path: '/generated-images/', // Organize uploads in a folder
+    });
+
+    // Clean up local temp file after upload
+    fs.unlinkSync(filePath);
+
+    // Use Pixelbin URL instead of local URL
+    const imageUrl = pixelbinResult.url;
 
     // Log the successful image generation event
     await logEvent({
       applicationId: application_id,
       companyId: company_id,
       type: 'prompt_image_generation',
-      query: JSON.stringify({ prompt, imageUrl }),
+      query: JSON.stringify({ prompt, imageUrl, pixelbinFileId: pixelbinResult.fileId }),
     });
 
-    logger.info('Generated image URL', { imageUrl });
-    return res.json({ success: true, imageUrl });
+    logger.info('Generated image uploaded to Pixelbin', {
+      imageUrl,
+      pixelbinFileId: pixelbinResult.fileId,
+    });
+
+    return res.json({
+      success: true,
+      imageUrl,
+      pixelbinData: {
+        fileId: pixelbinResult.fileId,
+        name: pixelbinResult.name,
+        path: pixelbinResult.path,
+      },
+    });
   } catch (error) {
     logger.error('Error in generatePromptsToImage', { error });
     Sentry.captureException('Error in generatePromptsToImage function', error);
 
-    // Optional: log a failed generation event
+    // Clean up local file if it exists and upload failed
+    try {
+      const { filePath } = await aiService.generatePromptsToImage(prompt);
+      if (filePath && fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    } catch (cleanupError) {
+      logger.error('Error during cleanup', { cleanupError });
+    }
+
+    // Log failed generation event
     await logEvent({
       applicationId: application_id,
       companyId: company_id,
@@ -438,6 +534,8 @@ exports.generatePromptsToImage = async (req, res) => {
       query: JSON.stringify({ prompt, error: error.message }),
     });
 
-    res.status(500).json({ success: false, error: 'Server error during image generation' });
+    res
+      .status(500)
+      .json({ success: false, error: 'Server error during image generation or upload' });
   }
 };
