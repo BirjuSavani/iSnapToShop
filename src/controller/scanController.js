@@ -447,7 +447,7 @@ exports.removeIndex = async (req, res) => {
 // Create Pixelbin config
 const pixelbinConfig = new PixelbinConfig({
   domain: 'https://api.pixelbin.io',
-  apiSecret: process.env.PIXELBIN_API_TOKEN,
+  apiSecret: 'd7e92fc8-b483-442f-af85-c29b3ed65e75',
   integrationPlatform: 'iSnapToShop',
 });
 

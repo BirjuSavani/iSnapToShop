@@ -1450,7 +1450,7 @@ export const Home = () => {
         );
 
         const pollStatus = async () => {
-          const maxRetries = 20;
+          const maxRetries = 50;
           const interval = 3000;
           for (let i = 0; i < maxRetries; i++) {
             const res = await axios.get(

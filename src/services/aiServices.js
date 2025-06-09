@@ -1,4 +1,3 @@
-
 const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
@@ -7,6 +6,7 @@ const path = require('path');
 const uuidv4 = require('uuid').v4;
 const DEFAULT_BASE_URL = 'http://localhost:5000';
 const os = require('os');
+const { logger } = require('../utils/logger');
 // const DEFAULT_TIMEOUT_MS = 5000;
 
 class AIService {
@@ -37,12 +37,12 @@ class AIService {
 
   async checkHealth() {
     try {
-      console.log('Checking AI service health...');
+      logger.info('Checking AI service health...');
       const { data, status } = await this.axiosInstance.get('/health');
 
       const { model, device } = data;
 
-      console.log(`AI Service healthy: Model=${model}, Device=${device}`);
+      logger.info(`AI Service healthy: Model=${model}, Device=${device}`);
 
       return {
         healthy: status === 200,
@@ -50,14 +50,14 @@ class AIService {
         device,
       };
     } catch (error) {
-      console.error('AI Service health check failed:', error.message);
+      logger.error('AI Service health check failed:', error.message);
       return { healthy: false, error: error.message };
     }
   }
 
   async indexProducts(products, companyId, applicationId) {
     try {
-      console.log(
+      logger.info(
         `Indexing ${products.length} products for company=${companyId}, app=${applicationId}`
       );
       const response = await this.axiosInstance.post('/embeddings_store', {
@@ -65,10 +65,10 @@ class AIService {
         application_id: applicationId,
       });
 
-      console.log('Product indexing successful');
+      logger.info('Product indexing successful');
       return response.data;
     } catch (error) {
-      console.error('Product indexing failed:', error.message, {
+      logger.error('Product indexing failed:', error.message, {
         companyId,
         productCount: products.length,
       });
@@ -108,10 +108,10 @@ class AIService {
 
   async indexSingleProduct(product, companyId, applicationId) {
     try {
-      console.log(`Indexing single product ${product.id} for company=${companyId}`);
+      logger.info(`Indexing single product ${product.id} for company=${companyId}`);
       return await this.indexProducts([product], companyId, applicationId);
     } catch (error) {
-      console.error(`Single product indexing failed: ${error.message}`, {
+      logger.error(`Single product indexing failed: ${error.message}`, {
         productId: product.id,
         companyId,
       });
@@ -121,16 +121,16 @@ class AIService {
 
   async removeIndex(applicationId) {
     try {
-      console.log(`Removing index for application=${applicationId}`);
+      logger.info(`Removing index for application=${applicationId}`);
 
       const response = await this.axiosInstance.post('/delete_embeddings', {
         application_id: applicationId,
       });
 
-      console.log('Index removal successful');
+      logger.info('Index removal successful');
       return response.data;
     } catch (error) {
-      console.error(`Index removal failed: ${error.message}`, { applicationId });
+      logger.error(`Index removal failed: ${error.message}`, { applicationId });
       throw new Error(`Index removal failed: ${error.response?.data?.error || error.message}`);
     }
   }
@@ -159,12 +159,13 @@ class AIService {
   //       writer.on('error', reject);
   //     });
   //   } catch (error) {
-  //     console.error(`Generate prompts to image failed: ${error.message}`);
+  //     logger.error(`Generate prompts to image failed: ${error.message}`);
   //     throw new Error(
   //       `Generate prompts to image failed: ${error.response?.data?.error || error.message}`
   //     );
   //   }
   // }
+  
   async generatePromptsToImage(prompt) {
     try {
       const response = await this.axiosInstance.post(
@@ -188,7 +189,7 @@ class AIService {
         writer.on('error', reject);
       });
     } catch (error) {
-      console.error(`Generate prompts to image failed: ${error.message}`);
+      logger.error(`Generate prompts to image failed: ${error.message}`);
       throw new Error(
         `Generate prompts to image failed: ${error.response?.data?.error || error.message}`
       );
