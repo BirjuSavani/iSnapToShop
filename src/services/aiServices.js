@@ -7,7 +7,6 @@ const uuidv4 = require('uuid').v4;
 const DEFAULT_BASE_URL = 'http://localhost:5000';
 const os = require('os');
 const { logger } = require('../utils/logger');
-// const DEFAULT_TIMEOUT_MS = 5000;
 
 class AIService {
   /**
@@ -19,19 +18,12 @@ class AIService {
   constructor(options = {}) {
     this.baseUrl = process.env.AI_SERVICE_URL || options.baseUrl || DEFAULT_BASE_URL;
     this.apiKey = process.env.AI_SERVICE_KEY || options.apiKey;
-    // this.timeoutMs = options.timeoutMs || DEFAULT_TIMEOUT_MS;
-
-    // const agent = new https.Agent({
-    //   ca: fs.readFileSync('path/to/self-signed-cert.pem'),
-    // });
 
     this.axiosInstance = axios.create({
       baseURL: this.baseUrl,
       headers: {
         'X-API-KEY': this.apiKey,
       },
-      // httpsAgent: agent,
-      // timeout: this.timeoutMs,
     });
   }
 
@@ -135,37 +127,6 @@ class AIService {
     }
   }
 
-  // async generatePromptsToImage(prompt) {
-  //   try {
-  //     const response = await this.axiosInstance.post(
-  //       '/generate_prompts_to_image',
-  //       { prompt },
-  //       { responseType: 'stream' }
-  //     );
-
-  //     const contentType = response.headers['content-type'];
-  //     const ext = contentType?.split('/')[1] || 'png';
-  //     const fileName = `generated_image_${uuidv4()}.${ext}`;
-  //     const filePath = path.join(__dirname, '../../public/generated', fileName);
-
-  //     // Ensure public/generated dir exists
-  //     fs.mkdirSync(path.dirname(filePath), { recursive: true });
-
-  //     const writer = fs.createWriteStream(filePath);
-  //     response.data.pipe(writer);
-
-  //     return new Promise((resolve, reject) => {
-  //       writer.on('finish', () => resolve({ filePath, fileName }));
-  //       writer.on('error', reject);
-  //     });
-  //   } catch (error) {
-  //     logger.error(`Generate prompts to image failed: ${error.message}`);
-  //     throw new Error(
-  //       `Generate prompts to image failed: ${error.response?.data?.error || error.message}`
-  //     );
-  //   }
-  // }
-  
   async generatePromptsToImage(prompt) {
     try {
       const response = await this.axiosInstance.post(

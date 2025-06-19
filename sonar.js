@@ -7,7 +7,8 @@ scanner.customScanner(
     options: {
       'sonar.projectKey': 'iSnapToShop',
       'sonar.sources': './',
-      'sonar.exclusions': 'node_modules/**',
+      'sonar.exclusions':
+        'node_modules/**,frontend/node_modules/**,frontend/public/**,frontend/dev_embed.js,frontend/test/**,bindings/theme/react/iSnapToShop/node_modules/**,bindings/theme/react/iSnapToShop/dist/**, Dockerfile, .gitignore, .vscode/**, jest.config.js, sonar-project.properties, sonar.js',
     },
   },
   () => {

@@ -129,26 +129,62 @@ exports.ensureProxyPath = async ({ company_id, application_id }) => {
     const extensionId = fdkExtension.extension.configData.api_key;
     const attached_path = process.env.ATTACHED_PATH;
     const proxy_url = process.env.EXTENSION_BASE_URL;
-    // const proxy_url = 'https://catalog-cloudy-lemon-provincial.trycloudflare.com';
 
     if (!attached_path || !proxy_url) {
       throw new Error('Attached path or proxy URL is missing in env');
     }
 
-    const result = await platformClient.application(application_id).partner.addProxyPath({
-      extensionId,
-      body: { attached_path, proxy_url },
-    });
+    try {
+      // 1️⃣ Try to add proxy path
+      const result = await platformClient.application(application_id).partner.addProxyPath({
+        extensionId,
+        body: { attached_path, proxy_url },
+      });
 
-    logger.info('✅ Proxy path created', {
-      application_id,
-      attached_path,
-      proxy_url,
-    });
+      logger.info('✅ Proxy path added successfully', {
+        application_id,
+        attached_path,
+        proxy_url,
+      });
 
-    return result;
+      return result;
+    } catch (err) {
+      const errorMessage = err.message || err?.response?.data?.error || '';
+
+      // 2️⃣ If "Already Present", delete and retry
+      if (errorMessage === 'Already Present') {
+        logger.warn('⚠️ Proxy already exists. Removing and re-adding...', {
+          application_id,
+          attached_path,
+        });
+
+        // Remove old proxy path
+        await platformClient.application(application_id).partner.removeProxyPath({
+          extensionId,
+          attachedPath: attached_path,
+        });
+
+        logger.info('✅ Existing proxy path removed. Retrying add...');
+
+        // Retry adding proxy path
+        const retryResult = await platformClient.application(application_id).partner.addProxyPath({
+          extensionId,
+          body: { attached_path, proxy_url },
+        });
+
+        logger.info('✅ Proxy path re-added successfully after removal', {
+          application_id,
+          attached_path,
+        });
+
+        return retryResult;
+      }
+
+      // 3️⃣ Rethrow other errors
+      throw err;
+    }
   } catch (error) {
-    logger.warn('⚠️ Proxy creation failed (background):', error.message);
-    return null; // Or you can throw if you want to surface it later
+    logger.warn('❌ Failed to ensure proxy path:', error.message);
+    return null;
   }
 };

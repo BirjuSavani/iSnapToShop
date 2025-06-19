@@ -48,14 +48,30 @@ const jsonFormatter = winston.format.combine(
   winston.format.json()
 );
 
+const stringifySafe = input => {
+  try {
+    if (typeof input === 'object' && input !== null) {
+      return JSON.stringify(input, null, 2);
+    }
+    return String(input);
+  } catch (err) {
+    console.error('Error stringifying input for logger:', err);
+    return '[Unserializable input]';
+  }
+};
+
 const consoleFormat = winston.format.combine(
   sanitizeLogs(),
   winston.format.timestamp({ format: timestampFormat }),
-  winston.format.printf(({ level, message, timestamp }) => {
-    return `${timestamp} [${level}] [${getRequestId()}] - ${message}`;
+  winston.format.printf(({ level, message, timestamp, ...meta }) => {
+    const safeMessage = stringifySafe(message);
+    const safeTimestamp = stringifySafe(timestamp);
+    const extraMeta =
+      Object.keys(meta).length > 0 ? `\nMeta: ${JSON.stringify(meta, null, 2)}` : '';
+
+    return `${safeTimestamp} [${level}] [${getRequestId()}] - ${safeMessage}${extraMeta}`;
   })
 );
-
 const errorTransport = new winston.transports.DailyRotateFile({
   filename: path.join(datedLogDir, 'error-%DATE%.log'),
   datePattern: 'YYYY-MM-DD',

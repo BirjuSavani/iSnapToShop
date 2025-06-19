@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "prop-types": "^15.8.1",
     "react-speech-recognition": "^4.0.1"
   }
 }

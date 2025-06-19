@@ -47,13 +47,14 @@ exports.getReport = async (req, res) => {
 
     const now = new Date();
 
-    // Use provided date range or default last 30 days
+    // Normalize startDate to 00:00:00 and endDate to 23:59:59
     const start = startDate
-      ? new Date(startDate)
+      ? new Date(new Date(startDate).setHours(0, 0, 0, 0))
       : new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-    const end = endDate ? new Date(endDate) : now;
 
-    // Base filter for events
+    const end = endDate ? new Date(new Date(endDate).setHours(23, 59, 59, 999)) : now;
+
+    // Base filter for all data
     const baseMatch = {
       applicationId,
       timestamp: {
@@ -62,7 +63,7 @@ exports.getReport = async (req, res) => {
       },
     };
 
-    // 1. Aggregate counts by type in given range (like before)
+    // 1. Aggregate counts by type
     const typeCounts = await Event.aggregate([
       { $match: baseMatch },
       {
@@ -73,33 +74,31 @@ exports.getReport = async (req, res) => {
       },
     ]);
 
-    // Convert to easier lookup map
+    // Convert counts to map for easy use
     const countsMap = {};
     for (const c of typeCounts) {
       countsMap[c._id] = c.count;
     }
 
-    // 2. Calculate Match Rate: image_search / (image_search + image_not_found)
+    // 2. Match rate = image_search / (image_search + image_not_found)
     const searches = countsMap['image_search'] || 0;
     const notFound = countsMap['image_not_found'] || 0;
     const totalSearches = searches + notFound;
     const matchRate = totalSearches > 0 ? (searches / totalSearches) * 100 : 0;
 
-    // 3. Calculate Avg Daily Searches in the date range
+    // 3. Avg daily searches
     const diffTime = Math.abs(end - start);
     const diffDays = Math.max(Math.ceil(diffTime / (1000 * 60 * 60 * 24)), 1);
     const avgDailySearches = totalSearches / diffDays;
 
-    // 4. Search Trends - last 7 days daily counts of image_search type
-    const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-    const last7DaysMatch = {
-      applicationId,
-      type: 'image_search',
-      timestamp: { $gte: sevenDaysAgo, $lte: now },
-    };
-
+    // 4. Search trends (grouped by day)
     const searchTrends = await Event.aggregate([
-      { $match: last7DaysMatch },
+      {
+        $match: {
+          ...baseMatch,
+          type: 'image_search',
+        },
+      },
       {
         $group: {
           _id: {
@@ -115,23 +114,23 @@ exports.getReport = async (req, res) => {
       },
     ]);
 
-    // Format trends as date: count map for easier frontend use
     const trendsFormatted = searchTrends.map(item => {
       const { year, month, day } = item._id;
       const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       return { date: dateStr, count: item.count };
     });
 
-    // ✅ Run proxy path creation in background — do not await
+    // Background proxy creation (optional)
     if (companyId && applicationId) {
       ensureProxyPath({ company_id: companyId, application_id: applicationId }).catch(err =>
         logger.warn('Background proxy creation failed:', err.message)
       );
     }
 
+    // Final response
     res.json({
       report: typeCounts,
-      matchRate: matchRate.toFixed(2), // as percentage string
+      matchRate: matchRate.toFixed(2),
       avgDailySearches: avgDailySearches.toFixed(2),
       searchTrends: trendsFormatted,
     });

@@ -2,5 +2,5 @@ projectKey=iSnapToShop
 serverUrl=http://localhost:9000
 serverVersion=25.6.0.109173
 dashboardUrl=http://localhost:9000/dashboard?id=iSnapToShop
-ceTaskId=624902e9-144a-427d-ab18-f44cc83106f3
-ceTaskUrl=http://localhost:9000/api/ce/task?id=624902e9-144a-427d-ab18-f44cc83106f3
+ceTaskId=9fe026e3-fcef-439e-8b35-3d8c9aa16470
+ceTaskUrl=http://localhost:9000/api/ce/task?id=9fe026e3-fcef-439e-8b35-3d8c9aa16470

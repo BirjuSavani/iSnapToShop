@@ -166,13 +166,7 @@ exports.searchByImage = async (req, res) => {
     const [aiResult, allProducts] = await Promise.all([
       aiService.searchByImage(req.file.buffer, company_id),
       (async () => {
-        // const cached = productCache.get(cacheKey);
-        // if (cached) {
-        //   logger.debug('Using cached product list', { company_id });
-        //   return cached;
-        // }
         const items = await fetchProducts(platformClient, application_id);
-        // productCache.set(cacheKey, items);
         return items;
       })(),
     ]);
@@ -243,7 +237,7 @@ exports.searchByImageUsingStoreFront = async (req, res) => {
   }
 
   const { application_id, company_id } = info;
-
+  
   const ptClient = await fdkExtension.getPlatformClient(company_id);
   req.platformClient = ptClient;
   const { platformClient } = req;
@@ -392,58 +386,6 @@ exports.removeIndex = async (req, res) => {
 /**
  * @desc Generate prompts to image
  */
-// exports.generatePromptsToImage = async (req, res) => {
-//   const { platformClient } = req;
-//   const { prompt } = req.body;
-
-//   const info = requestInfo(req);
-//   if (!info) {
-//     return res.status(400).json({ error: 'Missing or invalid application/company ID' });
-//   }
-
-//   const { application_id, company_id } = info;
-
-//   if (!prompt) {
-//     return res.status(400).json({ success: false, error: 'Missing prompt in request body' });
-//   }
-
-//   try {
-//     const { filePath, fileName } = await aiService.generatePromptsToImage(prompt);
-
-//     if (!filePath) {
-//       return res.status(500).json({ success: false, error: 'Image generation failed' });
-//     }
-
-//     const imageUrl = `${
-//       process.env.PUBLIC_BASE_URL || 'http://localhost:49974'
-//     }/generated/${fileName}`;
-
-//     // Log the successful image generation event
-//     await logEvent({
-//       applicationId: application_id,
-//       companyId: company_id,
-//       type: 'prompt_image_generation',
-//       query: JSON.stringify({ prompt, imageUrl }),
-//     });
-
-//     logger.info('Generated image URL', { imageUrl });
-//     return res.json({ success: true, imageUrl });
-//   } catch (error) {
-//     logger.error('Error in generatePromptsToImage', { error });
-//     Sentry.captureException('Error in generatePromptsToImage function', error);
-
-//     // Optional: log a failed generation event
-//     await logEvent({
-//       applicationId: application_id,
-//       companyId: company_id,
-//       type: 'prompt_image_failed',
-//       query: JSON.stringify({ prompt, error: error.message }),
-//     });
-
-//     res.status(500).json({ success: false, error: 'Server error during image generation' });
-//   }
-// };
-
 // Create Pixelbin config
 const pixelbinConfig = new PixelbinConfig({
   domain: 'https://api.pixelbin.io',
@@ -455,7 +397,6 @@ const pixelbinConfig = new PixelbinConfig({
 const pixelbin = new PixelbinClient(pixelbinConfig);
 
 exports.generatePromptsToImage = async (req, res) => {
-  const { platformClient } = req;
   const { prompt } = req.body;
 
   const info = requestInfo(req);
