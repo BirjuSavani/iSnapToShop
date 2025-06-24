@@ -1072,7 +1072,7 @@ export function Component(props) {
   const fileInputRef = useRef(null);
   const cameraInputRef = useRef(null);
 
-  const API_BASE_URL_2 = `/ext/isp/api/proxy/scan`;
+  const API_BASE_URL_2 = `/ext/int/api/proxy/scan`;
   const title = props.title?.value ?? "";
 
   const showNotification = (message, type = "info", duration = 3000) => {
@@ -1125,13 +1125,15 @@ export function Component(props) {
       setShowUploadModal(false);
       const formData = new FormData();
       formData.append("image", file);
-      const response = await fetch(`${API_BASE_URL_2}/search-by-image-using-store-front`, {
+      console.log("Uploading image:", file.name);
+      const response = await fetch(`${API_BASE_URL_2}/search-by-image`, {
         method: "POST",
         body: formData,
         credentials: "include",
       });
+      console.log("Response", response);
       const data = await response.json();
-      console.log(data,"data");
+      console.log(data, "data");
       setProductFilterList(data.results || []);
       setShowPopup(true);
     } catch (error) {
@@ -1211,7 +1213,7 @@ export function Component(props) {
       const formData = new FormData();
       formData.append("image", file);
       setSelectedImage(imageUrl);
-      const uploadResponse = await fetch(`${API_BASE_URL_2}/search-by-image-using-store-front`, {
+      const uploadResponse = await fetch(`${API_BASE_URL_2}/search-by-image`, {
         method: "POST",
         body: formData,
         credentials: "include",

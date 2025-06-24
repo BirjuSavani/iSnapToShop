@@ -1,7 +1,7 @@
-const express = require('express');
-const multer = require('multer');
-const scanController = require('../controller/scanController');
-const { asyncHandler } = require('../utils/asyncHandler');
+const express = require("express");
+const multer = require("multer");
+const scanController = require("../controller/scanController");
+const { asyncHandler } = require("../utils/asyncHandler");
 
 const router = express.Router();
 
@@ -9,8 +9,8 @@ const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 }, // Max 5MB
   fileFilter: (req, file, cb) => {
-    if (!file.mimetype.startsWith('image/')) {
-      return cb(new Error('Only image files are allowed!'), false);
+    if (!file.mimetype.startsWith("image/")) {
+      return cb(new Error("Only image files are allowed!"), false);
     }
     cb(null, true);
   },
@@ -20,30 +20,30 @@ const upload = multer({
  * @route POST /init-index
  * @desc Initialize full product indexing
  */
-router.post('/init-index', asyncHandler(scanController.initProductIndexing));
+router.post("/init-index", asyncHandler(scanController.initProductIndexing));
 
 /**
  * @route GET /index-status
  * @desc Get indexing status and progress
  */
-router.get('/index-status', asyncHandler(scanController.getIndexStatus));
+router.get("/index-status", asyncHandler(scanController.getIndexStatus));
 
 /**
  * @route POST /index-product/:productId
  * @desc Index a single product by its ID
  */
-router.post('/index-product/:productId', asyncHandler(scanController.indexSingleProduct));
+router.post("/index-product/:productId", asyncHandler(scanController.indexSingleProduct));
 
 /**
  * @route POST /search-by-image
  * @desc Search products using an uploaded image (in-memory)
  */
 router.post(
-  '/search-by-image',
+  "/search-by-image",
   (req, res, next) =>
-    upload.single('image')(req, res, err => {
+    upload.single("image")(req, res, err => {
       if (err instanceof multer.MulterError || err) {
-        return res.status(400).json({ success: false, error: err.message });
+        return res.status(400).json({ success: false, error: `Multer error: ${err.message}` });
       }
       next();
     }),
@@ -55,14 +55,8 @@ router.post(
  * @desc Search products using an uploaded image (in-memory)
  */
 router.post(
-  '/search-by-image-using-store-front',
-  (req, res, next) =>
-    upload.single('image')(req, res, err => {
-      if (err instanceof multer.MulterError || err) {
-        return res.status(400).json({ success: false, error: err.message });
-      }
-      next();
-    }),
+  "/search-by-image-using-store-front",
+  upload.single("image"),
   asyncHandler(scanController.searchByImageUsingStoreFront)
 );
 
@@ -70,26 +64,26 @@ router.post(
  * @route GET /system-status
  * @desc Check internal AI search/indexing system status
  */
-router.get('/system-status', asyncHandler(scanController.checkSystemStatus));
+router.get("/system-status", asyncHandler(scanController.checkSystemStatus));
 
 /**
  * @route POST /remove-index
  * @desc Remove or reset the product index
  */
-router.post('/remove-index', asyncHandler(scanController.removeIndex));
+router.post("/remove-index", asyncHandler(scanController.removeIndex));
 
 /**
  * @route POST /generate-prompts
  * @desc Generate prompts for the product images
  */
-router.post('/generate-prompts-to-image', asyncHandler(scanController.generatePromptsToImage));
+router.post("/generate-prompts-to-image", asyncHandler(scanController.generatePromptsToImage));
 
 /**
  * @route GET /
  * @desc Simple ping route for Scan API
  */
-router.get('/', (req, res) => {
-  res.status(200).json({ success: true, message: 'Scan API is working!' });
+router.get("/", (req, res) => {
+  res.status(200).json({ success: true, message: "Scan API is working!" });
 });
 
 module.exports = router;
