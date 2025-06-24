@@ -1126,7 +1126,7 @@ export function Component(props) {
       const formData = new FormData();
       formData.append("image", file);
       console.log("Uploading image:", file.name);
-      const response = await fetch(`${API_BASE_URL_2}/search-by-image`, {
+      const response = await fetch(`${API_BASE_URL_2}/search-by-image-using-store-front`, {
         method: "POST",
         body: formData,
         credentials: "include",
@@ -1213,7 +1213,7 @@ export function Component(props) {
       const formData = new FormData();
       formData.append("image", file);
       setSelectedImage(imageUrl);
-      const uploadResponse = await fetch(`${API_BASE_URL_2}/search-by-image`, {
+      const uploadResponse = await fetch(`${API_BASE_URL_2}/search-by-image-using-store-front`, {
         method: "POST",
         body: formData,
         credentials: "include",
