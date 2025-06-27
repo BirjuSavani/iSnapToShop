@@ -1506,7 +1506,10 @@ export function Component(props) {
                               }
                             >
                               <img
-                                src={product.image}
+                                src={
+                                  product.image || // 1. Try to use the direct image URL first
+                                  product.media?.find(m => m.type === 'image')?.url // 2. Fallback to the media array
+                                }
                                 alt={product.name}
                                 className={
                                   isMobile ? "isnap-mobile-card__image" : "isnap-card__image"
