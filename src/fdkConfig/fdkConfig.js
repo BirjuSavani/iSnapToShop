@@ -13,7 +13,7 @@ const fdkExtension = setupFdk({
   api_key: "68282f200560cf2421d4ddeb",
   api_secret: "y2o8atLvR_fvbRk",
   base_url: process.env.EXTENSION_BASE_URL,
-  cluster: api.fynd.com,
+  cluster: "api.fynd.com",
   callbacks: {
     auth: async req => {
       const companyId = req.extension?.company_id || req.query.company_id;
