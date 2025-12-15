@@ -50,6 +50,12 @@ logger.info(
   `FDK Extension initialized with base URL: ${fdkExtension.extension.configData.base_url}`
 );
 
+logger.info("OAuth Redirect Check", {
+  baseUrl: fdkExtension.extension.configData.base_url,
+  redirectUri: `${fdkExtension.extension.configData.base_url}/fp/auth`,
+  fpDomain: fdkExtension.extension.configData.cluster,
+});
+
 const extensionId = fdkExtension.extension.api_key;
 
 /**
@@ -57,7 +63,7 @@ const extensionId = fdkExtension.extension.api_key;
  * NOTE: Company ID argument is currently unused — consider using it if necessary.
  */
 const getPlatformClientAsync = async company_id => {
-  const ptClient = await fdkExtension.getPlatformClient(9095);
+  const ptClient = await fdkExtension.getPlatformClient(company_id);
   return ptClient;
 };
 
