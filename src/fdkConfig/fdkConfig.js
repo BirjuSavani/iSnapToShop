@@ -10,17 +10,17 @@ const sqliteInstance = new sqlite3.Database('session_storage.db');
  * Initialize the FDK extension with configuration and webhook handlers
  */
 const fdkExtension = setupFdk({
-  api_key: process.env.EXTENSION_API_KEY,
-  api_secret: process.env.EXTENSION_API_SECRET,
+  api_key: "68282f200560cf2421d4ddeb",
+  api_secret: "y2o8atLvR_fvbRk",
   base_url: process.env.EXTENSION_BASE_URL,
-  cluster: process.env.FP_API_DOMAIN,
+  cluster: "https://api.fynd.com",
   callbacks: {
     auth: async req => {
       const companyId = req.extension?.company_id || req.query.company_id;
       const applicationId = req.extension?.application_id || req.query.application_id;
 
-      await req.extension.storage.set('company_id', companyId);
-      await req.extension.storage.set('app_id', applicationId);
+      await req.extension.storage.set("company_id", companyId);
+      await req.extension.storage.set("app_id", applicationId);
 
       if (applicationId) {
         return `${req.extension.base_url}/company/${companyId}/application/${applicationId}`;
@@ -30,18 +30,18 @@ const fdkExtension = setupFdk({
     },
     uninstall: async req => {
       // Add cleanup logic here if necessary
-      logger.info('Uninstall callback triggered.');
+      logger.info("Uninstall callback triggered.");
     },
   },
-  storage: new SQLiteStorage(sqliteInstance, 'example-fynd-platform-extension'),
-  access_mode: 'offline',
+  storage: new SQLiteStorage(sqliteInstance, "example-fynd-platform-extension"),
+  access_mode: "offline",
   // debug: true,
   webhook_config: {
-    api_path: '/api/webhook-events',
-    notification_email: 'useremail@example.com',
+    api_path: "/api/webhook-events",
+    notification_email: "useremail@example.com",
     event_map: {
-      'company/product/create': { handler: handleProductCreateV3, version: '3' },
-      'company/product/update': { handler: handleProductUpdateV3, version: '3' },
+      "company/product/create": { handler: handleProductCreateV3, version: "3" },
+      "company/product/update": { handler: handleProductUpdateV3, version: "3" },
     },
   },
 });
