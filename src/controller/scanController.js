@@ -1,7 +1,7 @@
 const { AIService } = require("../services/aiServices");
 const { setStatus, getStatus } = require("./indexStatusStore");
 const { logger } = require("../utils/logger");
-const Sentry = require("../utils/instrument");
+// const Sentry = require("../utils/instrument");
 const { logEvent } = require("../controller/analyticsController");
 const { fdkExtension } = require("../fdkConfig/fdkConfig");
 const { PixelbinConfig, PixelbinClient } = require("@pixelbin/admin");
@@ -32,7 +32,7 @@ const requestInfo = req => {
     return null;
   } catch (error) {
     logger.error("Error in requestInfo", { error });
-    Sentry.captureException(error);
+    // Sentry.captureException(error);
     return null;
   }
 };
@@ -117,7 +117,7 @@ exports.initProductIndexing = async (req, res) => {
     res.json({ success: true, message: "Indexing started in background" });
   } catch (error) {
     logger.error("Error in initProductIndexing", { error, application_id, company_id });
-    Sentry.captureException("Error in initProductIndexing function", error);
+    // Sentry.captureException("Error in initProductIndexing function", error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
@@ -233,7 +233,7 @@ const processImageSearch = async (req, res, platformClient, info) => {
     res.json({ success: true, results: enrichedResults, metadata });
   } catch (error) {
     logger.error("Error in image search process", { error, company_id, application_id });
-    Sentry.captureException("Error in processImageSearch function", error);
+    // Sentry.captureException("Error in processImageSearch function", error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
@@ -256,7 +256,7 @@ exports.searchByImageUsingStoreFront = async (req, res) => {
     await processImageSearch(req, res, platformClient, info);
   } catch (error) {
     logger.error("Error getting platform client for storefront", { error, ...info });
-    Sentry.captureException("Error in searchByImageUsingStoreFront (getPlatformClient)", error);
+    // Sentry.captureException("Error in searchByImageUsingStoreFront (getPlatformClient)", error);
     return res.status(500).json({ success: false, error: "Could not initialize platform client." });
   }
 };
@@ -281,7 +281,7 @@ exports.indexSingleProduct = async (productData, companyId, platformClient) => {
     return { success: true, result: { products: product } };
   } catch (error) {
     logger.error("Error indexing single product", { error, companyId });
-    Sentry.captureException("Error in indexSingleProduct function", error);
+    // Sentry.captureException("Error in indexSingleProduct function", error);
     throw error;
   }
 };
@@ -297,7 +297,7 @@ exports.checkSystemStatus = async (req, res) => {
     });
   } catch (error) {
     logger.error("Error checking system status", { error });
-    Sentry.captureException("Error in checkSystemStatus function", error);
+    // Sentry.captureException("Error in checkSystemStatus function", error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
@@ -320,7 +320,7 @@ exports.removeIndex = async (req, res) => {
     });
   } catch (error) {
     logger.error("Error in removeIndex", { error, company_id, application_id });
-    Sentry.captureException("Error in removeIndex function", error);
+    // Sentry.captureException("Error in removeIndex function", error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
@@ -386,7 +386,7 @@ exports.generatePromptsToImage = async (req, res) => {
     });
   } catch (error) {
     logger.error("Error in generatePromptsToImage", { error });
-    Sentry.captureException("Error in generatePromptsToImage function", error);
+    // Sentry.captureException("Error in generatePromptsToImage function", error);
 
     try {
       const { filePath } = await aiService.generatePromptsToImage(prompt);

@@ -1,6 +1,6 @@
 const { fdkExtension } = require('../fdkConfig/fdkConfig');
 const { logger } = require('../utils/logger');
-const Sentry = require('../utils/instrument');
+// const Sentry = require('../utils/instrument');
 
 /**
  * Add a new proxy path for the given application.
@@ -55,7 +55,7 @@ exports.addProxyPath = async (req, res, next) => {
       error: error.stack || error.message,
     });
     next();
-    Sentry.captureException('Error in addProxyPath function', error);
+    // Sentry.captureException('Error in addProxyPath function', error);
     return res.status(500).json({
       message: 'Failed to add proxy path',
       error: error.message,
@@ -110,7 +110,7 @@ exports.removeProxyPath = async (req, res) => {
       requestId,
       error: error.stack || error.message,
     });
-    Sentry.captureException('Error in removeProxyPath function', error);
+    // Sentry.captureException('Error in removeProxyPath function', error);
     return res.status(500).json({
       message: 'Failed to remove proxy path',
       error: error.message,
@@ -259,10 +259,10 @@ exports.ensureProxyPath = async ({ company_id, application_id }) => {
         // Step 2: Retry adding the proxy (no need for another try/catch here)
         const retryResult = await partnerApi.addProxyPath(proxyConfig);
         logger.info('Proxy path re-added successfully.', { application_id, attachedPath });
-        
+
         return retryResult;
       }
-      
+
       // 6. Re-throw any other errors to be caught by the outer block
       throw error;
     }
@@ -274,7 +274,7 @@ exports.ensureProxyPath = async ({ company_id, application_id }) => {
       company_id,
       // Avoid logging the full error object in production unless needed for debugging,
       // as it can be very large. The message is often sufficient.
-      // error: error 
+      // error: error
     });
     return null; // Return null to indicate failure as per original logic
   }

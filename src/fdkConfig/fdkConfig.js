@@ -6,6 +6,14 @@ const { logger } = require('../utils/logger');
 
 const sqliteInstance = new sqlite3.Database('session_storage.db');
 
+// Debug environment variables
+logger.info('FDK Configuration Debug:', {
+  api_key: process.env.EXTENSION_API_KEY,
+  api_secret: process.env.EXTENSION_API_SECRET ? '***HIDDEN***' : 'MISSING',
+  base_url: process.env.EXTENSION_BASE_URL,
+  cluster: process.env.FP_API_DOMAIN
+});
+
 /**
  * Initialize the FDK extension with configuration and webhook handlers
  */

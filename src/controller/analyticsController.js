@@ -1,6 +1,6 @@
 const { logger } = require('../utils/logger');
 const Event = require('../models/Event');
-const Sentry = require('../utils/instrument');
+// const Sentry = require('../utils/instrument');
 const { ensureProxyPath } = require('./proxyController');
 
 // Log an event
@@ -32,7 +32,7 @@ exports.logEvent = async ({ applicationId, companyId, type, query, imageId }) =>
     return event;
   } catch (error) {
     logger.error('Failed to log event', { error });
-    Sentry.captureException('Error in logEvent function', error);
+    // Sentry.captureException('Error in logEvent function', error);
     return null;
   }
 };
@@ -136,7 +136,7 @@ exports.getReport = async (req, res) => {
     });
   } catch (error) {
     logger.error('Error getting analytics report:', error);
-    Sentry.captureException('Error in getReport function', error);
+    // Sentry.captureException('Error in getReport function', error);
     res.status(500).json({ error: 'Internal server error.' });
   }
 };
