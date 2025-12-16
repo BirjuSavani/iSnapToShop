@@ -10,8 +10,8 @@ const sqliteInstance = new sqlite3.Database('session_storage.db');
  * Initialize the FDK extension with configuration and webhook handlers
  */
 const fdkExtension = setupFdk({
-  api_key: "684185bd9b31e867a904ff7a",
-  api_secret: "Eu3XLw0gVN2C.NS",
+  api_key: process.env.EXTENSION_API_KEY,
+  api_secret: process.env.EXTENSION_API_SECRET,
   base_url: process.env.EXTENSION_BASE_URL,
   cluster: process.env.FP_API_DOMAIN,
   callbacks: {
